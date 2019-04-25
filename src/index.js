@@ -1,57 +1,60 @@
 import './index.scss'
 
-import { createDOM } from './dom'
+import { createDOM, observeStyleChange } from './dom'
 
 export default class Scroller {
   constructor (options = {}) {
     // deal with options
-    this.el = this._disposeEl(options.el, this)
+    this.el = options.el
     this.direction = options.direction || 'both' // 'x', 'y', 'both'
 
     // other properties
     this.container = null
     this.content = null
+    this.observer = null
+    this.scrollbarVisible = false
 
-    this._initDOM()
+    this._init()
   }
 
-  _disposeEl (el) {
-    if (!el) {
-      throw new Error('Scroller: you should at least specify an DOM element in options')
-    } else if (el.className.indexOf('_scroller') === -1) {
-      el.className += ' _scroller'
-    }
+  _init () {
+    this._disposeEl()
 
-    let positionStyle = window.getComputedStyle(el).position
-
-    if (!positionStyle || positionStyle === 'static') {
-      el.style.position = 'relative'
-    }
-
-    const mouseenterHandler = e => this._mouseenterHandler(e)
-    const mouseleaveHandler = e => this._mouseleaveHandler(e)
-
-    el.removeEventListener('mouseenter', mouseenterHandler)
-    el.addEventListener('mouseenter', mouseenterHandler)
-    el.removeEventListener('mouseleave', mouseleaveHandler)
-    el.addEventListener('mouseleave', mouseleaveHandler)
-
-    return el
-  }
-
-  _initDOM () {
-    const fragment = this.el.innerHTML
     createDOM(['_container', '_mask', '_content'], this)
-    this.content.innerHTML = fragment
+    this.content.innerHTML = this.el.innerHTML
 
     this.el.innerHTML = ''
     this.el.appendChild(this.container)
-    this.setMaskBox()
+    this._setMaskBox()
+
+    this.observer = observeStyleChange(this.el, _ => this._setMaskBox())
 
     this._initScrollbar()
   }
 
-  setMaskBox () {
+  _disposeEl () {
+    if (!this.el) {
+      throw new Error('Scroller: you should at least specify an DOM element in options')
+    } else if (this.el.className.indexOf('_scroller') === -1) {
+      this.el.className += ' _scroller'
+    }
+
+    let positionStyle = window.getComputedStyle(this.el).position
+
+    if (!positionStyle || positionStyle === 'static') {
+      this.el.style.position = 'relative'
+    }
+
+    const mouseenterHandler = e => this._showScrollbar(e)
+    const mouseleaveHandler = e => this._hideScrollbar(e)
+
+    this.el.removeEventListener('mouseenter', mouseenterHandler)
+    this.el.addEventListener('mouseenter', mouseenterHandler)
+    this.el.removeEventListener('mouseleave', mouseleaveHandler)
+    this.el.addEventListener('mouseleave', mouseleaveHandler)
+  }
+
+  _setMaskBox () {
     let {
       paddingTop,
       paddingRight,
@@ -70,18 +73,38 @@ export default class Scroller {
 
     this.mask.style.width = parseFloat(width) - horizontalDiff + 'px'
     this.mask.style.height = parseFloat(height) - verticalDiff + 'px'
+
+    this.mask.addEventListener('scroll', e => {
+      console.log(e)
+    })
   }
 
   _initScrollbar () {
-    createDOM(['_scrollbar_container', '_scrollbar_orbit', '_scrollbar'], this)
+    createDOM(['_scrollbar_container', '_scrollbar_orbit', '_scrollcore'], this)
     this.container.appendChild(this.scrollbarContainer)
   }
 
-  _mouseenterHandler (e) {
+  _showScrollbar () {
+    this.scrollbarContainer.style.width = '8px'
     this.scrollbarContainer.style.opacity = 1
+    this.scrollbarOrbit.style.borderRadius = '4px'
+    this.scrollcore.style.borderRadius = '4px'
+    this.scrollbarVisible = true
   }
 
-  _mouseleaveHandler (e) {
-    this.scrollbarContainer.style.opacity = 0
+  _hideScrollbar () {
+    this.scrollbarContainer.style.width = '4px'
+    this.scrollbarContainer.style.opacity = 0.6
+    this.scrollbarOrbit.style.borderRadius = '2px'
+    this.scrollcore.style.borderRadius = '2px'
+    this.scrollbarVisible = false
+  }
+
+  destroy () {
+    this.observer.disconnect()
+    this.observer = null
+    this.el = null
+    this.container = null
+    this.content = null
   }
 }

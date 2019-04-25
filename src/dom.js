@@ -19,3 +19,19 @@ export const createDOM = (classNames = [], receiver = {}) => {
 
   return receiver || res
 }
+
+export const observeStyleChange = (el, handler) => {
+  const config = {
+    attributes: true,
+    childList: false,
+    subtree: false
+  }
+
+  return new MutationObserver(mutationsList => {
+    for (let mutation of mutationsList) {
+      if (mutation.type === 'attributes' && mutation.attributeName === 'style') {
+        handler()
+      }
+    }
+  }).observe(el, config)
+}

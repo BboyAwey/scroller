@@ -48,9 +48,13 @@
       <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptas ut voluptate nobis laborum nisi? Deserunt iusto sequi, hic repellendus, mollitia dolor illo officiis maiores, quam aliquam dolorem illum quibusdam quae.</p>
     </div>
   </div>
+  <button onclick="__test()">click me</button>
 </body>
 <script src="/scroller.js"></script>
 <script>
+  function __test (e) {
+    document.getElementById('container').style.padding = '100px'
+  }
   window.addEventListener('load', function () {
     new Scroller({
       el: document.getElementById('container')
