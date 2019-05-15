@@ -1,27 +1,31 @@
 import './index.scss'
 
-import { createDOM, observeStyleChange } from './dom'
+import { createDOM, observeStyleChange, isFirefox } from './dom'
 
 export default class Scroller {
   constructor (options = {}) {
     // deal with options
     this.el = options.el
-    this.direction = options.direction || 'both' // 'x', 'y', 'both'
+    this.scroll = options.scroll || 'both' // 'horizontal', 'vertical', 'both'
 
     // other properties
     this.container = null
     this.content = null
+    this.skin = null
     this.observer = null
     this.scrollbarVisible = false
+    this.canScrollX = false
+    this.canScrollY = true
 
     this._init()
   }
 
   _init () {
-    this._disposeEl()
-
-    createDOM(['_container', '_mask', '_content'], this)
-    this.content.innerHTML = this.el.innerHTML
+    // prepare target element
+    this._initEl()
+    // init dom constructure
+    createDOM(['_container', '_mask', '_content', '_skin'], this)
+    this.skin.innerHTML = this.el.innerHTML
 
     this.el.innerHTML = ''
     this.el.appendChild(this.container)
@@ -29,10 +33,10 @@ export default class Scroller {
 
     this.observer = observeStyleChange(this.el, _ => this._setMaskBox())
 
-    this._initScrollbar()
+    this._initScrollbarDom()
   }
 
-  _disposeEl () {
+  _initEl () {
     if (!this.el) {
       throw new Error('Scroller: you should at least specify an DOM element in options')
     } else if (this.el.className.indexOf('_scroller') === -1) {
@@ -44,17 +48,10 @@ export default class Scroller {
     if (!positionStyle || positionStyle === 'static') {
       this.el.style.position = 'relative'
     }
-
-    const mouseenterHandler = e => this._showScrollbar(e)
-    const mouseleaveHandler = e => this._hideScrollbar(e)
-
-    this.el.removeEventListener('mouseenter', mouseenterHandler)
-    this.el.addEventListener('mouseenter', mouseenterHandler)
-    this.el.removeEventListener('mouseleave', mouseleaveHandler)
-    this.el.addEventListener('mouseleave', mouseleaveHandler)
   }
 
   _setMaskBox () {
+    // use a mask div to do the real scroll
     let {
       paddingTop,
       paddingRight,
@@ -75,29 +72,105 @@ export default class Scroller {
     this.mask.style.height = parseFloat(height) - verticalDiff + 'px'
 
     this.mask.addEventListener('scroll', e => {
-      console.log(e)
+      this._contentScroll2BarScroll()
     })
   }
 
-  _initScrollbar () {
-    createDOM(['_scrollbar_container', '_scrollbar_orbit', '_scrollcore'], this)
-    this.container.appendChild(this.scrollbarContainer)
+  _initScrollbarDom () {
+    // TODO: add x scrollbar
+    if (this.scroll !== 'vertical') {
+      createDOM(['_x_scrollbar_container', '_x_scrollbar_orbit', '_x_scrollcore'], this)
+      this.container.appendChild(this.xScrollbarContainer)
+    }
+    if (this.scroll !== 'horizontal') {
+      createDOM(['_y_scrollbar_container', '_y_scrollbar_orbit', '_y_scrollcore'], this)
+      this.container.appendChild(this.yScrollbarContainer)
+    }
+
+    this._calcScrollBarStatus()
+
+    const mouseenterHandler = () => this._calcScrollBarStatus()
+    const mouseleaveHandler = () => this._calcScrollBarStatus()
+
+    this.el.removeEventListener('mouseenter', mouseenterHandler)
+    this.el.removeEventListener('mouseleave', mouseleaveHandler)
+    this.el.addEventListener('mouseenter', mouseenterHandler)
+    this.el.addEventListener('mouseleave', mouseleaveHandler)
   }
 
-  _showScrollbar () {
-    this.scrollbarContainer.style.width = '8px'
-    this.scrollbarContainer.style.opacity = 1
-    this.scrollbarOrbit.style.borderRadius = '4px'
-    this.scrollcore.style.borderRadius = '4px'
-    this.scrollbarVisible = true
+  _getViewSize () {
+    const {
+      paddingTop,
+      // paddingRight,
+      paddingBottom,
+      paddingLeft
+    } = window.getComputedStyle(this.el)
+    const containerRect = this.container.getBoundingClientRect()
+
+    const width = parseFloat(containerRect.width) - parseFloat(paddingLeft)
+    // firefox will ignore padding bottom when do scrolling
+    const height = parseFloat(containerRect.height) -
+      parseFloat(paddingTop) -
+      (isFirefox() ? 0 : parseFloat(paddingBottom))
+
+    return { width, height }
   }
 
-  _hideScrollbar () {
-    this.scrollbarContainer.style.width = '4px'
-    this.scrollbarContainer.style.opacity = 0.6
-    this.scrollbarOrbit.style.borderRadius = '2px'
-    this.scrollcore.style.borderRadius = '2px'
-    this.scrollbarVisible = false
+  _calcScrollBarStatus () {
+    this._calcScrollBarVisible()
+    this._calcScrollcoreSize()
+  }
+
+  _calcScrollBarVisible () {
+    const skinRect = this.skin.getBoundingClientRect()
+    const viewSize = this._getViewSize()
+    if (skinRect.width > viewSize.width) this.xScrollbarContainer.style.display = 'inline-block'
+    else this.xScrollbarContainer.style.display = 'none'
+    if (skinRect.height > viewSize.height) this.yScrollbarContainer.style.display = 'inline-block'
+    else this.yScrollbarContainer.style.display = 'none'
+  }
+
+  _calcScrollcoreSize () {
+    const skinRect = this.skin.getBoundingClientRect()
+    const viewSize = this._getViewSize()
+
+    const calc = (content, view, orbit) => Math.floor(orbit * view / content)
+
+    if (this.scroll !== 'horizontal') {
+      this.yScrollcore.style.height = calc(
+        skinRect.height,
+        viewSize.height,
+        this.yScrollbarOrbit.getBoundingClientRect().height
+      ) + 'px'
+    }
+    if (this.scroll !== 'vertical') {
+      this.xScrollcore.style.width = calc(
+        skinRect.width,
+        viewSize.width,
+        this.xScrollbarOrbit.getBoundingClientRect().width
+      ) + 'px'
+    }
+  }
+
+  _contentScroll2BarScroll () {
+    const skinRect = this.skin.getBoundingClientRect()
+    const scrollTop = this.mask.scrollTop
+    const scrollLeft = this.mask.scrollLeft
+
+    const calc = (scroll, skin, orbit) => Math.floor(scroll * orbit / skin)
+
+    if (this.scroll !== 'horizontal') {
+      const orbitRect = this.yScrollbarOrbit.getBoundingClientRect()
+      this.yScrollcore.style.transform = `
+      translateY(${calc(scrollTop, skinRect.height, orbitRect.height)}px)
+      `
+    }
+    if (this.scroll !== 'vertical') {
+      const orbitRect = this.xScrollbarOrbit.getBoundingClientRect()
+      this.xScrollcore.style.transform = `
+        translateX(${calc(scrollLeft, skinRect.width, orbitRect.width)}px)
+      `
+    }
   }
 
   destroy () {
@@ -106,5 +179,6 @@ export default class Scroller {
     this.el = null
     this.container = null
     this.content = null
+    this.skin = null
   }
 }

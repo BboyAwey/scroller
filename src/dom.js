@@ -35,3 +35,7 @@ export const observeStyleChange = (el, handler) => {
     }
   }).observe(el, config)
 }
+
+export const isFirefox = _ => {
+  return navigator.userAgent.indexOf('Firefox') !== -1
+}
