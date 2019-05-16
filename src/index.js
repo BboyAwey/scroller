@@ -14,7 +14,6 @@ import {
 let mousemoveHandler = null
 let mouseupHandler = null
 let directions = [
-  'both',
   'horizontal',
   'vertical',
   'both',
