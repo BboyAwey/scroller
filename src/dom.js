@@ -34,6 +34,10 @@ export const removeClass = (el, cn) => {
   }
 }
 
+export const hasClass = (el, cn) => {
+  return el.className.trim().indexOf(cn.trim()) !== -1
+}
+
 export const addListener = (el, event, handler) => {
   el.removeEventListener(event, handler)
   el.addEventListener(event, handler)

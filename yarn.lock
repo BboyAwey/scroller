@@ -673,6 +673,17 @@ atob@^2.1.1:
   version "2.1.2"
   resolved "http://sinopia.node.hualala.com/atob/-/atob-2.1.2.tgz#6d9517eb9e030d2436666651e86bd9f6f13533c9"
 
+autoprefixer@^9.5.1:
+  version "9.5.1"
+  resolved "http://sinopia.node.hualala.com/autoprefixer/-/autoprefixer-9.5.1.tgz#243b1267b67e7e947f28919d786b50d3bb0fb357"
+  dependencies:
+    browserslist "^4.5.4"
+    caniuse-lite "^1.0.30000957"
+    normalize-range "^0.1.2"
+    num2fraction "^1.2.2"
+    postcss "^7.0.14"
+    postcss-value-parser "^3.3.1"
+
 babel-runtime@^6.23.0:
   version "6.26.0"
   resolved "http://registry.npm.taobao.org/babel-runtime/download/babel-runtime-6.26.0.tgz#965c7058668e82b55d7bfe04ff2337bc8b5647fe"
@@ -764,6 +775,10 @@ cache-base@^1.0.1:
 callsites@^3.0.0:
   version "3.1.0"
   resolved "http://sinopia.node.hualala.com/callsites/-/callsites-3.1.0.tgz#b3630abd8943432f54b3f0519238e33cd7df2f73"
+
+caniuse-lite@^1.0.30000957:
+  version "1.0.30000969"
+  resolved "http://sinopia.node.hualala.com/caniuse-lite/-/caniuse-lite-1.0.30000969.tgz#7664f571f2072657bde70b00a1fc1ba41f1942a9"
 
 caniuse-lite@^1.0.30000960:
   version "1.0.30000962"
@@ -1898,6 +1913,10 @@ normalize-path@^3.0.0:
   version "3.0.0"
   resolved "http://sinopia.node.hualala.com/normalize-path/-/normalize-path-3.0.0.tgz#0dcd69ff23a1c9b11fd0978316644a0388216a65"
 
+normalize-range@^0.1.2:
+  version "0.1.2"
+  resolved "http://sinopia.node.hualala.com/normalize-range/-/normalize-range-0.1.2.tgz#2d10c06bdfd312ea9777695a4d28439456b75942"
+
 npm-bundled@^1.0.1:
   version "1.0.6"
   resolved "http://sinopia.node.hualala.com/npm-bundled/-/npm-bundled-1.0.6.tgz#e7ba9aadcef962bb61248f91721cd932b3fe6bdd"
@@ -1917,6 +1936,10 @@ npmlog@^4.0.2:
     console-control-strings "~1.1.0"
     gauge "~2.7.3"
     set-blocking "~2.0.0"
+
+num2fraction@^1.2.2:
+  version "1.2.2"
+  resolved "http://sinopia.node.hualala.com/num2fraction/-/num2fraction-1.2.2.tgz#6f682b6a027a4e9ddfa4564cd2589d1d4e669ede"
 
 number-is-nan@^1.0.0:
   version "1.0.1"
@@ -2071,6 +2094,18 @@ pkg-dir@^2.0.0:
 posix-character-classes@^0.1.0:
   version "0.1.1"
   resolved "http://sinopia.node.hualala.com/posix-character-classes/-/posix-character-classes-0.1.1.tgz#01eac0fe3b5af71a2a6c02feabb8c1fef7e00eab"
+
+postcss-value-parser@^3.3.1:
+  version "3.3.1"
+  resolved "http://sinopia.node.hualala.com/postcss-value-parser/-/postcss-value-parser-3.3.1.tgz#9ff822547e2893213cf1c30efa51ac5fd1ba8281"
+
+postcss@^7.0.14, postcss@^7.0.16:
+  version "7.0.16"
+  resolved "http://sinopia.node.hualala.com/postcss/-/postcss-7.0.16.tgz#48f64f1b4b558cb8b52c88987724359acb010da2"
+  dependencies:
+    chalk "^2.4.2"
+    source-map "^0.6.1"
+    supports-color "^6.1.0"
 
 prelude-ls@~1.1.2:
   version "1.1.2"
@@ -2446,6 +2481,10 @@ source-map@^0.5.0, source-map@^0.5.6:
   version "0.5.7"
   resolved "http://sinopia.node.hualala.com/source-map/-/source-map-0.5.7.tgz#8a039d2d1021d22d1ea14c80d8ea468ba2ef3fcc"
 
+source-map@^0.6.1:
+  version "0.6.1"
+  resolved "http://sinopia.node.hualala.com/source-map/-/source-map-0.6.1.tgz#74722af32e9614e9c287a8d0bbde48b5e2f1a263"
+
 sourcemap-codec@^1.4.4:
   version "1.4.4"
   resolved "http://registry.npm.taobao.org/sourcemap-codec/download/sourcemap-codec-1.4.4.tgz#c63ea927c029dd6bd9a2b7fa03b3fec02ad56e9f"
@@ -2547,6 +2586,12 @@ strip-json-comments@^2.0.1, strip-json-comments@~2.0.1:
 supports-color@^5.3.0:
   version "5.5.0"
   resolved "http://sinopia.node.hualala.com/supports-color/-/supports-color-5.5.0.tgz#e2e69a44ac8772f78a1ec0b35b689df6530efc8f"
+  dependencies:
+    has-flag "^3.0.0"
+
+supports-color@^6.1.0:
+  version "6.1.0"
+  resolved "http://sinopia.node.hualala.com/supports-color/-/supports-color-6.1.0.tgz#0764abc69c63d5ac842dd4867e8d025e880df8f3"
   dependencies:
     has-flag "^3.0.0"
 

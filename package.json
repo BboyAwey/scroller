@@ -2,9 +2,7 @@
   "name": "scroller",
   "version": "1.0.0",
   "description": "The best custom scroll bar",
-  "main": "dist/scroller.common.js",
-  "module": "dist/scroller.esm.js",
-  "style": "dist/scroller.css",
+  "main": "dist/scroller.js",
   "files": [
     "dist",
     "src",
@@ -12,6 +10,7 @@
   ],
   "scripts": {
     "dev": "rollup -c ./build/rollup.config.dev.js --watch",
+    "build": "rollup -c ./build/rollup.config.prod.js",
     "test": "test"
   },
   "repository": {
@@ -35,12 +34,14 @@
   "devDependencies": {
     "@babel/core": "^7.4.3",
     "@babel/preset-env": "^7.4.3",
+    "autoprefixer": "^9.5.1",
     "chokidar": "^2.1.5",
     "eslint-config-standard": "^12.0.0",
     "eslint-plugin-import": "^2.17.2",
     "eslint-plugin-node": "^8.0.1",
     "eslint-plugin-promise": "^4.1.1",
     "eslint-plugin-standard": "^4.0.0",
+    "postcss": "^7.0.16",
     "rollup": "^1.10.0",
     "rollup-plugin-babel": "^4.3.2",
     "rollup-plugin-buble": "^0.19.6",

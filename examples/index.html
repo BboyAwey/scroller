@@ -23,6 +23,12 @@
     #container p {
       margin: 0;
     }
+    .shit {
+      background: red;
+    }
+    .fuck {
+      background: blue;
+    }
   </style>
 </head>
 <body>
@@ -93,7 +99,10 @@
   }
   window.addEventListener('load', function () {
     new Scroller({
-      el: document.getElementById('container')
+      el: document.getElementById('container'),
+      trackClassName: 'shit',
+      barClassName: 'fuck',
+      direction: 'all'
     })
     new Scroller({
       el: document.getElementById('container2')
