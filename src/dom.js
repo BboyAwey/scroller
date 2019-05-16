@@ -20,6 +20,29 @@ export const createDOM = (classNames = [], receiver = {}) => {
   return receiver || res
 }
 
+export const addClass = (el, cn) => {
+  if (el.className.indexOf(cn) === -1) {
+    el.className += ((el.className.trim()) ? ' ' : '') + cn
+  }
+}
+
+export const removeClass = (el, cn) => {
+  if (el.className.indexOf(cn) !== -1) {
+    el.className = el.className.split(/\s+/).filter(c => {
+      return c && c.trim() !== cn.trim()
+    })
+  }
+}
+
+export const addListener = (el, event, handler) => {
+  el.removeEventListener(event, handler)
+  el.addEventListener(event, handler)
+}
+
+export const removeListener = (el, event, handler) => {
+  el.removeEventListener(event, handler)
+}
+
 export const observeStyleChange = (el, handler) => {
   const config = {
     attributes: true,

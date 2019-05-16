@@ -20,6 +20,12 @@
   background-color: rgba(0, 0, 0, .6);
 }
 
+._no_select {
+  * {
+    user-select: none;
+  }
+}
+
 ._scroller {
   ._container {
     position: absolute;
@@ -29,7 +35,6 @@
     height: 100%;
     overflow: hidden;
     box-sizing: border-box !important;
-    background: pink;
     z-index: 0;
   }
   ._mask {
@@ -89,10 +94,10 @@
 }
   
 ._scroller:hover {
-  ._x_scrollbar_container {
+  & > ._container > ._x_scrollbar_container {
     height: 8px;
   }
-  ._y_scrollbar_container {
+  & > ._container > ._y_scrollbar_container {
     width: 8px;
   }
   ._x_scrollbar_orbit,
