@@ -71,6 +71,20 @@
     }, receiver);
     return receiver || res;
   };
+  var transferDOM = function transferDOM(source, target) {
+    var clear = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : true;
+    // recover dom constructure
+    var fragment = document.createDocumentFragment();
+    var contents = source.children;
+
+    for (var i = 0; i < contents.length; i++) {
+      fragment.appendChild(contents[i]);
+    }
+
+    target.innerHTML = '';
+    if (clear) source.innerHTML = '';
+    target.appendChild(fragment);
+  };
   var addClass = function addClass(el, cn) {
     if (el.className.indexOf(cn) === -1) {
       el.className += (el.className.trim() ? ' ' : '') + cn;
@@ -193,7 +207,7 @@
 
         createDOM(['_container', '_mask', '_content_wrapper', '_content'], this);
         this.content.innerHTML = this.el.innerHTML;
-        this.el.innerHTML = '';
+        transferDOM(this.el, this.content);
         this.el.appendChild(this.container);
 
         this._setMask();
@@ -581,15 +595,7 @@
         var _this6 = this;
 
         // recover dom constructure
-        var fragment = document.createDocumentFragment();
-        var contents = this.content.children;
-
-        for (var i = 0; i < contents.length; i++) {
-          fragment.appendChild(contents[i]);
-        }
-
-        this.el.innerHTML = '';
-        this.el.appendChild(fragment);
+        transferDOM(this.content, this.el);
         removeClass(this.el, '_scroller'); // remove all listeners
         // removeListener(this.mask, 'scroll', this.scrollHandler)
 
