@@ -9,7 +9,7 @@ export default {
   input: 'src/index.js',
   output: [
     {
-      file: 'dist/scroller.js',
+      file: 'docs/scroller.js',
       format: 'umd',
       name: 'Scroller'
     }
