@@ -18,6 +18,11 @@
   @extend ._scroller_transition;
   position: relative;
   border-radius: 2px;
+  & > ._scroller_bg {
+    opacity: .6;
+  }& > ._scroller_bg {
+    opacity: .6;
+  }
 }
 
 ._dragging {
@@ -85,6 +90,12 @@
     top: 0;
     left: 0;
   }
+  ._x_scroller_track,
+  ._y_scroller_track {
+    & > ._scroller_bg {
+      opacity: .2;
+    }
+  }
   ._x_scroller_bar {
     @extend ._scroller_bar;
     height: 100%;
@@ -94,6 +105,12 @@
     @extend ._scroller_bar;
     width: 100%;
     height: 100px;
+  }
+  ._x_scroller_bar:hover,
+  ._y_scroller_bar:hover {
+    & > ._scroller_bg {
+      opacity: .9;
+    }
   }
 }
   
@@ -118,14 +135,11 @@
 ._scroller {
   ._scroller_track_default {
     background-color: black;
-    opacity: .2;
   }
   ._scroller_bar_default {
     background-color: black;
-    opacity: .6;
   }
   ._scroller_bar_default:hover {
     background-color: black;
-    opacity: .9;
   }
 }
