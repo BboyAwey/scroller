@@ -2,6 +2,7 @@ import './index.scss'
 
 import {
   createDOM,
+  transferDOM,
   addClass,
   removeClass,
   hasClass,
@@ -66,8 +67,7 @@ export default class Scroller {
     // init dom constructure
     createDOM(['_container', '_mask', '_content_wrapper', '_content'], this)
     this.content.innerHTML = this.el.innerHTML
-
-    this.el.innerHTML = ''
+    transferDOM(this.el, this.content)
     this.el.appendChild(this.container)
     this._setMask()
 
@@ -378,13 +378,7 @@ export default class Scroller {
 
   destroy () {
     // recover dom constructure
-    const fragment = document.createDocumentFragment()
-    const contents = this.content.children
-    for (let i = 0; i < contents.length; i++) {
-      fragment.appendChild(contents[i])
-    }
-    this.el.innerHTML = ''
-    this.el.appendChild(fragment)
+    transferDOM(this.content, this.el)
     removeClass(this.el, '_scroller')
 
     // remove all listeners

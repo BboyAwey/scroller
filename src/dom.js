@@ -20,6 +20,18 @@ export const createDOM = (classNames = [], receiver = {}) => {
   return receiver || res
 }
 
+export const transferDOM = (source, target, clear = true) => {
+  // recover dom constructure
+  const fragment = document.createDocumentFragment()
+  const contents = source.children
+  for (let i = 0; i < contents.length; i++) {
+    fragment.appendChild(contents[i])
+  }
+  target.innerHTML = ''
+  if (clear) source.innerHTML = ''
+  target.appendChild(fragment)
+}
+
 export const addClass = (el, cn) => {
   if (el.className.indexOf(cn) === -1) {
     el.className += ((el.className.trim()) ? ' ' : '') + cn
