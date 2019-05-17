@@ -32,6 +32,24 @@
   </style>
 </head>
 <body>
+  <button onclick="__test(1)">large</button>
+  <button onclick="__test(0)">small</button><br/><br/>
+
+  <button onclick="getScroll()">Get Scroll values</button>
+  <span id="scrollValue">--</span><br/><br/>
+
+  <button onclick="addScrollListener()">Add a scroll listener</button>
+  <button onclick="removeScrollListener()">remove that scroll listener</button>
+  <span id="listenerValue">--</span><br/><br/>
+
+  <button onclick="destroy()">Destroy</button><br/><br/>
+
+  <label>
+    scrollTop: <input oninput="topChange(event)" type="number"/>
+  </label><br><br>
+  <label>
+    scrollLeft: <input oninput="leftChange(event)" type="number"/>
+  </label>
   <div id="container">
     <div style="width: 600px">
       <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Impedit molestias amet laborum incidunt minima. Fuga, necessitatibus dicta ex praesentium dolore odit delectus dolorum nesciunt? Libero fugiat officia voluptates eos saepe?</p>
@@ -87,28 +105,9 @@
       <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Totam officiis quas doloremque distinctio reprehenderit voluptatum quia, repudiandae eveniet, vel maiores aut sint minus, nesciunt numquam recusandae. Et error placeat commodi.</p>
       <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptas ut voluptate nobis laborum nisi? Deserunt iusto sequi, hic repellendus, mollitia dolor illo officiis maiores, quam aliquam dolorem illum quibusdam quae.</p>
     </div>
-  </div>
-  <button onclick="__test(1)">large</button>
-  <button onclick="__test(0)">small</button><br/><br/>
-
-  <button onclick="getScroll()">Get Scroll values</button>
-  <span id="scrollValue">--</span><br/><br/>
-
-  <button onclick="addScrollListener()">Add a scroll listener</button>
-  <button onclick="removeScrollListener()">remove that scroll listener</button>
-  <span id="listenerValue">--</span><br/><br/>
-
-  <button onclick="destroy()">Destroy</button><br/><br/>
-
-  <label>
-    scrollTop: <input oninput="topChange(event)" type="number"/>
-  </label><br><br>
-  <label>
-    scrollLeft: <input oninput="leftChange(event)" type="number"/>
-  </label>
-  
+  </div>  
 </body>
-<script src="./scroller.js"></script>
+<script src="/scroller.js"></script>
 <script>
   var s1, s2
   function __test (s) {
