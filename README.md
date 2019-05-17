@@ -38,14 +38,14 @@ const myScroller = new Scroller({
 
 ## Options
 
-* `el`: DOMElement, a container element which you want to made it a custom scrollbar
-* `direction`: String, which direction you would like to scroll. it support values below.
+* `el`: DOMElement, required, a container element which you want to made it a custom scrollbar
+* `direction`: String, optional, which direction you would like to scroll. it support values below.
   * `both`: default value
   * `horizontal`
   * `vertical`
   * `none`
-* `trackClassName`: String, you can use it to customize the track style
-* `barClassName`: String, you can use it to customize the bar style
+* `trackClassName`: String, optional, you can use it to customize the track style
+* `barClassName`: String, optional, you can use it to customize the bar style
 
 ## Methods
 
