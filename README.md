@@ -2,9 +2,16 @@
 The best custom scroll bar. Can be nested.
 
 ## install
+Scroller can be installed by npm or yarn.
 
 ```bash
 yarn install scroller
+```
+
+Or you can just install it as a script tag.
+
+```html
+<script src="../anypath/scroller.js"></script>
 ```
 
 ## Useage
@@ -43,4 +50,10 @@ const myScroller = new Scroller({
 ## Methods
 
 * `Scroller(options)`: Constructor, it returns an instance of scroller
+* `scroller.getScroll()`: Return current `scrollTop` and `scrollLeft` value
+* `scroller.onScroll(callback)`: Bind a scroll event listener to instance, the callback recieves an `Event` object which is the native scroll event object. It returns current scroll instance
+* `scroller.offScroll(callback)`: Unbind a scroll event listener to instance, the callback recieves an `Event` object which is the native scroll event object. Omitting callback will unbind all the scroll event listener. It returns current scroll instance
+* `scroller.scrollTo(position)`: Let scroller scroll to the specified position. It returns current scroll instanc. `positions` is an object which contains keys below
+  * `scrollTop`: Optional
+  * `scrollLeft`: Optional
 * `scroller.destroy()`: Instance method, use it to destroy a scroller instance

@@ -54,13 +54,15 @@ export const observeStyleChange = (el, handler) => {
     subtree: false
   }
 
-  return new MutationObserver(mutationsList => {
+  const observer = new MutationObserver(mutationsList => {
     for (let mutation of mutationsList) {
       if (mutation.type === 'attributes' && mutation.attributeName === 'style') {
         handler()
       }
     }
-  }).observe(el, config)
+  })
+  observer.observe(el, config)
+  return observer
 }
 
 export const isFirefox = _ => {

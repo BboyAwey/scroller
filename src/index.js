@@ -11,8 +11,6 @@ import {
   isFirefox
 } from './dom'
 
-let mousemoveHandler = null
-let mouseupHandler = null
 let directions = [
   'horizontal',
   'vertical',
@@ -38,6 +36,18 @@ export default class Scroller {
     this.dragDirection = ''
     this.dragDiff = 0
     this.barScroll = 0
+    this.cbs = []
+
+    // handlers
+    this.scrollHandler = null
+    this.mouseenterHandler = null
+    this.mouseleaveHandler = null
+    this.xMousedownHandler = null
+    this.yMousedownHandler = null
+    this.xClickHandler = null
+    this.yClickHandler = null
+    this.mousemoveHandler = null
+    this.mouseupHandler = null
 
     this._init()
   }
@@ -104,7 +114,9 @@ export default class Scroller {
     if (!this._needX()) this.mask.style.overflowX = 'hidden'
     if (!this._needY()) this.mask.style.overflowY = 'hidden'
 
-    addListener(this.mask, 'scroll', () => this._content2bar())
+    this.scrollHandler = () => this._content2bar()
+
+    addListener(this.mask, 'scroll', this.scrollHandler)
   }
 
   _insertBg (el, className) {
@@ -127,21 +139,21 @@ export default class Scroller {
 
     this._calcStatus()
 
-    const mouseenterHandler = () => this._calcStatus()
-    const mouseleaveHandler = () => this._calcStatus()
-    addListener(this.el, 'mouseenter', mouseenterHandler)
-    addListener(this.el, 'mouseleave', mouseleaveHandler)
+    this.mouseenterHandler = () => this._calcStatus()
+    this.mouseleaveHandler = () => this._calcStatus()
+    addListener(this.el, 'mouseenter', this.mouseenterHandler)
+    addListener(this.el, 'mouseleave', this.mouseleaveHandler)
 
-    const xMousedownHandler = e => this._mousedownHandler(e, 'horizontal')
-    const yMousedownHandler = e => this._mousedownHandler(e, 'vertical')
+    this.xMousedownHandler = e => this._mousedownHandler(e, 'horizontal')
+    this.yMousedownHandler = e => this._mousedownHandler(e, 'vertical')
 
-    addListener(this.xScrollerBar, 'mousedown', xMousedownHandler)
-    addListener(this.yScrollerBar, 'mousedown', yMousedownHandler)
+    addListener(this.xScrollerBar, 'mousedown', this.xMousedownHandler)
+    addListener(this.yScrollerBar, 'mousedown', this.yMousedownHandler)
 
-    const xClickHandler = e => this._clickHandler(e, 'horizontal')
-    const yClickHandler = e => this._clickHandler(e, 'vertical')
-    addListener(this.xScrollerTrack, 'click', xClickHandler)
-    addListener(this.yScrollerTrack, 'click', yClickHandler)
+    this.xClickHandler = e => this._clickHandler(e, 'horizontal')
+    this.yClickHandler = e => this._clickHandler(e, 'vertical')
+    addListener(this.xScrollerTrack, 'click', this.xClickHandler)
+    addListener(this.yScrollerTrack, 'click', this.yClickHandler)
   }
 
   _getViewSize () {
@@ -241,10 +253,10 @@ export default class Scroller {
 
     addClass(this.el, '_dragging')
 
-    mousemoveHandler = e => this._mousemoveHandler(e)
-    mouseupHandler = e => this._mouseupHandler(e)
-    addListener(window, 'mousemove', mousemoveHandler)
-    addListener(window, 'mouseup', mouseupHandler)
+    this.mousemoveHandler = e => this._mousemoveHandler(e)
+    this.mouseupHandler = e => this._mouseupHandler(e)
+    addListener(window, 'mousemove', this.mousemoveHandler)
+    addListener(window, 'mouseup', this.mouseupHandler)
   }
 
   _mousemoveHandler (e) {
@@ -268,8 +280,8 @@ export default class Scroller {
     e.stopPropagation()
     this.drag = false
     removeClass(this.el, '_dragging')
-    removeListener(window, 'mousemove', mousemoveHandler)
-    removeListener(window, 'mouseup', mouseupHandler)
+    removeListener(window, 'mousemove', this.mousemoveHandler)
+    removeListener(window, 'mouseup', this.mouseupHandler)
   }
 
   _clickHandler (e, direction) {
@@ -328,17 +340,97 @@ export default class Scroller {
     }
   }
 
+  getScroll () {
+    return {
+      scrollTop: this.mask.scrollTop,
+      scrollLeft: this.mask.scrollLeft
+    }
+  }
+
+  scrollTo ({ scrollTop, scrollLeft }) {
+    if (scrollTop || scrollTop === 0) {
+      this.mask.scrollTop = scrollTop
+    }
+    if (scrollLeft || scrollLeft === 0) {
+      this.mask.scrollLeft = scrollLeft
+    }
+    return this
+  }
+
+  onScroll (cb) {
+    if (this.cbs.indexOf(cb) === -1) {
+      this.cbs.push(cb)
+      addListener(this.mask, 'scroll', cb)
+    }
+    return this
+  }
+
+  offScroll (cb) {
+    const index = this.cbs.indexOf(cb)
+    if (cb && index !== -1) {
+      removeListener(this.mask, 'scroll', cb)
+      this.cbs.splice(index, 1)
+    } else {
+      this.cbs.forEach(c => removeListener(this.mask, 'scroll', c))
+    }
+    return this
+  }
+
   destroy () {
+    // recover dom constructure
+    const fragment = document.createDocumentFragment()
+    const contents = this.content.children
+    for (let i = 0; i < contents.length; i++) {
+      fragment.appendChild(contents[i])
+    }
+    this.el.innerHTML = ''
+    this.el.appendChild(fragment)
+    removeClass(this.el, '_scroller')
+
+    // remove all listeners
+    // removeListener(this.mask, 'scroll', this.scrollHandler)
+    removeListener(this.el, 'mouseenter', this.mouseenterHandler)
+    removeListener(this.el, 'mouseleave', this.mouseleaveHandler)
+    removeListener(this.xScrollerBar, 'mousedown', this.xMousedownHandler)
+    removeListener(this.yScrollerBar, 'mousedown', this.yMousedownHandler)
+    removeListener(this.xScrollerTrack, 'click', this.xClickHandler)
+    removeListener(this.yScrollerTrack, 'click', this.yClickHandler)
+    // removeListener(window, 'mousemove', this.mousemoveHandler)
+    // removeListener(window, 'mouseup', this.mouseupHandler)
+    this.cbs.forEach(c => removeListener(this.mask, 'scroll', c))
+
+    // remove all handlers
+    this.scrollHandler = null
+    this.mouseenterHandler = null
+    this.mouseleaveHandler = null
+    this.xMousedownHandler = null
+    this.yMousedownHandler = null
+    this.xClickHandler = null
+    this.yClickHandler = null
+    this.mousemoveHandler = null
+    this.mouseupHandler = null
+
+    // remove all properties
+    this.barClassName = null
+    this.barScroll = null
+    this.cbs = null
+    this.container = null
+    this.contentWrapper = null
+    this.content = null
+    this.direction = null
+    this.drag = null
+    this.dragDiff = null
+    this.dragDirection = null
+    this.el = null
+    this.mask = null
     this.observer.disconnect()
     this.observer = null
-    this.el = null
-    this.container = null
-    this.content = null
-    this.xScrollerContainer = null
-    this.yScrollerContainer = null
-    this.xScrollerTrack = null
-    this.yScrollerTrack = null
+    this.trackClassName = null
     this.xScrollerBar = null
+    this.xScrollerContainer = null
+    this.xScrollerTrack = null
     this.yScrollerBar = null
+    this.yScrollerContainer = null
+    this.yScrollerTrack = null
   }
 }

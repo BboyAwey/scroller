@@ -24,10 +24,10 @@
       margin: 0;
     }
     .shit {
-      background: red;
+      background: cadetblue;
     }
     .fuck {
-      background: blue;
+      background: #f63;
     }
   </style>
 </head>
@@ -88,25 +88,63 @@
       <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptas ut voluptate nobis laborum nisi? Deserunt iusto sequi, hic repellendus, mollitia dolor illo officiis maiores, quam aliquam dolorem illum quibusdam quae.</p>
     </div>
   </div>
-  <button onclick="__test(1)">大大大大大</button>
-  <button onclick="__test(0)">小小小小小</button>
+  <button onclick="__test(1)">large</button>
+  <button onclick="__test(0)">small</button>
+  <button onclick="getScroll()">Get Scroll values</button>
+  <button onclick="addScrollListener()">Add a scroll listener</button>
+  <button onclick="removeScrollListener()">remove that scroll listener</button>
+  <button onclick="destroy()">Destroy</button><br/><br><br>
+  <label>
+    scrollTop: <input oninput="topChange(event)" type="number"/>
+  </label><br><br><br>
+  <label>
+    scrollLeft: <input oninput="leftChange(event)" type="number"/>
+  </label>
+  
 </body>
 <script src="/scroller.js"></script>
 <script>
+  var s1, s2
   function __test (s) {
     if (s) document.getElementById('container').style.padding = '100px'
     else document.getElementById('container').style.padding = '60px'
   }
+  function destroy () {
+    s1.destroy()
+  }
+  function getScroll () {
+    console.log(s1.getScroll())
+  }
+  function scrollHandler (e) {
+    console.log(e.target.scrollTop, e.target.scrollLeft)
+  }
+  function addScrollListener () {
+    s1.onScroll(scrollHandler)
+  }
+  function removeScrollListener () {
+    s1.offScroll(scrollHandler)
+  }
+
+  function topChange(e) {
+    s1.scrollTo({scrollTop: parseInt(e.target.value)})
+  }
+
+  function leftChange(e) {
+    s1.scrollTo({scrollLeft: parseInt(e.target.value)})
+  }
+
+
   window.addEventListener('load', function () {
-    new Scroller({
+    s1 = new Scroller({
       el: document.getElementById('container'),
       trackClassName: 'shit',
       barClassName: 'fuck',
       direction: 'all'
     })
-    new Scroller({
+    s2 = new Scroller({
       el: document.getElementById('container2')
     })
+    console.log(s1, s2)
   })
 </script>
 </html>
