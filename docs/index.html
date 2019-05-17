@@ -23,11 +23,11 @@
     #container p {
       margin: 0;
     }
-    .shit {
-      background: cadetblue;
+    .track {
+      background: lightpink;
     }
-    .fuck {
-      background: #f63;
+    .bar {
+      background: darkslategrey;
     }
   </style>
 </head>
@@ -89,14 +89,20 @@
     </div>
   </div>
   <button onclick="__test(1)">large</button>
-  <button onclick="__test(0)">small</button>
+  <button onclick="__test(0)">small</button><br/><br/>
+
   <button onclick="getScroll()">Get Scroll values</button>
+  <span id="scrollValue">--</span><br/><br/>
+
   <button onclick="addScrollListener()">Add a scroll listener</button>
   <button onclick="removeScrollListener()">remove that scroll listener</button>
-  <button onclick="destroy()">Destroy</button><br/><br><br>
+  <span id="listenerValue">--</span><br/><br/>
+
+  <button onclick="destroy()">Destroy</button><br/><br/>
+
   <label>
     scrollTop: <input oninput="topChange(event)" type="number"/>
-  </label><br><br><br>
+  </label><br><br>
   <label>
     scrollLeft: <input oninput="leftChange(event)" type="number"/>
   </label>
@@ -113,10 +119,11 @@
     s1.destroy()
   }
   function getScroll () {
-    console.log(s1.getScroll())
+    const res = s1.getScroll()
+    document.getElementById('scrollValue').innerText = `scrollTop: ${res.scrollTop}, scrollLeft: ${res.scrollLeft}`
   }
   function scrollHandler (e) {
-    console.log(e.target.scrollTop, e.target.scrollLeft)
+    document.getElementById('listenerValue').innerText = `scrollTop: ${e.target.scrollTop}, scrollLeft: ${e.target.scrollLeft}`
   }
   function addScrollListener () {
     s1.onScroll(scrollHandler)
@@ -137,14 +144,13 @@
   window.addEventListener('load', function () {
     s1 = new Scroller({
       el: document.getElementById('container'),
-      trackClassName: 'shit',
-      barClassName: 'fuck',
       direction: 'all'
     })
     s2 = new Scroller({
-      el: document.getElementById('container2')
+      el: document.getElementById('container2'),
+      trackClassName: 'track',
+      barClassName: 'bar',
     })
-    console.log(s1, s2)
   })
 </script>
 </html>

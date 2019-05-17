@@ -10,7 +10,7 @@ baseConf.plugins.unshift(server({
   open: false,
   openPage: '/',
   verbose: true,
-  contentBase: ['dist', 'examples'],
+  contentBase: ['dist', 'examples', 'docs'],
   host: '0.0.0.0',
   port: 3480
 }))
