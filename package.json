@@ -1,6 +1,6 @@
 {
   "name": "@awey/scroller",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "The best custom scroll bar",
   "main": "dist/scroller.js",
   "files": [
