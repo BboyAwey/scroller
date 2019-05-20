@@ -101,6 +101,10 @@ export const observeChildInsert = (el, handler, context) => {
   }, { childList: true }, context)
 }
 
+export const observeStyleChange = (el, handler, context) => {
+  return observeMutation(el, handler, { attributeFilter: ['style'] }, context)
+}
+
 export const observeResize = (el, handler, context) => {
   const observer = new ResizeObserver(() => {
     handler.call(context)

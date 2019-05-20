@@ -10,7 +10,8 @@ import {
   removeListener,
   observeResize,
   observeChildInsert,
-  isFirefox
+  isFirefox,
+  observeStyleChange
 } from './dom'
 
 let directions = [
@@ -33,6 +34,7 @@ export default class Scroller {
     // other properties
     this.container = null
     this.content = null
+    this.elStyleChangeObserver = null
     this.elResizeObserver = null
     this.childInsertObserver = null
     this.contentSizeObserver = null
@@ -73,11 +75,13 @@ export default class Scroller {
     transferDOM(this.el, this.content)
     this.el.appendChild(this.container)
     this._setMask()
-
-    this.elResizeObserver = observeResize(this.el, () => {
+    const recalc = () => {
       this._setMask()
       this._calcStatus()
-    }, this)
+      console.log('resize')
+    }
+    this.elStyleChangeObserver = observeStyleChange(this.el, recalc, this)
+    this.elResizeObserver = observeResize(this.el, recalc, this)
     this.childInsertObserver = observeChildInsert(this.el, this._handleChildInsert, this)
     this.contentSizeObserver = observeResize(this.content, this._calcStatus, this)
 
@@ -441,6 +445,8 @@ export default class Scroller {
     this.mask = null
     this.elResizeObserver.disconnect()
     this.elResizeObserver = null
+    this.elStyleChangeObserver.disconnect()
+    this.elStyleChangeObserver = null
     this.childInsertObserver.disconnect()
     this.childInsertObserver = null
     this.contentSizeObserver.disconnect()

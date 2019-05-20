@@ -2243,10 +2243,6 @@ repeat-string@^1.6.1:
   version "1.6.1"
   resolved "http://sinopia.node.hualala.com/repeat-string/-/repeat-string-1.6.1.tgz#8dcae470e1c88abc2d600fff4a776286da75e637"
 
-resize-detector@^0.2.0:
-  version "0.2.0"
-  resolved "https://registry.npm.taobao.org/resize-detector/download/resize-detector-0.2.0.tgz#c4e7cd1426cfc173fba3986c985743c9b2b1f000"
-
 resize-observer-polyfill@^1.5.1:
   version "1.5.1"
   resolved "https://registry.npm.taobao.org/resize-observer-polyfill/download/resize-observer-polyfill-1.5.1.tgz#0e9020dd3d21024458d4ebd27e23e40269810464"
