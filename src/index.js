@@ -94,8 +94,6 @@ export default class Scroller {
   }
 
   _handleChildInsert (insertedNodes) {
-    console.log('inserted: ')
-    console.log(insertedNodes)
     const children = this.el.children
     children.indexOf = (el) => {
       return Array.prototype.indexOf.call(children, el)
