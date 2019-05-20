@@ -1,8 +1,8 @@
 (function (global, factory) {
-  typeof exports === 'object' && typeof module !== 'undefined' ? module.exports = factory() :
-  typeof define === 'function' && define.amd ? define(factory) :
-  (global = global || self, global.Scroller = factory());
-}(this, function () { 'use strict';
+  typeof exports === 'object' && typeof module !== 'undefined' ? module.exports = factory(require('resize-observer-polyfill')) :
+  typeof define === 'function' && define.amd ? define(['resize-observer-polyfill'], factory) :
+  (global = global || self, global.Scroller = factory(global.ResizeObserver));
+}(this, function (ResizeObserver) { 'use strict';
 
   function ___$insertStyle(css) {
     if (!css) {
@@ -19,6 +19,8 @@
     document.head.appendChild(style);
     return css;
   }
+
+  ResizeObserver = ResizeObserver && ResizeObserver.hasOwnProperty('default') ? ResizeObserver['default'] : ResizeObserver;
 
   function _classCallCheck(instance, Constructor) {
     if (!(instance instanceof Constructor)) {
@@ -107,23 +109,35 @@
   var removeListener = function removeListener(el, event, handler) {
     el.removeEventListener(event, handler);
   };
-  var observeMutation = function observeMutation(el, handler, config, context) {
-    if (typeof MutationObserver === 'undefined') {
+  var observeMutation = function observeMutation(el, handler, config, context, throttle) {
+    if (!window.MutationObserver) {
       return {
         disconnect: function disconnect() {}
       };
     }
 
-    var observer = new MutationObserver(function (mutationList) {
-      return handler.call(context, mutationList);
+    var throttleTimer = null;
+
+    var clear = function clear() {
+      if (throttleTimer) {
+        window.clearTimeout(throttleTimer);
+        throttleTimer = null;
+      }
+    };
+
+    var observer = new window.MutationObserver(function (mutationList) {
+      if (throttle) {
+        clear();
+        throttleTimer = window.setTimeout(function (_) {
+          handler.call(context, mutationList);
+          clear();
+        }, throttle);
+      } else {
+        handler.call(context, mutationList);
+      }
     });
     observer.observe(el, config);
     return observer;
-  };
-  var observeStyleChange = function observeStyleChange(el, handler, context) {
-    return observeMutation(el, handler, {
-      attributeFilter: ['style']
-    }, context);
   };
   var observeChildInsert = function observeChildInsert(el, handler, context) {
     return observeMutation(el, function (mutationList) {
@@ -182,6 +196,13 @@
       childList: true
     }, context);
   };
+  var observeResize = function observeResize(el, handler, context) {
+    var observer = new ResizeObserver(function () {
+      handler.call(context);
+    });
+    observer.observe(el);
+    return observer;
+  };
   var isFirefox = function isFirefox(_) {
     return navigator.userAgent.indexOf('Firefox') !== -1;
   };
@@ -204,15 +225,14 @@
 
       this.container = null;
       this.content = null;
-      this.styleObserver = null;
+      this.elResizeObserver = null;
       this.childInsertObserver = null;
-      this.contentOberver = null;
+      this.contentSizeObserver = null;
       this.drag = false;
       this.dragDirection = '';
       this.dragDiff = 0;
       this.barScroll = 0;
-      this.cbs = [];
-      this.throttleTimer = null; // handlers
+      this.cbs = []; // handlers
 
       this.scrollHandler = null;
       this.mouseenterHandler = null;
@@ -240,6 +260,8 @@
     }, {
       key: "_init",
       value: function _init() {
+        var _this = this;
+
         // prepare target element
         this._initEl(); // init dom constructure
 
@@ -251,16 +273,15 @@
 
         this._setMask();
 
-        this.styleObserver = observeStyleChange(this.el, this._setMask, this);
+        this.elResizeObserver = observeResize(this.el, function () {
+          _this._setMask();
+
+          _this._calcStatus();
+        }, this);
         this.childInsertObserver = observeChildInsert(this.el, this._handleChildInsert, this);
+        this.contentSizeObserver = observeResize(this.content, this._calcStatus, this);
 
         this._initScrollerDom();
-
-        this.contentOberver = observeMutation(this.content, this._handleContentMutation, {
-          attributes: true,
-          childList: true,
-          subtree: true
-        }, this);
       }
     }, {
       key: "_initEl",
@@ -314,23 +335,6 @@
             }
           }
         }
-      }
-    }, {
-      key: "_handleContentMutation",
-      value: function _handleContentMutation() {
-        var _this = this;
-
-        if (this.throttleTimer) {
-          clearTimeout(this.throttleTimer);
-          this.throttleTimer = null;
-        }
-
-        this.throttleTimer = setTimeout(function (_) {
-          _this._calcStatus();
-
-          clearTimeout(_this.throttleTimer);
-          _this.throttleTimer = null;
-        }, 300);
       }
     }, {
       key: "_setMask",
@@ -732,13 +736,12 @@
         this.dragDirection = null;
         this.el = null;
         this.mask = null;
-        this.styleObserver.disconnect();
-        this.styleObserver = null;
+        this.elResizeObserver.disconnect();
+        this.elResizeObserver = null;
         this.childInsertObserver.disconnect();
         this.childInsertObserver = null;
-        this.contentOberver.disconnect();
-        this.contentOberver = null;
-        this.throttleTimer = null;
+        this.contentSizeObserver.disconnect();
+        this.contentSizeObserver = null;
         this.trackClassName = null;
         this.xScrollerBar = null;
         this.xScrollerContainer = null;
