@@ -8,6 +8,7 @@ import {
   hasClass,
   addListener,
   removeListener,
+  observeMutation,
   observeStyleChange,
   observeChildInsert,
   isFirefox
@@ -35,11 +36,13 @@ export default class Scroller {
     this.content = null
     this.styleObserver = null
     this.childInsertObserver = null
+    this.contentOberver = null
     this.drag = false
     this.dragDirection = ''
     this.dragDiff = 0
     this.barScroll = 0
     this.cbs = []
+    this.throttleTimer = null
 
     // handlers
     this.scrollHandler = null
@@ -77,6 +80,12 @@ export default class Scroller {
     this.childInsertObserver = observeChildInsert(this.el, this._handleChildInsert, this)
 
     this._initScrollerDom()
+
+    this.contentOberver = observeMutation(this.content, this._handleContentMutation, {
+      attributes: true,
+      childList: true,
+      subtree: true
+    }, this)
   }
 
   _initEl () {
@@ -105,7 +114,18 @@ export default class Scroller {
         this.content.insertBefore(el, this.content.children[0])
       }
     }
-    this._calcStatus()
+  }
+
+  _handleContentMutation () {
+    if (this.throttleTimer) {
+      clearTimeout(this.throttleTimer)
+      this.throttleTimer = null
+    }
+    this.throttleTimer = setTimeout(_ => {
+      this._calcStatus()
+      clearTimeout(this.throttleTimer)
+      this.throttleTimer = null
+    }, 500)
   }
 
   _setMask () {
@@ -439,6 +459,9 @@ export default class Scroller {
     this.styleObserver = null
     this.childInsertObserver.disconnect()
     this.childInsertObserver = null
+    this.contentOberver.disconnect()
+    this.contentOberver = null
+    this.throttleTimer = null
     this.trackClassName = null
     this.xScrollerBar = null
     this.xScrollerContainer = null

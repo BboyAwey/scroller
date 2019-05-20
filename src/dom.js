@@ -59,14 +59,21 @@ export const removeListener = (el, event, handler) => {
   el.removeEventListener(event, handler)
 }
 
-export const observeStyleChange = (el, handler, context) => {
-  const observer = new MutationObserver(() => handler.call(context))
-  observer.observe(el, { attributeFilter: ['style'] })
+export const observeMutation = (el, handler, config, context) => {
+  if (typeof MutationObserver === 'undefined') {
+    return { disconnect () {} }
+  }
+  const observer = new MutationObserver(mutationList => handler.call(context, mutationList))
+  observer.observe(el, config)
   return observer
 }
 
+export const observeStyleChange = (el, handler, context) => {
+  return observeMutation(el, handler, { attributeFilter: ['style'] }, context)
+}
+
 export const observeChildInsert = (el, handler, context) => {
-  const observer = new MutationObserver(mutationList => {
+  return observeMutation(el, mutationList => {
     let addedNodes = []
     for (let mutation of mutationList) {
       if (mutation.addedNodes && mutation.addedNodes.length) {
@@ -76,9 +83,7 @@ export const observeChildInsert = (el, handler, context) => {
       }
     }
     if (addedNodes.length) handler.call(context, addedNodes)
-  })
-  observer.observe(el, { childList: true })
-  return observer
+  }, { childList: true }, context)
 }
 
 export const isFirefox = _ => {
