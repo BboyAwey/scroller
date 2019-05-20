@@ -1121,6 +1121,11 @@
       childList: true
     }, context);
   };
+  var observeStyleChange = function observeStyleChange(el, handler, context) {
+    return observeMutation(el, handler, {
+      attributeFilter: ['style']
+    }, context);
+  };
   var observeResize = function observeResize(el, handler, context) {
     var observer = new index(function () {
       handler.call(context);
@@ -1150,6 +1155,7 @@
 
       this.container = null;
       this.content = null;
+      this.elStyleChangeObserver = null;
       this.elResizeObserver = null;
       this.childInsertObserver = null;
       this.contentSizeObserver = null;
@@ -1198,11 +1204,16 @@
 
         this._setMask();
 
-        this.elResizeObserver = observeResize(this.el, function () {
+        var recalc = function recalc() {
           _this._setMask();
 
           _this._calcStatus();
-        }, this);
+
+          console.log('resize');
+        };
+
+        this.elStyleChangeObserver = observeStyleChange(this.el, recalc, this);
+        this.elResizeObserver = observeResize(this.el, recalc, this);
         this.childInsertObserver = observeChildInsert(this.el, this._handleChildInsert, this);
         this.contentSizeObserver = observeResize(this.content, this._calcStatus, this);
 
@@ -1663,6 +1674,8 @@
         this.mask = null;
         this.elResizeObserver.disconnect();
         this.elResizeObserver = null;
+        this.elStyleChangeObserver.disconnect();
+        this.elStyleChangeObserver = null;
         this.childInsertObserver.disconnect();
         this.childInsertObserver = null;
         this.contentSizeObserver.disconnect();
