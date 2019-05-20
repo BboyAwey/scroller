@@ -1,3 +1,5 @@
+import ResizeObserver from 'resize-observer-polyfill'
+
 export const createDOM = (classNames = [], receiver = {}) => {
   let res = classNames.reduce((last, curr) => {
     const key = curr
@@ -59,17 +61,30 @@ export const removeListener = (el, event, handler) => {
   el.removeEventListener(event, handler)
 }
 
-export const observeMutation = (el, handler, config, context) => {
-  if (typeof MutationObserver === 'undefined') {
+export const observeMutation = (el, handler, config, context, throttle) => {
+  if (!window.MutationObserver) {
     return { disconnect () {} }
   }
-  const observer = new MutationObserver(mutationList => handler.call(context, mutationList))
+  let throttleTimer = null
+  const clear = () => {
+    if (throttleTimer) {
+      window.clearTimeout(throttleTimer)
+      throttleTimer = null
+    }
+  }
+  const observer = new window.MutationObserver(mutationList => {
+    if (throttle) {
+      clear()
+      throttleTimer = window.setTimeout(_ => {
+        handler.call(context, mutationList)
+        clear()
+      }, throttle)
+    } else {
+      handler.call(context, mutationList)
+    }
+  })
   observer.observe(el, config)
   return observer
-}
-
-export const observeStyleChange = (el, handler, context) => {
-  return observeMutation(el, handler, { attributeFilter: ['style'] }, context)
 }
 
 export const observeChildInsert = (el, handler, context) => {
@@ -84,6 +99,14 @@ export const observeChildInsert = (el, handler, context) => {
     }
     if (addedNodes.length) handler.call(context, addedNodes)
   }, { childList: true }, context)
+}
+
+export const observeResize = (el, handler, context) => {
+  const observer = new ResizeObserver(() => {
+    handler.call(context)
+  })
+  observer.observe(el)
+  return observer
 }
 
 export const isFirefox = _ => {

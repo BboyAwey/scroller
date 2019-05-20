@@ -8,8 +8,7 @@ import {
   hasClass,
   addListener,
   removeListener,
-  observeMutation,
-  observeStyleChange,
+  observeResize,
   observeChildInsert,
   isFirefox
 } from './dom'
@@ -34,15 +33,14 @@ export default class Scroller {
     // other properties
     this.container = null
     this.content = null
-    this.styleObserver = null
+    this.elResizeObserver = null
     this.childInsertObserver = null
-    this.contentOberver = null
+    this.contentSizeObserver = null
     this.drag = false
     this.dragDirection = ''
     this.dragDiff = 0
     this.barScroll = 0
     this.cbs = []
-    this.throttleTimer = null
 
     // handlers
     this.scrollHandler = null
@@ -76,16 +74,14 @@ export default class Scroller {
     this.el.appendChild(this.container)
     this._setMask()
 
-    this.styleObserver = observeStyleChange(this.el, this._setMask, this)
+    this.elResizeObserver = observeResize(this.el, () => {
+      this._setMask()
+      this._calcStatus()
+    }, this)
     this.childInsertObserver = observeChildInsert(this.el, this._handleChildInsert, this)
+    this.contentSizeObserver = observeResize(this.content, this._calcStatus, this)
 
     this._initScrollerDom()
-
-    this.contentOberver = observeMutation(this.content, this._handleContentMutation, {
-      attributes: true,
-      childList: true,
-      subtree: true
-    }, this)
   }
 
   _initEl () {
@@ -114,18 +110,6 @@ export default class Scroller {
         this.content.insertBefore(el, this.content.children[0])
       }
     }
-  }
-
-  _handleContentMutation () {
-    if (this.throttleTimer) {
-      clearTimeout(this.throttleTimer)
-      this.throttleTimer = null
-    }
-    this.throttleTimer = setTimeout(_ => {
-      this._calcStatus()
-      clearTimeout(this.throttleTimer)
-      this.throttleTimer = null
-    }, 300)
   }
 
   _setMask () {
@@ -455,13 +439,12 @@ export default class Scroller {
     this.dragDirection = null
     this.el = null
     this.mask = null
-    this.styleObserver.disconnect()
-    this.styleObserver = null
+    this.elResizeObserver.disconnect()
+    this.elResizeObserver = null
     this.childInsertObserver.disconnect()
     this.childInsertObserver = null
-    this.contentOberver.disconnect()
-    this.contentOberver = null
-    this.throttleTimer = null
+    this.contentSizeObserver.disconnect()
+    this.contentSizeObserver = null
     this.trackClassName = null
     this.xScrollerBar = null
     this.xScrollerContainer = null
