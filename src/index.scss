@@ -113,6 +113,20 @@
       opacity: .9;
     }
   }
+  ._y_scroller_bar._minimal {
+    & > ._scroller_bg {
+      height: 20px;
+      top: 50%;
+      margin-top: -10px;
+    }
+  }
+  ._x_scroller_bar._minimal {
+    & > ._scroller_bg {
+      width: 20px;
+      left: 50%;
+      margin-left: -10px;
+    }
+  }
 }
   
 ._scroller:hover,

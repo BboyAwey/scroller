@@ -228,18 +228,30 @@ export default class Scroller {
     const calc = (content, view, track) => Math.floor(track * view / content)
 
     if (this._needY()) {
-      this.yScrollerBar.style.height = calc(
+      let res = calc(
         contentRect.height,
         viewSize.height,
         this.yScrollerTrack.getBoundingClientRect().height
-      ) + 'px'
+      )
+      this.yScrollerBar.style.height = res + 'px'
+      if (res < 20) {
+        addClass(this.yScrollerBar, '_minimal')
+      } else {
+        removeClass(this.yScrollerBar, '_minimal')
+      }
     }
     if (this._needX) {
-      this.xScrollerBar.style.width = calc(
+      let res = calc(
         contentRect.width,
         viewSize.width,
         this.xScrollerTrack.getBoundingClientRect().width
-      ) + 'px'
+      )
+      this.xScrollerBar.style.width = res + 'px'
+      if (res < 20) {
+        addClass(this.xScrollerBar, '_minimal')
+      } else {
+        removeClass(this.xScrollerBar, '_minimal')
+      }
     }
   }
 
