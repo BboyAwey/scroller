@@ -107,23 +107,50 @@
   var removeListener = function removeListener(el, event, handler) {
     el.removeEventListener(event, handler);
   };
-  var observeStyleChange = function observeStyleChange(el, handler) {
-    var config = {
-      attributes: true,
-      childList: false,
-      subtree: false
-    };
-    var observer = new MutationObserver(function (mutationsList) {
+  var observeStyleChange = function observeStyleChange(el, handler, context) {
+    var observer = new MutationObserver(function () {
+      return handler.call(context);
+    });
+    observer.observe(el, {
+      attributeFilter: ['style']
+    });
+    return observer;
+  };
+  var observeChildInsert = function observeChildInsert(el, handler, context) {
+    var observer = new MutationObserver(function (mutationList) {
+      var addedNodes = [];
       var _iteratorNormalCompletion = true;
       var _didIteratorError = false;
       var _iteratorError = undefined;
 
       try {
-        for (var _iterator = mutationsList[Symbol.iterator](), _step; !(_iteratorNormalCompletion = (_step = _iterator.next()).done); _iteratorNormalCompletion = true) {
+        for (var _iterator = mutationList[Symbol.iterator](), _step; !(_iteratorNormalCompletion = (_step = _iterator.next()).done); _iteratorNormalCompletion = true) {
           var mutation = _step.value;
 
-          if (mutation.type === 'attributes' && mutation.attributeName === 'style') {
-            handler();
+          if (mutation.addedNodes && mutation.addedNodes.length) {
+            var _iteratorNormalCompletion2 = true;
+            var _didIteratorError2 = false;
+            var _iteratorError2 = undefined;
+
+            try {
+              for (var _iterator2 = mutation.addedNodes[Symbol.iterator](), _step2; !(_iteratorNormalCompletion2 = (_step2 = _iterator2.next()).done); _iteratorNormalCompletion2 = true) {
+                var node = _step2.value;
+                if (addedNodes.indexOf(node) === -1) addedNodes.push(node);
+              }
+            } catch (err) {
+              _didIteratorError2 = true;
+              _iteratorError2 = err;
+            } finally {
+              try {
+                if (!_iteratorNormalCompletion2 && _iterator2["return"] != null) {
+                  _iterator2["return"]();
+                }
+              } finally {
+                if (_didIteratorError2) {
+                  throw _iteratorError2;
+                }
+              }
+            }
           }
         }
       } catch (err) {
@@ -140,8 +167,12 @@
           }
         }
       }
+
+      if (addedNodes.length) handler.call(context, addedNodes);
     });
-    observer.observe(el, config);
+    observer.observe(el, {
+      childList: true
+    });
     return observer;
   };
   var isFirefox = function isFirefox(_) {
@@ -166,7 +197,8 @@
 
       this.container = null;
       this.content = null;
-      this.observer = null;
+      this.styleObserver = null;
+      this.childInsertObserver = null;
       this.drag = false;
       this.dragDirection = '';
       this.dragDiff = 0;
@@ -199,8 +231,6 @@
     }, {
       key: "_init",
       value: function _init() {
-        var _this = this;
-
         // prepare target element
         this._initEl(); // init dom constructure
 
@@ -212,9 +242,8 @@
 
         this._setMask();
 
-        this.observer = observeStyleChange(this.el, function (_) {
-          return _this._setMask();
-        });
+        this.styleObserver = observeStyleChange(this.el, this._setMask, this);
+        this.childInsertObserver = observeChildInsert(this.el, this._handleChildInsert, this);
 
         this._initScrollerDom();
       }
@@ -234,9 +263,51 @@
         }
       }
     }, {
+      key: "_handleChildInsert",
+      value: function _handleChildInsert(insertedNodes) {
+        console.log('inserted: ');
+        console.log(insertedNodes);
+        var children = this.el.children;
+
+        children.indexOf = function (el) {
+          return Array.prototype.indexOf.call(children, el);
+        };
+
+        var _iteratorNormalCompletion = true;
+        var _didIteratorError = false;
+        var _iteratorError = undefined;
+
+        try {
+          for (var _iterator = insertedNodes[Symbol.iterator](), _step; !(_iteratorNormalCompletion = (_step = _iterator.next()).done); _iteratorNormalCompletion = true) {
+            var el = _step.value;
+
+            if (children.indexOf(el) > children.indexOf(this.el)) {
+              this.content.appendChild(el);
+            } else {
+              this.content.insertBefore(el, this.content.children[0]);
+            }
+          }
+        } catch (err) {
+          _didIteratorError = true;
+          _iteratorError = err;
+        } finally {
+          try {
+            if (!_iteratorNormalCompletion && _iterator["return"] != null) {
+              _iterator["return"]();
+            }
+          } finally {
+            if (_didIteratorError) {
+              throw _iteratorError;
+            }
+          }
+        }
+
+        this._calcStatus();
+      }
+    }, {
       key: "_setMask",
       value: function _setMask() {
-        var _this2 = this;
+        var _this = this;
 
         // use a mask div to do the real scroll
         var _window$getComputedSt = window.getComputedStyle(this.el),
@@ -261,7 +332,7 @@
         if (!this._needY()) this.mask.style.overflowY = 'hidden';
 
         this.scrollHandler = function () {
-          return _this2._content2bar();
+          return _this._content2bar();
         };
 
         addListener(this.mask, 'scroll', this.scrollHandler);
@@ -277,7 +348,7 @@
     }, {
       key: "_initScrollerDom",
       value: function _initScrollerDom() {
-        var _this3 = this;
+        var _this2 = this;
 
         createDOM(['_x_scroller_container', '_x_scroller_track', '_x_scroller_bar'], this);
 
@@ -297,33 +368,33 @@
         this._calcStatus();
 
         this.mouseenterHandler = function () {
-          return _this3._calcStatus();
+          return _this2._calcStatus();
         };
 
         this.mouseleaveHandler = function () {
-          return _this3._calcStatus();
+          return _this2._calcStatus();
         };
 
         addListener(this.el, 'mouseenter', this.mouseenterHandler);
         addListener(this.el, 'mouseleave', this.mouseleaveHandler);
 
         this.xMousedownHandler = function (e) {
-          return _this3._mousedownHandler(e, 'horizontal');
+          return _this2._mousedownHandler(e, 'horizontal');
         };
 
         this.yMousedownHandler = function (e) {
-          return _this3._mousedownHandler(e, 'vertical');
+          return _this2._mousedownHandler(e, 'vertical');
         };
 
         addListener(this.xScrollerBar, 'mousedown', this.xMousedownHandler);
         addListener(this.yScrollerBar, 'mousedown', this.yMousedownHandler);
 
         this.xClickHandler = function (e) {
-          return _this3._clickHandler(e, 'horizontal');
+          return _this2._clickHandler(e, 'horizontal');
         };
 
         this.yClickHandler = function (e) {
-          return _this3._clickHandler(e, 'vertical');
+          return _this2._clickHandler(e, 'vertical');
         };
 
         addListener(this.xScrollerTrack, 'click', this.xClickHandler);
@@ -417,7 +488,7 @@
     }, {
       key: "_mousedownHandler",
       value: function _mousedownHandler(e, direction) {
-        var _this4 = this;
+        var _this3 = this;
 
         e.preventDefault();
         e.stopPropagation();
@@ -433,11 +504,11 @@
         addClass(this.el, '_dragging');
 
         this.mousemoveHandler = function (e) {
-          return _this4._mousemoveHandler(e);
+          return _this3._mousemoveHandler(e);
         };
 
         this.mouseupHandler = function (e) {
-          return _this4._mouseupHandler(e);
+          return _this3._mouseupHandler(e);
         };
 
         addListener(window, 'mousemove', this.mousemoveHandler);
@@ -574,7 +645,7 @@
     }, {
       key: "offScroll",
       value: function offScroll(cb) {
-        var _this5 = this;
+        var _this4 = this;
 
         var index = this.cbs.indexOf(cb);
 
@@ -583,7 +654,7 @@
           this.cbs.splice(index, 1);
         } else {
           this.cbs.forEach(function (c) {
-            return removeListener(_this5.mask, 'scroll', c);
+            return removeListener(_this4.mask, 'scroll', c);
           });
         }
 
@@ -592,7 +663,7 @@
     }, {
       key: "destroy",
       value: function destroy() {
-        var _this6 = this;
+        var _this5 = this;
 
         // recover dom constructure
         transferDOM(this.content, this.el);
@@ -608,7 +679,7 @@
         // removeListener(window, 'mouseup', this.mouseupHandler)
 
         this.cbs.forEach(function (c) {
-          return removeListener(_this6.mask, 'scroll', c);
+          return removeListener(_this5.mask, 'scroll', c);
         }); // remove all handlers
 
         this.scrollHandler = null;
@@ -633,8 +704,10 @@
         this.dragDirection = null;
         this.el = null;
         this.mask = null;
-        this.observer.disconnect();
-        this.observer = null;
+        this.styleObserver.disconnect();
+        this.styleObserver = null;
+        this.childInsertObserver.disconnect();
+        this.childInsertObserver = null;
         this.trackClassName = null;
         this.xScrollerBar = null;
         this.xScrollerContainer = null;
