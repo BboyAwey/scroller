@@ -9,6 +9,7 @@ import {
   addListener,
   removeListener,
   observeStyleChange,
+  observeChildInsert,
   isFirefox
 } from './dom'
 
@@ -32,7 +33,8 @@ export default class Scroller {
     // other properties
     this.container = null
     this.content = null
-    this.observer = null
+    this.styleObserver = null
+    this.childInsertObserver = null
     this.drag = false
     this.dragDirection = ''
     this.dragDiff = 0
@@ -71,7 +73,8 @@ export default class Scroller {
     this.el.appendChild(this.container)
     this._setMask()
 
-    this.observer = observeStyleChange(this.el, _ => this._setMask())
+    this.styleObserver = observeStyleChange(this.el, this._setMask, this)
+    this.childInsertObserver = observeChildInsert(this.el, this._handleChildInsert, this)
 
     this._initScrollerDom()
   }
@@ -88,6 +91,23 @@ export default class Scroller {
     if (!positionStyle || positionStyle === 'static') {
       this.el.style.position = 'relative'
     }
+  }
+
+  _handleChildInsert (insertedNodes) {
+    console.log('inserted: ')
+    console.log(insertedNodes)
+    const children = this.el.children
+    children.indexOf = (el) => {
+      return Array.prototype.indexOf.call(children, el)
+    }
+    for (let el of insertedNodes) {
+      if (children.indexOf(el) > children.indexOf(this.el)) {
+        this.content.appendChild(el)
+      } else {
+        this.content.insertBefore(el, this.content.children[0])
+      }
+    }
+    this._calcStatus()
   }
 
   _setMask () {
@@ -417,8 +437,10 @@ export default class Scroller {
     this.dragDirection = null
     this.el = null
     this.mask = null
-    this.observer.disconnect()
-    this.observer = null
+    this.styleObserver.disconnect()
+    this.styleObserver = null
+    this.childInsertObserver.disconnect()
+    this.childInsertObserver = null
     this.trackClassName = null
     this.xScrollerBar = null
     this.xScrollerContainer = null

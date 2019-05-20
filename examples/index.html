@@ -42,6 +42,7 @@
   <button onclick="removeScrollListener()">remove that scroll listener</button>
   <span id="listenerValue">--</span><br/><br/>
 
+  <button onclick="insertSth()">insert some DOM</button><br/><br/>
   <button onclick="destroy()">Destroy</button><br/><br/>
 
   <label>
@@ -137,6 +138,14 @@
 
   function leftChange(e) {
     s1.scrollTo({scrollLeft: parseInt(e.target.value)})
+  }
+
+  function insertSth (e) {
+    const div = document.createElement('div')
+    div.style.width = '600px'
+    div.style.height = '600px'
+    div.style.backgroundColor = '#f63'
+    document.getElementById('container').appendChild(div)
   }
 
 

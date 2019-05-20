@@ -59,21 +59,25 @@ export const removeListener = (el, event, handler) => {
   el.removeEventListener(event, handler)
 }
 
-export const observeStyleChange = (el, handler) => {
-  const config = {
-    attributes: true,
-    childList: false,
-    subtree: false
-  }
+export const observeStyleChange = (el, handler, context) => {
+  const observer = new MutationObserver(() => handler.call(context))
+  observer.observe(el, { attributeFilter: ['style'] })
+  return observer
+}
 
-  const observer = new MutationObserver(mutationsList => {
-    for (let mutation of mutationsList) {
-      if (mutation.type === 'attributes' && mutation.attributeName === 'style') {
-        handler()
+export const observeChildInsert = (el, handler, context) => {
+  const observer = new MutationObserver(mutationList => {
+    let addedNodes = []
+    for (let mutation of mutationList) {
+      if (mutation.addedNodes && mutation.addedNodes.length) {
+        for (let node of mutation.addedNodes) {
+          if (addedNodes.indexOf(node) === -1) addedNodes.push(node)
+        }
       }
     }
+    if (addedNodes.length) handler.call(context, addedNodes)
   })
-  observer.observe(el, config)
+  observer.observe(el, { childList: true })
   return observer
 }
 
