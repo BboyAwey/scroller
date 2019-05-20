@@ -107,17 +107,26 @@
   var removeListener = function removeListener(el, event, handler) {
     el.removeEventListener(event, handler);
   };
-  var observeStyleChange = function observeStyleChange(el, handler, context) {
-    var observer = new MutationObserver(function () {
-      return handler.call(context);
+  var observeMutation = function observeMutation(el, handler, config, context) {
+    if (typeof MutationObserver === 'undefined') {
+      return {
+        disconnect: function disconnect() {}
+      };
+    }
+
+    var observer = new MutationObserver(function (mutationList) {
+      return handler.call(context, mutationList);
     });
-    observer.observe(el, {
-      attributeFilter: ['style']
-    });
+    observer.observe(el, config);
     return observer;
   };
+  var observeStyleChange = function observeStyleChange(el, handler, context) {
+    return observeMutation(el, handler, {
+      attributeFilter: ['style']
+    }, context);
+  };
   var observeChildInsert = function observeChildInsert(el, handler, context) {
-    var observer = new MutationObserver(function (mutationList) {
+    return observeMutation(el, function (mutationList) {
       var addedNodes = [];
       var _iteratorNormalCompletion = true;
       var _didIteratorError = false;
@@ -169,11 +178,9 @@
       }
 
       if (addedNodes.length) handler.call(context, addedNodes);
-    });
-    observer.observe(el, {
+    }, {
       childList: true
-    });
-    return observer;
+    }, context);
   };
   var isFirefox = function isFirefox(_) {
     return navigator.userAgent.indexOf('Firefox') !== -1;
@@ -199,11 +206,13 @@
       this.content = null;
       this.styleObserver = null;
       this.childInsertObserver = null;
+      this.contentOberver = null;
       this.drag = false;
       this.dragDirection = '';
       this.dragDiff = 0;
       this.barScroll = 0;
-      this.cbs = []; // handlers
+      this.cbs = [];
+      this.throttleTimer = null; // handlers
 
       this.scrollHandler = null;
       this.mouseenterHandler = null;
@@ -246,6 +255,12 @@
         this.childInsertObserver = observeChildInsert(this.el, this._handleChildInsert, this);
 
         this._initScrollerDom();
+
+        this.contentOberver = observeMutation(this.content, this._handleContentMutation, {
+          attributes: true,
+          childList: true,
+          subtree: true
+        }, this);
       }
     }, {
       key: "_initEl",
@@ -265,8 +280,6 @@
     }, {
       key: "_handleChildInsert",
       value: function _handleChildInsert(insertedNodes) {
-        console.log('inserted: ');
-        console.log(insertedNodes);
         var children = this.el.children;
 
         children.indexOf = function (el) {
@@ -301,13 +314,28 @@
             }
           }
         }
+      }
+    }, {
+      key: "_handleContentMutation",
+      value: function _handleContentMutation() {
+        var _this = this;
 
-        this._calcStatus();
+        if (this.throttleTimer) {
+          clearTimeout(this.throttleTimer);
+          this.throttleTimer = null;
+        }
+
+        this.throttleTimer = setTimeout(function (_) {
+          _this._calcStatus();
+
+          clearTimeout(_this.throttleTimer);
+          _this.throttleTimer = null;
+        }, 500);
       }
     }, {
       key: "_setMask",
       value: function _setMask() {
-        var _this = this;
+        var _this2 = this;
 
         // use a mask div to do the real scroll
         var _window$getComputedSt = window.getComputedStyle(this.el),
@@ -332,7 +360,7 @@
         if (!this._needY()) this.mask.style.overflowY = 'hidden';
 
         this.scrollHandler = function () {
-          return _this._content2bar();
+          return _this2._content2bar();
         };
 
         addListener(this.mask, 'scroll', this.scrollHandler);
@@ -348,7 +376,7 @@
     }, {
       key: "_initScrollerDom",
       value: function _initScrollerDom() {
-        var _this2 = this;
+        var _this3 = this;
 
         createDOM(['_x_scroller_container', '_x_scroller_track', '_x_scroller_bar'], this);
 
@@ -368,33 +396,33 @@
         this._calcStatus();
 
         this.mouseenterHandler = function () {
-          return _this2._calcStatus();
+          return _this3._calcStatus();
         };
 
         this.mouseleaveHandler = function () {
-          return _this2._calcStatus();
+          return _this3._calcStatus();
         };
 
         addListener(this.el, 'mouseenter', this.mouseenterHandler);
         addListener(this.el, 'mouseleave', this.mouseleaveHandler);
 
         this.xMousedownHandler = function (e) {
-          return _this2._mousedownHandler(e, 'horizontal');
+          return _this3._mousedownHandler(e, 'horizontal');
         };
 
         this.yMousedownHandler = function (e) {
-          return _this2._mousedownHandler(e, 'vertical');
+          return _this3._mousedownHandler(e, 'vertical');
         };
 
         addListener(this.xScrollerBar, 'mousedown', this.xMousedownHandler);
         addListener(this.yScrollerBar, 'mousedown', this.yMousedownHandler);
 
         this.xClickHandler = function (e) {
-          return _this2._clickHandler(e, 'horizontal');
+          return _this3._clickHandler(e, 'horizontal');
         };
 
         this.yClickHandler = function (e) {
-          return _this2._clickHandler(e, 'vertical');
+          return _this3._clickHandler(e, 'vertical');
         };
 
         addListener(this.xScrollerTrack, 'click', this.xClickHandler);
@@ -488,7 +516,7 @@
     }, {
       key: "_mousedownHandler",
       value: function _mousedownHandler(e, direction) {
-        var _this3 = this;
+        var _this4 = this;
 
         e.preventDefault();
         e.stopPropagation();
@@ -504,11 +532,11 @@
         addClass(this.el, '_dragging');
 
         this.mousemoveHandler = function (e) {
-          return _this3._mousemoveHandler(e);
+          return _this4._mousemoveHandler(e);
         };
 
         this.mouseupHandler = function (e) {
-          return _this3._mouseupHandler(e);
+          return _this4._mouseupHandler(e);
         };
 
         addListener(window, 'mousemove', this.mousemoveHandler);
@@ -645,7 +673,7 @@
     }, {
       key: "offScroll",
       value: function offScroll(cb) {
-        var _this4 = this;
+        var _this5 = this;
 
         var index = this.cbs.indexOf(cb);
 
@@ -654,7 +682,7 @@
           this.cbs.splice(index, 1);
         } else {
           this.cbs.forEach(function (c) {
-            return removeListener(_this4.mask, 'scroll', c);
+            return removeListener(_this5.mask, 'scroll', c);
           });
         }
 
@@ -663,7 +691,7 @@
     }, {
       key: "destroy",
       value: function destroy() {
-        var _this5 = this;
+        var _this6 = this;
 
         // recover dom constructure
         transferDOM(this.content, this.el);
@@ -679,7 +707,7 @@
         // removeListener(window, 'mouseup', this.mouseupHandler)
 
         this.cbs.forEach(function (c) {
-          return removeListener(_this5.mask, 'scroll', c);
+          return removeListener(_this6.mask, 'scroll', c);
         }); // remove all handlers
 
         this.scrollHandler = null;
@@ -708,6 +736,9 @@
         this.styleObserver = null;
         this.childInsertObserver.disconnect();
         this.childInsertObserver = null;
+        this.contentOberver.disconnect();
+        this.contentOberver = null;
+        this.throttleTimer = null;
         this.trackClassName = null;
         this.xScrollerBar = null;
         this.xScrollerContainer = null;
