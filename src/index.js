@@ -125,7 +125,7 @@ export default class Scroller {
       this._calcStatus()
       clearTimeout(this.throttleTimer)
       this.throttleTimer = null
-    }, 500)
+    }, 300)
   }
 
   _setMask () {

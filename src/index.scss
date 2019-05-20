@@ -54,6 +54,7 @@
   }
   ._content {
     display: inline-block;
+    min-width: 100%;
   }
   ._x_scroller_container {
     @extend ._scroller_container;
