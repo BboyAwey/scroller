@@ -74,18 +74,19 @@ export default class Scroller {
     this.content.innerHTML = this.el.innerHTML
     transferDOM(this.el, this.content)
     this.el.appendChild(this.container)
-    this._setMask()
+
     const recalc = () => {
       this._setMask()
       this._calcStatus()
-      console.log('resize')
     }
+
     this.elStyleChangeObserver = observeStyleChange(this.el, recalc, this)
     this.elResizeObserver = observeResize(this.el, recalc, this)
+    this.contentSizeObserver = observeResize(this.content, recalc, this)
     this.childInsertObserver = observeChildInsert(this.el, this._handleChildInsert, this)
-    this.contentSizeObserver = observeResize(this.content, this._calcStatus, this)
 
     this._initScrollerDom()
+    recalc()
   }
 
   _initEl () {
@@ -136,9 +137,11 @@ export default class Scroller {
 
     this.mask.style.width = parseFloat(width) - horizontalDiff + 'px'
     this.mask.style.height = parseFloat(height) - verticalDiff + 'px'
+    this.contentWrapper.style.width = this.mask.style.width
+    this.contentWrapper.style.height = this.mask.style.height
 
-    if (!this._needX()) this.mask.style.overflowX = 'hidden'
-    if (!this._needY()) this.mask.style.overflowY = 'hidden'
+    // if (!this._needX()) this.mask.style.overflowX = 'hidden'
+    // if (!this._needY()) this.mask.style.overflowY = 'hidden'
 
     this.scrollHandler = () => this._content2bar()
 
