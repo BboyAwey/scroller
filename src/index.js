@@ -33,6 +33,7 @@ export default class Scroller {
 
     // other properties
     this.container = null
+    this.placeholder = null
     this.content = null
     this.elStyleChangeObserver = null
     this.elResizeObserver = null
@@ -78,6 +79,7 @@ export default class Scroller {
     const recalc = () => {
       this._setMask()
       this._calcStatus()
+      this._syncPlaceholderSize()
     }
 
     this.elStyleChangeObserver = observeStyleChange(this.el, recalc, this)
@@ -92,15 +94,17 @@ export default class Scroller {
   _initEl () {
     if (!this.el) {
       throw new Error('Scroller: you should at least specify an DOM element in options')
-    } else {
-      addClass(this.el, '_scroller')
     }
 
+    addClass(this.el, '_scroller')
     let positionStyle = window.getComputedStyle(this.el).position
 
     if (!positionStyle || positionStyle === 'static') {
       this.el.style.position = 'relative'
     }
+
+    this.placeholder = document.createElement('div')
+    this.el.appendChild(this.placeholder)
   }
 
   _handleChildInsert (insertedNodes) {
@@ -115,6 +119,12 @@ export default class Scroller {
         this.content.insertBefore(el, this.content.children[0])
       }
     }
+  }
+
+  _syncPlaceholderSize () {
+    const contentRect = this.content.getBoundingClientRect()
+    this.placeholder.style.width = contentRect.width + 'px'
+    this.placeholder.style.height = contentRect.height + 'px'
   }
 
   _setMask () {
@@ -138,7 +148,7 @@ export default class Scroller {
     this.mask.style.width = parseFloat(width) - horizontalDiff + 'px'
     this.mask.style.height = parseFloat(height) - verticalDiff + 'px'
     this.contentWrapper.style.width = this.mask.style.width
-    this.contentWrapper.style.height = this.mask.style.height
+    // this.contentWrapper.style.height = this.mask.style.height
 
     // if (!this._needX()) this.mask.style.overflowX = 'hidden'
     // if (!this._needY()) this.mask.style.overflowY = 'hidden'
@@ -450,6 +460,7 @@ export default class Scroller {
     this.barScroll = null
     this.cbs = null
     this.container = null
+    this.placeholder = null
     this.contentWrapper = null
     this.content = null
     this.direction = null
