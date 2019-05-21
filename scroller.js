@@ -42,7 +42,7 @@
     return Constructor;
   }
 
-  ___$insertStyle("._scroller_transition, ._scroller ._x_scroller_track,\n._scroller ._y_scroller_track,\n._scroller ._scroller_bg, ._scroller ._y_scroller_container, ._scroller ._x_scroller_container, ._scroller_bar, ._scroller ._y_scroller_bar, ._scroller ._x_scroller_bar {\n  transition-duration: 0.2s;\n  transition-timing-function: ease;\n  transition-property: opacity, height, width, border-radius, background-color;\n}\n\n._scroller_container, ._scroller ._y_scroller_container, ._scroller ._x_scroller_container {\n  display: none;\n  position: absolute;\n  box-sizing: border-box;\n  opacity: 0.6;\n}\n\n._scroller_bar, ._scroller ._y_scroller_bar, ._scroller ._x_scroller_bar {\n  position: relative;\n  border-radius: 2px;\n}\n._scroller_bar > ._scroller_bg, ._scroller ._y_scroller_bar > ._scroller_bg, ._scroller ._x_scroller_bar > ._scroller_bg {\n  opacity: 0.6;\n}\n._scroller_bar > ._scroller_bg, ._scroller ._y_scroller_bar > ._scroller_bg, ._scroller ._x_scroller_bar > ._scroller_bg {\n  opacity: 0.6;\n}\n\n._dragging * {\n  -webkit-user-select: none;\n     -moz-user-select: none;\n      -ms-user-select: none;\n          user-select: none;\n}\n._dragging ._mask {\n  scroll-behavior: auto !important;\n}\n\n._scroller ._container {\n  position: absolute;\n  top: 0;\n  left: 0;\n  width: 100%;\n  height: 100%;\n  overflow: hidden;\n  box-sizing: border-box !important;\n  z-index: 0;\n}\n._scroller ._mask {\n  width: 100%;\n  height: 100%;\n  overflow: scroll;\n  box-sizing: content-box !important;\n  scroll-behavior: smooth;\n}\n._scroller ._content {\n  display: inline-block;\n  min-width: 100%;\n}\n._scroller ._x_scroller_container {\n  left: 0;\n  bottom: 4px;\n  width: 100%;\n  height: 4px;\n  padding: 0 10px;\n}\n._scroller ._y_scroller_container {\n  top: 0;\n  right: 4px;\n  width: 4px;\n  height: 100%;\n  padding: 10px 0;\n}\n._scroller ._x_scroller_track,\n._scroller ._y_scroller_track,\n._scroller ._scroller_bg {\n  position: relative;\n  width: 100%;\n  height: 100%;\n  border-radius: 3px;\n  overflow: hidden;\n}\n._scroller ._scroller_bg {\n  position: absolute;\n  top: 0;\n  left: 0;\n}\n._scroller ._x_scroller_track > ._scroller_bg,\n._scroller ._y_scroller_track > ._scroller_bg {\n  opacity: 0.2;\n}\n._scroller ._x_scroller_bar {\n  height: 100%;\n  width: 100px;\n}\n._scroller ._y_scroller_bar {\n  width: 100%;\n  height: 100px;\n}\n._scroller ._x_scroller_bar:hover > ._scroller_bg,\n._scroller ._y_scroller_bar:hover > ._scroller_bg {\n  opacity: 0.9;\n}\n._scroller ._y_scroller_bar._minimal > ._scroller_bg {\n  height: 20px;\n  top: 50%;\n  margin-top: -10px;\n}\n._scroller ._x_scroller_bar._minimal > ._scroller_bg {\n  width: 20px;\n  left: 50%;\n  margin-left: -10px;\n}\n\n._scroller:hover > ._container > ._x_scroller_container,\n._scroller._dragging > ._container > ._x_scroller_container {\n  height: 8px;\n}\n._scroller:hover > ._container > ._y_scroller_container,\n._scroller._dragging > ._container > ._y_scroller_container {\n  width: 8px;\n}\n._scroller:hover ._x_scroller_track,\n._scroller:hover ._y_scroller_track,\n._scroller._dragging ._x_scroller_track,\n._scroller._dragging ._y_scroller_track {\n  border-radius: 4px;\n}\n._scroller:hover ._x_scroller_bar,\n._scroller:hover ._y_scroller_bar,\n._scroller._dragging ._x_scroller_bar,\n._scroller._dragging ._y_scroller_bar {\n  border-radius: 4px;\n}\n\n._scroller ._scroller_track_default {\n  background-color: black;\n}\n._scroller ._scroller_bar_default {\n  background-color: black;\n}\n._scroller ._scroller_bar_default:hover {\n  background-color: black;\n}");
+  ___$insertStyle("._scroller_transition, ._scroller ._x_scroller_track,\n._scroller ._y_scroller_track,\n._scroller ._scroller_bg, ._scroller ._y_scroller_container, ._scroller ._x_scroller_container, ._scroller_bar, ._scroller ._y_scroller_bar, ._scroller ._x_scroller_bar {\n  transition-duration: 0.2s;\n  transition-timing-function: ease;\n  transition-property: opacity, height, width, border-radius, background-color;\n}\n\n._scroller_container, ._scroller ._y_scroller_container, ._scroller ._x_scroller_container {\n  display: none;\n  position: absolute;\n  box-sizing: border-box;\n  opacity: 0.6;\n}\n\n._scroller_bar, ._scroller ._y_scroller_bar, ._scroller ._x_scroller_bar {\n  position: relative;\n  border-radius: 2px;\n}\n._scroller_bar > ._scroller_bg, ._scroller ._y_scroller_bar > ._scroller_bg, ._scroller ._x_scroller_bar > ._scroller_bg {\n  opacity: 0.6;\n}\n._scroller_bar > ._scroller_bg, ._scroller ._y_scroller_bar > ._scroller_bg, ._scroller ._x_scroller_bar > ._scroller_bg {\n  opacity: 0.6;\n}\n\n._dragging * {\n  -webkit-user-select: none;\n     -moz-user-select: none;\n      -ms-user-select: none;\n          user-select: none;\n}\n._dragging ._mask {\n  scroll-behavior: auto !important;\n}\n\n._scroller ._container {\n  position: absolute;\n  top: 0;\n  left: 0;\n  width: 100%;\n  height: 100%;\n  overflow: hidden;\n  box-sizing: border-box !important;\n  z-index: 0;\n}\n._scroller ._mask {\n  width: 100%;\n  height: 100%;\n  overflow: auto;\n  box-sizing: content-box !important;\n  scroll-behavior: smooth;\n}\n._scroller ._content {\n  display: inline-block;\n  min-width: 100%;\n}\n._scroller ._x_scroller_container {\n  left: 0;\n  bottom: 4px;\n  width: 100%;\n  height: 4px;\n  padding: 0 10px;\n}\n._scroller ._y_scroller_container {\n  top: 0;\n  right: 4px;\n  width: 4px;\n  height: 100%;\n  padding: 10px 0;\n}\n._scroller ._x_scroller_track,\n._scroller ._y_scroller_track,\n._scroller ._scroller_bg {\n  position: relative;\n  width: 100%;\n  height: 100%;\n  border-radius: 3px;\n  overflow: hidden;\n}\n._scroller ._scroller_bg {\n  position: absolute;\n  top: 0;\n  left: 0;\n}\n._scroller ._x_scroller_track > ._scroller_bg,\n._scroller ._y_scroller_track > ._scroller_bg {\n  opacity: 0.2;\n}\n._scroller ._x_scroller_bar {\n  height: 100%;\n  width: 100px;\n}\n._scroller ._y_scroller_bar {\n  width: 100%;\n  height: 100px;\n}\n._scroller ._x_scroller_bar:hover > ._scroller_bg,\n._scroller ._y_scroller_bar:hover > ._scroller_bg {\n  opacity: 0.9;\n}\n._scroller ._y_scroller_bar._minimal > ._scroller_bg {\n  height: 20px;\n  top: 50%;\n  margin-top: -10px;\n}\n._scroller ._x_scroller_bar._minimal > ._scroller_bg {\n  width: 20px;\n  left: 50%;\n  margin-left: -10px;\n}\n\n._scroller:hover > ._container > ._x_scroller_container,\n._scroller._dragging > ._container > ._x_scroller_container {\n  height: 8px;\n}\n._scroller:hover > ._container > ._y_scroller_container,\n._scroller._dragging > ._container > ._y_scroller_container {\n  width: 8px;\n}\n._scroller:hover ._x_scroller_track,\n._scroller:hover ._y_scroller_track,\n._scroller._dragging ._x_scroller_track,\n._scroller._dragging ._y_scroller_track {\n  border-radius: 4px;\n}\n._scroller:hover ._x_scroller_bar,\n._scroller:hover ._y_scroller_bar,\n._scroller._dragging ._x_scroller_bar,\n._scroller._dragging ._y_scroller_bar {\n  border-radius: 4px;\n}\n\n._scroller ._scroller_track_default {\n  background-color: black;\n}\n._scroller ._scroller_bar_default {\n  background-color: black;\n}\n._scroller ._scroller_bar_default:hover {\n  background-color: black;\n}");
 
   /**
    * A collection of shims that provide minimal functionality of the ES6 collections.
@@ -1202,22 +1202,20 @@
         transferDOM(this.el, this.content);
         this.el.appendChild(this.container);
 
-        this._setMask();
-
         var recalc = function recalc() {
           _this._setMask();
 
           _this._calcStatus();
-
-          console.log('resize');
         };
 
         this.elStyleChangeObserver = observeStyleChange(this.el, recalc, this);
         this.elResizeObserver = observeResize(this.el, recalc, this);
+        this.contentSizeObserver = observeResize(this.content, recalc, this);
         this.childInsertObserver = observeChildInsert(this.el, this._handleChildInsert, this);
-        this.contentSizeObserver = observeResize(this.content, this._calcStatus, this);
 
         this._initScrollerDom();
+
+        recalc();
       }
     }, {
       key: "_initEl",
@@ -1296,8 +1294,9 @@
         var horizontalDiff = parseFloat(paddingLeft) + parseFloat(paddingRight);
         this.mask.style.width = parseFloat(width) - horizontalDiff + 'px';
         this.mask.style.height = parseFloat(height) - verticalDiff + 'px';
-        if (!this._needX()) this.mask.style.overflowX = 'hidden';
-        if (!this._needY()) this.mask.style.overflowY = 'hidden';
+        this.contentWrapper.style.width = this.mask.style.width;
+        this.contentWrapper.style.height = this.mask.style.height; // if (!this._needX()) this.mask.style.overflowX = 'hidden'
+        // if (!this._needY()) this.mask.style.overflowY = 'hidden'
 
         this.scrollHandler = function () {
           return _this2._content2bar();
