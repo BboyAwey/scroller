@@ -44,7 +44,7 @@ export const removeClass = (el, cn) => {
   if (el.className.indexOf(cn) !== -1) {
     el.className = el.className.split(/\s+/).filter(c => {
       return c && c.trim() !== cn.trim()
-    })
+    }).join(' ')
   }
 }
 
