@@ -72,8 +72,10 @@ export default class Scroller {
     this._initEl()
     // init dom constructure
     createDOM(['_container', '_mask', '_content_wrapper', '_content'], this)
-    this.content.innerHTML = this.el.innerHTML
     transferDOM(this.el, this.content)
+    this.placeholder = document.createElement('div')
+    this.placeholder.className = '_placeholder'
+    this.el.appendChild(this.placeholder)
     this.el.appendChild(this.container)
 
     const recalc = () => {
@@ -102,9 +104,6 @@ export default class Scroller {
     if (!positionStyle || positionStyle === 'static') {
       this.el.style.position = 'relative'
     }
-
-    this.placeholder = document.createElement('div')
-    this.el.appendChild(this.placeholder)
   }
 
   _handleChildInsert (insertedNodes) {
