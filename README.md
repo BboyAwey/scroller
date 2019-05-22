@@ -50,6 +50,7 @@ const myScroller = new Scroller({
 ## Methods
 
 * `Scroller(options)`: Constructor, it returns an instance of scroller
+* `scroller.setDirection(direction)`: Set scroll direction, it returns an instance of scroller
 * `scroller.getScroll()`: Return current `scrollTop` and `scrollLeft` value
 * `scroller.onScroll(callback)`: Bind a scroll event listener to instance, the callback recieves an `Event` object which is the native scroll event object. It returns current scroll instance
 * `scroller.offScroll(callback)`: Unbind a scroll event listener to instance, the callback recieves an `Event` object which is the native scroll event object. Omitting callback will unbind all the scroll event listener. It returns current scroll instance

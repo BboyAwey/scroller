@@ -45,6 +45,11 @@
   <button onclick="insertSth()">insert some DOM</button><br/><br/>
   <button onclick="destroy()">Destroy</button><br/><br/>
 
+  <button onclick="setDirection('vertical')">Vertical</button>
+  <button onclick="setDirection('horizontal')">Horizontal</button>
+  <button onclick="setDirection('both')">Both</button>
+  <button onclick="setDirection('none')">None</button><br/><br/>
+
   <label>
     scrollTop: <input oninput="topChange(event)" type="number"/>
   </label><br><br>
@@ -52,24 +57,15 @@
     scrollLeft: <input oninput="leftChange(event)" type="number"/>
   </label>
   <div id="container">
-    <div style="width: 600px">
-      <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Impedit molestias amet laborum incidunt minima. Fuga, necessitatibus dicta ex praesentium dolore odit delectus dolorum nesciunt? Libero fugiat officia voluptates eos saepe?</p>
+    <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Impedit molestias amet laborum incidunt minima. Fuga, necessitatibus dicta ex praesentium dolore odit delectus dolorum nesciunt? Libero fugiat officia voluptates eos saepe?</p>
       <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Nostrum, quisquam eaque? Magnam iure quaerat dolores a, dicta quas at soluta inventore esse dolorum cupiditate. Ex voluptas ducimus est dolorem error.</p>
       <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Maiores placeat sequi, nam hic tempora commodi illum dolore sint. Optio facere fuga saepe amet cupiditate porro excepturi ab perferendis, molestiae dolores!</p>
       <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Ipsa aliquam similique corrupti quidem, assumenda pariatur repudiandae dolorem dolore excepturi, ut ab ducimus dicta quaerat harum voluptatum! Suscipit eum nesciunt accusantium.</p>
       <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Totam officiis quas doloremque distinctio reprehenderit voluptatum quia, repudiandae eveniet, vel maiores aut sint minus, nesciunt numquam recusandae. Et error placeat commodi.</p>
       <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptas ut voluptate nobis laborum nisi? Deserunt iusto sequi, hic repellendus, mollitia dolor illo officiis maiores, quam aliquam dolorem illum quibusdam quae.</p>
-      <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Impedit molestias amet laborum incidunt minima. Fuga, necessitatibus dicta ex praesentium dolore odit delectus dolorum nesciunt? Libero fugiat officia voluptates eos saepe?</p>
-      <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Nostrum, quisquam eaque? Magnam iure quaerat dolores a, dicta quas at soluta inventore esse dolorum cupiditate. Ex voluptas ducimus est dolorem error.</p>
-      <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Maiores placeat sequi, nam hic tempora commodi illum dolore sint. Optio facere fuga saepe amet cupiditate porro excepturi ab perferendis, molestiae dolores!</p>
-      <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Ipsa aliquam similique corrupti quidem, assumenda pariatur repudiandae dolorem dolore excepturi, ut ab ducimus dicta quaerat harum voluptatum! Suscipit eum nesciunt accusantium.</p>
-      <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Totam officiis quas doloremque distinctio reprehenderit voluptatum quia, repudiandae eveniet, vel maiores aut sint minus, nesciunt numquam recusandae. Et error placeat commodi.</p>
-      <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptas ut voluptate nobis laborum nisi? Deserunt iusto sequi, hic repellendus, mollitia dolor illo officiis maiores, quam aliquam dolorem illum quibusdam quae.</p>
-      <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Impedit molestias amet laborum incidunt minima. Fuga, necessitatibus dicta ex praesentium dolore odit delectus dolorum nesciunt? Libero fugiat officia voluptates eos saepe?</p>
-      <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Nostrum, quisquam eaque? Magnam iure quaerat dolores a, dicta quas at soluta inventore esse dolorum cupiditate. Ex voluptas ducimus est dolorem error.</p>
-      <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Maiores placeat sequi, nam hic tempora commodi illum dolore sint. Optio facere fuga saepe amet cupiditate porro excepturi ab perferendis, molestiae dolores!</p>
-      <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Ipsa aliquam similique corrupti quidem, assumenda pariatur repudiandae dolorem dolore excepturi, ut ab ducimus dicta quaerat harum voluptatum! Suscipit eum nesciunt accusantium.</p>
-      <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Totam officiis quas doloremque distinctio reprehenderit voluptatum quia, repudiandae eveniet, vel maiores aut sint minus, nesciunt numquam recusandae. Et error placeat commodi.</p>
+
+
+
       <div id="container2">
         <div style="width: 600px">
           <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Impedit molestias amet laborum incidunt minima. Fuga, necessitatibus dicta ex praesentium dolore odit delectus dolorum nesciunt? Libero fugiat officia voluptates eos saepe?</p>
@@ -98,6 +94,13 @@
           <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptas ut voluptate nobis laborum nisi? Deserunt iusto sequi, hic repellendus, mollitia dolor illo officiis maiores, quam aliquam dolorem illum quibusdam quae.</p>
         </div>
       </div>
+
+
+      <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Impedit molestias amet laborum incidunt minima. Fuga, necessitatibus dicta ex praesentium dolore odit delectus dolorum nesciunt? Libero fugiat officia voluptates eos saepe?</p>
+      <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Nostrum, quisquam eaque? Magnam iure quaerat dolores a, dicta quas at soluta inventore esse dolorum cupiditate. Ex voluptas ducimus est dolorem error.</p>
+      <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Maiores placeat sequi, nam hic tempora commodi illum dolore sint. Optio facere fuga saepe amet cupiditate porro excepturi ab perferendis, molestiae dolores!</p>
+      <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Ipsa aliquam similique corrupti quidem, assumenda pariatur repudiandae dolorem dolore excepturi, ut ab ducimus dicta quaerat harum voluptatum! Suscipit eum nesciunt accusantium.</p>
+      <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Totam officiis quas doloremque distinctio reprehenderit voluptatum quia, repudiandae eveniet, vel maiores aut sint minus, nesciunt numquam recusandae. Et error placeat commodi.</p>
       <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptas ut voluptate nobis laborum nisi? Deserunt iusto sequi, hic repellendus, mollitia dolor illo officiis maiores, quam aliquam dolorem illum quibusdam quae.</p>
       <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Impedit molestias amet laborum incidunt minima. Fuga, necessitatibus dicta ex praesentium dolore odit delectus dolorum nesciunt? Libero fugiat officia voluptates eos saepe?</p>
       <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Nostrum, quisquam eaque? Magnam iure quaerat dolores a, dicta quas at soluta inventore esse dolorum cupiditate. Ex voluptas ducimus est dolorem error.</p>
@@ -105,8 +108,14 @@
       <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Ipsa aliquam similique corrupti quidem, assumenda pariatur repudiandae dolorem dolore excepturi, ut ab ducimus dicta quaerat harum voluptatum! Suscipit eum nesciunt accusantium.</p>
       <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Totam officiis quas doloremque distinctio reprehenderit voluptatum quia, repudiandae eveniet, vel maiores aut sint minus, nesciunt numquam recusandae. Et error placeat commodi.</p>
       <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptas ut voluptate nobis laborum nisi? Deserunt iusto sequi, hic repellendus, mollitia dolor illo officiis maiores, quam aliquam dolorem illum quibusdam quae.</p>
-    </div>
-  </div>  
+      <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Impedit molestias amet laborum incidunt minima. Fuga, necessitatibus dicta ex praesentium dolore odit delectus dolorum nesciunt? Libero fugiat officia voluptates eos saepe?</p>
+      <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Nostrum, quisquam eaque? Magnam iure quaerat dolores a, dicta quas at soluta inventore esse dolorum cupiditate. Ex voluptas ducimus est dolorem error.</p>
+      <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Maiores placeat sequi, nam hic tempora commodi illum dolore sint. Optio facere fuga saepe amet cupiditate porro excepturi ab perferendis, molestiae dolores!</p>
+      <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Ipsa aliquam similique corrupti quidem, assumenda pariatur repudiandae dolorem dolore excepturi, ut ab ducimus dicta quaerat harum voluptatum! Suscipit eum nesciunt accusantium.</p>
+      <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Totam officiis quas doloremque distinctio reprehenderit voluptatum quia, repudiandae eveniet, vel maiores aut sint minus, nesciunt numquam recusandae. Et error placeat commodi.</p>
+      <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptas ut voluptate nobis laborum nisi? Deserunt iusto sequi, hic repellendus, mollitia dolor illo officiis maiores, quam aliquam dolorem illum quibusdam quae.</p>
+  </div>
+  
 </body>
 <script src="/scroller.js"></script>
 <script>
@@ -147,6 +156,8 @@
     div.style.backgroundColor = '#f63'
     document.getElementById('container').appendChild(div)
   }
+
+  function setDirection (d) { s1.setDirection(d) }
 
 
   window.addEventListener('load', function () {

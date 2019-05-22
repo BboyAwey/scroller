@@ -25,9 +25,9 @@ export default class Scroller {
   constructor (options = {}) {
     // deal with options
     this.el = options.el
-    this.direction = directions.indexOf(options.direction) !== -1
-      ? options.direction
-      : 'both'
+    // this.direction = directions.indexOf(options.direction) !== -1
+    //   ? options.direction
+    //   : 'both'
     this.trackClassName = options.trackClassName || '_scroller_track_default'
     this.barClassName = options.barClassName || '_scroller_bar_default'
 
@@ -57,6 +57,7 @@ export default class Scroller {
     this.mouseupHandler = null
 
     this._init()
+    this.setDirection(options.direction, true)
   }
 
   _needX () {
@@ -65,6 +66,13 @@ export default class Scroller {
 
   _needY () {
     return this.direction === 'vertical' || this.direction === 'both'
+  }
+
+  _noX () {
+    return this.direction === 'vertical' || this.direction === 'none'
+  }
+  _noY () {
+    return this.direction === 'horizontal' || this.direction === 'none'
   }
 
   _init () {
@@ -78,19 +86,13 @@ export default class Scroller {
     this.el.appendChild(this.placeholder)
     this.el.appendChild(this.container)
 
-    const recalc = () => {
-      this._setMask()
-      this._calcStatus()
-      this._syncPlaceholderSize()
-    }
-
-    this.elStyleChangeObserver = observeStyleChange(this.el, recalc, this)
-    this.elResizeObserver = observeResize(this.el, recalc, this)
-    this.contentSizeObserver = observeResize(this.content, recalc, this)
+    this.elStyleChangeObserver = observeStyleChange(this.el, this._recalc, this)
+    this.elResizeObserver = observeResize(this.el, this._recalc, this)
+    this.contentSizeObserver = observeResize(this.content, this._recalc, this)
     this.childInsertObserver = observeChildInsert(this.el, this._handleChildInsert, this)
 
     this._initScrollerDom()
-    recalc()
+    this._recalc()
   }
 
   _initEl () {
@@ -118,6 +120,12 @@ export default class Scroller {
         this.content.insertBefore(el, this.content.children[0])
       }
     }
+  }
+
+  _recalc () {
+    this._setMask()
+    this._calcStatus()
+    this._syncPlaceholderSize()
   }
 
   _syncPlaceholderSize () {
@@ -149,8 +157,10 @@ export default class Scroller {
     this.contentWrapper.style.width = this.mask.style.width
     // this.contentWrapper.style.height = this.mask.style.height
 
-    // if (!this._needX()) this.mask.style.overflowX = 'hidden'
-    // if (!this._needY()) this.mask.style.overflowY = 'hidden'
+    if (!this._needX()) this.mask.style.overflowX = 'hidden'
+    else this.mask.style.overflowX = 'auto'
+    if (!this._needY()) this.mask.style.overflowY = 'hidden'
+    else this.mask.style.overflowY = 'auto'
 
     this.scrollHandler = () => this._content2bar()
 
@@ -423,6 +433,28 @@ export default class Scroller {
     } else {
       this.cbs.forEach(c => removeListener(this.mask, 'scroll', c))
     }
+    return this
+  }
+
+  setDirection (direction, lazy) {
+    this.direction = directions.indexOf(direction) !== -1
+      ? direction
+      : 'both'
+    if (this._noX()) {
+      addClass(this.content, '_no_x')
+    } else {
+      removeClass(this.content, '_no_x')
+    }
+    if (this._noY()) {
+      addClass(this.content, '_no_y')
+    } else {
+      removeClass(this.content, '_no_y')
+    }
+
+    if (!lazy) {
+      this._recalc()
+    }
+
     return this
   }
 
