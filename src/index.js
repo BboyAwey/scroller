@@ -86,13 +86,13 @@ export default class Scroller {
     this.el.appendChild(this.placeholder)
     this.el.appendChild(this.container)
 
-    this.elStyleChangeObserver = observeStyleChange(this.el, this._recalc, this)
-    this.elResizeObserver = observeResize(this.el, this._recalc, this)
-    this.contentSizeObserver = observeResize(this.content, this._recalc, this)
+    this.elStyleChangeObserver = observeStyleChange(this.el, this.recalculate, this)
+    this.elResizeObserver = observeResize(this.el, this.recalculate, this)
+    this.contentSizeObserver = observeResize(this.content, this.recalculate, this)
     this.childInsertObserver = observeChildInsert(this.el, this._handleChildInsert, this)
 
     this._initScrollerDom()
-    this._recalc()
+    this.recalculate()
   }
 
   _initEl () {
@@ -120,12 +120,6 @@ export default class Scroller {
         this.content.insertBefore(el, this.content.children[0])
       }
     }
-  }
-
-  _recalc () {
-    this._setMask()
-    this._calcStatus()
-    this._syncPlaceholderSize()
   }
 
   _syncPlaceholderSize () {
@@ -452,10 +446,16 @@ export default class Scroller {
     }
 
     if (!lazy) {
-      this._recalc()
+      this.recalculate()
     }
 
     return this
+  }
+
+  recalculate () {
+    this._setMask()
+    this._calcStatus()
+    this._syncPlaceholderSize()
   }
 
   destroy () {
