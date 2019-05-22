@@ -1289,7 +1289,17 @@
     }, {
       key: "_syncPlaceholderSize",
       value: function _syncPlaceholderSize() {
-        var contentRect = this.content.getBoundingClientRect();
+        var duplicate = this.content.cloneNode(true);
+        duplicate.className = '___';
+        duplicate.style.display = 'inline-block';
+        duplicate.style.position = 'absolute';
+        duplicate.style.zIndex = '-99999';
+        duplicate.style.top = '9999999';
+        duplicate.style.left = '9999999';
+        document.body.appendChild(duplicate);
+        var contentRect = duplicate.getBoundingClientRect();
+        document.body.removeChild(duplicate);
+        duplicate = null;
         this.placeholder.style.width = contentRect.width + 'px';
         this.placeholder.style.height = contentRect.height + 'px';
       }
@@ -1305,9 +1315,9 @@
             paddingBottom = _window$getComputedSt.paddingBottom,
             paddingLeft = _window$getComputedSt.paddingLeft;
 
-        var _window$getComputedSt2 = window.getComputedStyle(this.container),
-            width = _window$getComputedSt2.width,
-            height = _window$getComputedSt2.height;
+        var _this$container$getBo = this.container.getBoundingClientRect(),
+            width = _this$container$getBo.width,
+            height = _this$container$getBo.height;
 
         this.mask.style.paddingTop = paddingTop;
         this.mask.style.paddingLeft = paddingLeft;
@@ -1315,8 +1325,8 @@
         this.mask.style.paddingBottom = parseFloat(paddingBottom) + 15 + 'px';
         var verticalDiff = parseFloat(paddingTop) + parseFloat(paddingBottom);
         var horizontalDiff = parseFloat(paddingLeft) + parseFloat(paddingRight);
-        this.mask.style.width = parseFloat(width) - horizontalDiff + 'px';
-        this.mask.style.height = parseFloat(height) - verticalDiff + 'px';
+        this.mask.style.width = width - horizontalDiff + 'px';
+        this.mask.style.height = height - verticalDiff + 'px';
         this.contentWrapper.style.width = this.mask.style.width; // this.contentWrapper.style.height = this.mask.style.height
 
         if (!this._needX()) this.mask.style.overflowX = 'hidden';else this.mask.style.overflowX = 'auto';
@@ -1394,10 +1404,10 @@
     }, {
       key: "_getViewSize",
       value: function _getViewSize() {
-        var _window$getComputedSt3 = window.getComputedStyle(this.el),
-            paddingTop = _window$getComputedSt3.paddingTop,
-            paddingBottom = _window$getComputedSt3.paddingBottom,
-            paddingLeft = _window$getComputedSt3.paddingLeft;
+        var _window$getComputedSt2 = window.getComputedStyle(this.el),
+            paddingTop = _window$getComputedSt2.paddingTop,
+            paddingBottom = _window$getComputedSt2.paddingBottom,
+            paddingLeft = _window$getComputedSt2.paddingLeft;
 
         var containerRect = this.container.getBoundingClientRect();
         var width = parseFloat(containerRect.width) - parseFloat(paddingLeft); // firefox will ignore padding bottom when do scrolling
