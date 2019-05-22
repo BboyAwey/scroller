@@ -25,16 +25,24 @@ Or you can just install it as a script tag.
 }
 ```
 
+```html
+<div id="container">
+  <div style="width: 1200px; height: 1200px;"></div>
+</div>
+```
+
 ```js
 import Scroller from 'scroller'
 
 const myScroller = new Scroller({
-  el: document.getElementById('your-element'),
+  el: document.getElementById('container'),
   direction: 'both',
   trackClassName: 'custom-track-style',
   barClassName: 'custom-bar-style'
 })
 ```
+
+> Note: The children of container element should at least be an element node (`nodeType` === 1). All the other types will be ignored.
 
 ## Options
 
