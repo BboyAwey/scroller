@@ -42,7 +42,7 @@
     return Constructor;
   }
 
-  ___$insertStyle("._scroller_transition, ._scroller ._x_scroller_track,\n._scroller ._y_scroller_track,\n._scroller ._scroller_bg, ._scroller ._y_scroller_container, ._scroller ._x_scroller_container, ._scroller_bar, ._scroller ._y_scroller_bar, ._scroller ._x_scroller_bar {\n  transition-duration: 0.2s;\n  transition-timing-function: ease;\n  transition-property: opacity, height, width, border-radius, background-color;\n}\n\n._scroller_container, ._scroller ._y_scroller_container, ._scroller ._x_scroller_container {\n  display: none;\n  position: absolute;\n  box-sizing: border-box;\n  opacity: 0.6;\n}\n\n._scroller_bar, ._scroller ._y_scroller_bar, ._scroller ._x_scroller_bar {\n  position: relative;\n  border-radius: 2px;\n}\n._scroller_bar > ._scroller_bg, ._scroller ._y_scroller_bar > ._scroller_bg, ._scroller ._x_scroller_bar > ._scroller_bg {\n  opacity: 0.6;\n}\n._scroller_bar > ._scroller_bg, ._scroller ._y_scroller_bar > ._scroller_bg, ._scroller ._x_scroller_bar > ._scroller_bg {\n  opacity: 0.6;\n}\n\n._dragging * {\n  -webkit-user-select: none;\n     -moz-user-select: none;\n      -ms-user-select: none;\n          user-select: none;\n}\n._dragging ._mask {\n  scroll-behavior: auto !important;\n}\n\n._scroller {\n  overflow: hidden;\n}\n._scroller ._container {\n  position: absolute;\n  top: 0;\n  left: 0;\n  width: 100%;\n  height: 100%;\n  overflow: hidden;\n  box-sizing: border-box !important;\n  z-index: 0;\n}\n._scroller ._mask {\n  width: 100%;\n  height: 100%;\n  overflow: auto;\n  box-sizing: content-box !important;\n  scroll-behavior: smooth;\n}\n._scroller ._content {\n  display: inline-block;\n  min-width: 100%;\n}\n._scroller ._x_scroller_container {\n  left: 0;\n  bottom: 4px;\n  width: 100%;\n  height: 4px;\n  padding: 0 10px;\n}\n._scroller ._y_scroller_container {\n  top: 0;\n  right: 4px;\n  width: 4px;\n  height: 100%;\n  padding: 10px 0;\n}\n._scroller ._x_scroller_track,\n._scroller ._y_scroller_track,\n._scroller ._scroller_bg {\n  position: relative;\n  width: 100%;\n  height: 100%;\n  border-radius: 3px;\n  overflow: hidden;\n}\n._scroller ._scroller_bg {\n  position: absolute;\n  top: 0;\n  left: 0;\n}\n._scroller ._x_scroller_track > ._scroller_bg,\n._scroller ._y_scroller_track > ._scroller_bg {\n  opacity: 0.2;\n}\n._scroller ._x_scroller_bar {\n  height: 100%;\n  width: 100px;\n}\n._scroller ._y_scroller_bar {\n  width: 100%;\n  height: 100px;\n}\n._scroller ._x_scroller_bar:hover > ._scroller_bg,\n._scroller ._y_scroller_bar:hover > ._scroller_bg {\n  opacity: 0.9;\n}\n._scroller ._y_scroller_bar._minimal > ._scroller_bg {\n  height: 20px;\n  top: 50%;\n  margin-top: -10px;\n}\n._scroller ._x_scroller_bar._minimal > ._scroller_bg {\n  width: 20px;\n  left: 50%;\n  margin-left: -10px;\n}\n\n._scroller:hover > ._container > ._x_scroller_container,\n._scroller._dragging > ._container > ._x_scroller_container {\n  height: 8px;\n}\n._scroller:hover > ._container > ._y_scroller_container,\n._scroller._dragging > ._container > ._y_scroller_container {\n  width: 8px;\n}\n._scroller:hover ._x_scroller_track,\n._scroller:hover ._y_scroller_track,\n._scroller._dragging ._x_scroller_track,\n._scroller._dragging ._y_scroller_track {\n  border-radius: 4px;\n}\n._scroller:hover ._x_scroller_bar,\n._scroller:hover ._y_scroller_bar,\n._scroller._dragging ._x_scroller_bar,\n._scroller._dragging ._y_scroller_bar {\n  border-radius: 4px;\n}\n\n._scroller ._scroller_track_default {\n  background-color: black;\n}\n._scroller ._scroller_bar_default {\n  background-color: black;\n}\n._scroller ._scroller_bar_default:hover {\n  background-color: black;\n}");
+  ___$insertStyle("._scroller_transition, ._scroller ._x_scroller_track,\n._scroller ._y_scroller_track,\n._scroller ._scroller_bg, ._scroller ._y_scroller_container, ._scroller ._x_scroller_container, ._scroller_bar, ._scroller ._y_scroller_bar, ._scroller ._x_scroller_bar {\n  transition-duration: 0.2s;\n  transition-timing-function: ease;\n  transition-property: opacity, height, width, border-radius, background-color;\n}\n\n._scroller_container, ._scroller ._y_scroller_container, ._scroller ._x_scroller_container {\n  display: none;\n  position: absolute;\n  box-sizing: border-box;\n  opacity: 0.6;\n}\n\n._scroller_bar, ._scroller ._y_scroller_bar, ._scroller ._x_scroller_bar {\n  position: relative;\n  border-radius: 2px;\n}\n._scroller_bar > ._scroller_bg, ._scroller ._y_scroller_bar > ._scroller_bg, ._scroller ._x_scroller_bar > ._scroller_bg {\n  opacity: 0.6;\n}\n._scroller_bar > ._scroller_bg, ._scroller ._y_scroller_bar > ._scroller_bg, ._scroller ._x_scroller_bar > ._scroller_bg {\n  opacity: 0.6;\n}\n\n._dragging * {\n  -webkit-user-select: none;\n     -moz-user-select: none;\n      -ms-user-select: none;\n          user-select: none;\n}\n._dragging ._mask {\n  scroll-behavior: auto !important;\n}\n\n._scroller {\n  overflow: hidden;\n}\n._scroller ._container {\n  position: absolute;\n  top: 0;\n  left: 0;\n  width: 100%;\n  height: 100%;\n  overflow: hidden;\n  box-sizing: border-box !important;\n  z-index: 0;\n}\n._scroller ._mask {\n  width: 100%;\n  height: 100%;\n  overflow: auto;\n  box-sizing: content-box !important;\n  scroll-behavior: smooth;\n}\n._scroller ._content {\n  display: inline-block;\n  min-width: 100%;\n}\n._scroller ._no_x {\n  width: 100%;\n}\n._scroller ._x_scroller_container {\n  left: 0;\n  bottom: 4px;\n  width: 100%;\n  height: 4px;\n  padding: 0 10px;\n}\n._scroller ._y_scroller_container {\n  top: 0;\n  right: 4px;\n  width: 4px;\n  height: 100%;\n  padding: 10px 0;\n}\n._scroller ._x_scroller_track,\n._scroller ._y_scroller_track,\n._scroller ._scroller_bg {\n  position: relative;\n  width: 100%;\n  height: 100%;\n  border-radius: 3px;\n  overflow: hidden;\n}\n._scroller ._scroller_bg {\n  position: absolute;\n  top: 0;\n  left: 0;\n}\n._scroller ._x_scroller_track > ._scroller_bg,\n._scroller ._y_scroller_track > ._scroller_bg {\n  opacity: 0.2;\n}\n._scroller ._x_scroller_bar {\n  height: 100%;\n  width: 100px;\n}\n._scroller ._y_scroller_bar {\n  width: 100%;\n  height: 100px;\n}\n._scroller ._x_scroller_bar:hover > ._scroller_bg,\n._scroller ._y_scroller_bar:hover > ._scroller_bg {\n  opacity: 0.9;\n}\n._scroller ._y_scroller_bar._minimal > ._scroller_bg {\n  height: 20px;\n  top: 50%;\n  margin-top: -10px;\n}\n._scroller ._x_scroller_bar._minimal > ._scroller_bg {\n  width: 20px;\n  left: 50%;\n  margin-left: -10px;\n}\n\n._scroller:hover > ._container > ._x_scroller_container,\n._scroller._dragging > ._container > ._x_scroller_container {\n  height: 8px;\n}\n._scroller:hover > ._container > ._y_scroller_container,\n._scroller._dragging > ._container > ._y_scroller_container {\n  width: 8px;\n}\n._scroller:hover ._x_scroller_track,\n._scroller:hover ._y_scroller_track,\n._scroller._dragging ._x_scroller_track,\n._scroller._dragging ._y_scroller_track {\n  border-radius: 4px;\n}\n._scroller:hover ._x_scroller_bar,\n._scroller:hover ._y_scroller_bar,\n._scroller._dragging ._x_scroller_bar,\n._scroller._dragging ._y_scroller_bar {\n  border-radius: 4px;\n}\n\n._scroller ._scroller_track_default {\n  background-color: black;\n}\n._scroller ._scroller_bar_default {\n  background-color: black;\n}\n._scroller ._scroller_bar_default:hover {\n  background-color: black;\n}");
 
   /**
    * A collection of shims that provide minimal functionality of the ES6 collections.
@@ -1148,8 +1148,10 @@
       _classCallCheck(this, Scroller);
 
       // deal with options
-      this.el = options.el;
-      this.direction = directions.indexOf(options.direction) !== -1 ? options.direction : 'both';
+      this.el = options.el; // this.direction = directions.indexOf(options.direction) !== -1
+      //   ? options.direction
+      //   : 'both'
+
       this.trackClassName = options.trackClassName || '_scroller_track_default';
       this.barClassName = options.barClassName || '_scroller_bar_default'; // other properties
 
@@ -1177,6 +1179,8 @@
       this.mouseupHandler = null;
 
       this._init();
+
+      this.setDirection(options.direction, true);
     }
 
     _createClass(Scroller, [{
@@ -1190,10 +1194,18 @@
         return this.direction === 'vertical' || this.direction === 'both';
       }
     }, {
+      key: "_noX",
+      value: function _noX() {
+        return this.direction === 'vertical' || this.direction === 'none';
+      }
+    }, {
+      key: "_noY",
+      value: function _noY() {
+        return this.direction === 'horizontal' || this.direction === 'none';
+      }
+    }, {
       key: "_init",
       value: function _init() {
-        var _this = this;
-
         // prepare target element
         this._initEl(); // init dom constructure
 
@@ -1204,23 +1216,14 @@
         this.placeholder.className = '_placeholder';
         this.el.appendChild(this.placeholder);
         this.el.appendChild(this.container);
-
-        var recalc = function recalc() {
-          _this._setMask();
-
-          _this._calcStatus();
-
-          _this._syncPlaceholderSize();
-        };
-
-        this.elStyleChangeObserver = observeStyleChange(this.el, recalc, this);
-        this.elResizeObserver = observeResize(this.el, recalc, this);
-        this.contentSizeObserver = observeResize(this.content, recalc, this);
+        this.elStyleChangeObserver = observeStyleChange(this.el, this._recalc, this);
+        this.elResizeObserver = observeResize(this.el, this._recalc, this);
+        this.contentSizeObserver = observeResize(this.content, this._recalc, this);
         this.childInsertObserver = observeChildInsert(this.el, this._handleChildInsert, this);
 
         this._initScrollerDom();
 
-        recalc();
+        this._recalc();
       }
     }, {
       key: "_initEl",
@@ -1275,6 +1278,15 @@
         }
       }
     }, {
+      key: "_recalc",
+      value: function _recalc() {
+        this._setMask();
+
+        this._calcStatus();
+
+        this._syncPlaceholderSize();
+      }
+    }, {
       key: "_syncPlaceholderSize",
       value: function _syncPlaceholderSize() {
         var contentRect = this.content.getBoundingClientRect();
@@ -1284,7 +1296,7 @@
     }, {
       key: "_setMask",
       value: function _setMask() {
-        var _this2 = this;
+        var _this = this;
 
         // use a mask div to do the real scroll
         var _window$getComputedSt = window.getComputedStyle(this.el),
@@ -1306,11 +1318,12 @@
         this.mask.style.width = parseFloat(width) - horizontalDiff + 'px';
         this.mask.style.height = parseFloat(height) - verticalDiff + 'px';
         this.contentWrapper.style.width = this.mask.style.width; // this.contentWrapper.style.height = this.mask.style.height
-        // if (!this._needX()) this.mask.style.overflowX = 'hidden'
-        // if (!this._needY()) this.mask.style.overflowY = 'hidden'
+
+        if (!this._needX()) this.mask.style.overflowX = 'hidden';else this.mask.style.overflowX = 'auto';
+        if (!this._needY()) this.mask.style.overflowY = 'hidden';else this.mask.style.overflowY = 'auto';
 
         this.scrollHandler = function () {
-          return _this2._content2bar();
+          return _this._content2bar();
         };
 
         addListener(this.mask, 'scroll', this.scrollHandler);
@@ -1326,7 +1339,7 @@
     }, {
       key: "_initScrollerDom",
       value: function _initScrollerDom() {
-        var _this3 = this;
+        var _this2 = this;
 
         createDOM(['_x_scroller_container', '_x_scroller_track', '_x_scroller_bar'], this);
 
@@ -1346,33 +1359,33 @@
         this._calcStatus();
 
         this.mouseenterHandler = function () {
-          return _this3._calcStatus();
+          return _this2._calcStatus();
         };
 
         this.mouseleaveHandler = function () {
-          return _this3._calcStatus();
+          return _this2._calcStatus();
         };
 
         addListener(this.el, 'mouseenter', this.mouseenterHandler);
         addListener(this.el, 'mouseleave', this.mouseleaveHandler);
 
         this.xMousedownHandler = function (e) {
-          return _this3._mousedownHandler(e, 'horizontal');
+          return _this2._mousedownHandler(e, 'horizontal');
         };
 
         this.yMousedownHandler = function (e) {
-          return _this3._mousedownHandler(e, 'vertical');
+          return _this2._mousedownHandler(e, 'vertical');
         };
 
         addListener(this.xScrollerBar, 'mousedown', this.xMousedownHandler);
         addListener(this.yScrollerBar, 'mousedown', this.yMousedownHandler);
 
         this.xClickHandler = function (e) {
-          return _this3._clickHandler(e, 'horizontal');
+          return _this2._clickHandler(e, 'horizontal');
         };
 
         this.yClickHandler = function (e) {
-          return _this3._clickHandler(e, 'vertical');
+          return _this2._clickHandler(e, 'vertical');
         };
 
         addListener(this.xScrollerTrack, 'click', this.xClickHandler);
@@ -1481,7 +1494,7 @@
     }, {
       key: "_mousedownHandler",
       value: function _mousedownHandler(e, direction) {
-        var _this4 = this;
+        var _this3 = this;
 
         e.preventDefault();
         e.stopPropagation();
@@ -1497,11 +1510,11 @@
         addClass(this.el, '_dragging');
 
         this.mousemoveHandler = function (e) {
-          return _this4._mousemoveHandler(e);
+          return _this3._mousemoveHandler(e);
         };
 
         this.mouseupHandler = function (e) {
-          return _this4._mouseupHandler(e);
+          return _this3._mouseupHandler(e);
         };
 
         addListener(window, 'mousemove', this.mousemoveHandler);
@@ -1638,7 +1651,7 @@
     }, {
       key: "offScroll",
       value: function offScroll(cb) {
-        var _this5 = this;
+        var _this4 = this;
 
         var index = this.cbs.indexOf(cb);
 
@@ -1647,8 +1660,31 @@
           this.cbs.splice(index, 1);
         } else {
           this.cbs.forEach(function (c) {
-            return removeListener(_this5.mask, 'scroll', c);
+            return removeListener(_this4.mask, 'scroll', c);
           });
+        }
+
+        return this;
+      }
+    }, {
+      key: "setDirection",
+      value: function setDirection(direction, lazy) {
+        this.direction = directions.indexOf(direction) !== -1 ? direction : 'both';
+
+        if (this._noX()) {
+          addClass(this.content, '_no_x');
+        } else {
+          removeClass(this.content, '_no_x');
+        }
+
+        if (this._noY()) {
+          addClass(this.content, '_no_y');
+        } else {
+          removeClass(this.content, '_no_y');
+        }
+
+        if (!lazy) {
+          this._recalc();
         }
 
         return this;
@@ -1656,7 +1692,7 @@
     }, {
       key: "destroy",
       value: function destroy() {
-        var _this6 = this;
+        var _this5 = this;
 
         // recover dom constructure
         transferDOM(this.content, this.el);
@@ -1672,7 +1708,7 @@
         // removeListener(window, 'mouseup', this.mouseupHandler)
 
         this.cbs.forEach(function (c) {
-          return removeListener(_this6.mask, 'scroll', c);
+          return removeListener(_this5.mask, 'scroll', c);
         }); // remove all handlers
 
         this.scrollHandler = null;
