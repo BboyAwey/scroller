@@ -86,13 +86,13 @@ export default class Scroller {
     this.el.appendChild(this.placeholder)
     this.el.appendChild(this.container)
 
-    this.elStyleChangeObserver = observeStyleChange(this.el, this.recalculate, this)
-    this.elResizeObserver = observeResize(this.el, this.recalculate, this)
-    this.contentSizeObserver = observeResize(this.content, this.recalculate, this)
+    this.elStyleChangeObserver = observeStyleChange(this.el, this._recalc, this)
+    this.elResizeObserver = observeResize(this.el, this._recalc, this)
+    this.contentSizeObserver = observeResize(this.content, this._recalc, this)
     this.childInsertObserver = observeChildInsert(this.el, this._handleChildInsert, this)
 
     this._initScrollerDom()
-    this.recalculate()
+    this._recalc()
   }
 
   _initEl () {
@@ -122,8 +122,27 @@ export default class Scroller {
     }
   }
 
+  _recalc () {
+    this._setMask()
+    this._calcStatus()
+    this._syncPlaceholderSize()
+  }
+
   _syncPlaceholderSize () {
-    const contentRect = this.content.getBoundingClientRect()
+    let duplicate = this.content.cloneNode(true)
+    duplicate.className = '___'
+    duplicate.style.display = 'inline-block'
+    duplicate.style.position = 'absolute'
+    duplicate.style.zIndex = '-99999'
+    duplicate.style.top = '9999999'
+    duplicate.style.left = '9999999'
+    document.body.appendChild(duplicate)
+
+    const contentRect = duplicate.getBoundingClientRect()
+
+    document.body.removeChild(duplicate)
+    duplicate = null
+
     this.placeholder.style.width = contentRect.width + 'px'
     this.placeholder.style.height = contentRect.height + 'px'
   }
@@ -136,7 +155,7 @@ export default class Scroller {
       paddingBottom,
       paddingLeft
     } = window.getComputedStyle(this.el)
-    let { width, height } = window.getComputedStyle(this.container)
+    let { width, height } = this.container.getBoundingClientRect()
 
     this.mask.style.paddingTop = paddingTop
     this.mask.style.paddingLeft = paddingLeft
@@ -146,8 +165,8 @@ export default class Scroller {
     const verticalDiff = parseFloat(paddingTop) + parseFloat(paddingBottom)
     const horizontalDiff = parseFloat(paddingLeft) + parseFloat(paddingRight)
 
-    this.mask.style.width = parseFloat(width) - horizontalDiff + 'px'
-    this.mask.style.height = parseFloat(height) - verticalDiff + 'px'
+    this.mask.style.width = width - horizontalDiff + 'px'
+    this.mask.style.height = height - verticalDiff + 'px'
     this.contentWrapper.style.width = this.mask.style.width
     // this.contentWrapper.style.height = this.mask.style.height
 
@@ -446,16 +465,10 @@ export default class Scroller {
     }
 
     if (!lazy) {
-      this.recalculate()
+      this._recalc()
     }
 
     return this
-  }
-
-  recalculate () {
-    this._setMask()
-    this._calcStatus()
-    this._syncPlaceholderSize()
   }
 
   destroy () {
