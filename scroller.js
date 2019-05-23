@@ -1336,6 +1336,8 @@
           return _this._content2bar();
         };
 
+        this._content2bar();
+
         addListener(this.mask, 'scroll', this.scrollHandler);
       }
     }, {
@@ -1434,14 +1436,18 @@
 
         if (this._needX() && contentRect.width > viewSize.width) {
           this.xScrollerContainer.style.display = 'inline-block';
+          this.mask.style.overflowX = 'auto';
         } else {
           this.xScrollerContainer.style.display = 'none';
+          this.mask.style.overflowX = 'hidden';
         }
 
         if (this._needY() && contentRect.height > viewSize.height) {
           this.yScrollerContainer.style.display = 'inline-block';
+          this.mask.style.overflowY = 'auto';
         } else {
           this.yScrollerContainer.style.display = 'none';
+          this.mask.style.overflowX = 'hidden';
         }
       }
     }, {
