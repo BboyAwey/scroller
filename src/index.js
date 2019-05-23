@@ -257,7 +257,7 @@ export default class Scroller {
       this.mask.style.overflowY = 'auto'
     } else {
       this.yScrollerContainer.style.display = 'none'
-      this.mask.style.overflowX = 'hidden'
+      this.mask.style.overflowY = 'hidden'
     }
   }
 
