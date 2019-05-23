@@ -176,6 +176,7 @@ export default class Scroller {
     else this.mask.style.overflowY = 'auto'
 
     this.scrollHandler = () => this._content2bar()
+    this._content2bar()
 
     addListener(this.mask, 'scroll', this.scrollHandler)
   }
