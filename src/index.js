@@ -129,19 +129,22 @@ export default class Scroller {
   }
 
   _syncPlaceholderSize () {
-    let duplicate = this.content.cloneNode(true)
-    duplicate.className = '___'
-    duplicate.style.display = 'inline-block'
-    duplicate.style.position = 'absolute'
-    duplicate.style.zIndex = '-99999'
-    duplicate.style.top = '9999999'
-    duplicate.style.left = '9999999'
-    document.body.appendChild(duplicate)
+    let contentRect = this.content.getBoundingClientRect()
 
-    const contentRect = duplicate.getBoundingClientRect()
+    if (!contentRect.width && !contentRect.height) {
+      let duplicate = this.content.cloneNode(true)
+      duplicate.className = '___'
+      duplicate.style.display = 'inline-block'
+      duplicate.style.position = 'absolute'
+      duplicate.style.zIndex = '-99999'
+      duplicate.style.top = '9999999'
+      duplicate.style.left = '9999999'
+      document.body.appendChild(duplicate)
 
-    document.body.removeChild(duplicate)
-    duplicate = null
+      contentRect = duplicate.getBoundingClientRect()
+      document.body.removeChild(duplicate)
+      duplicate = null
+    }
 
     this.placeholder.style.width = contentRect.width + 'px'
     this.placeholder.style.height = contentRect.height + 'px'
