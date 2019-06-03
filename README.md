@@ -1,6 +1,8 @@
 # scroller
 The best custom scroll bar. Can be nested.
 
+> I used it in my vue ui components library [Admin-Ui Scroller](http://www.admin-ui.com/#/scroller). If you want to use it in vue or react, maybe you can look up the source of [Admin-Ui Scroller](https://github.com/BboyAwey/admin-ui/blob/master/src/admin-ui/src/components/scroller/src/scroller.vue)
+
 ## install
 Scroller can be installed by npm or yarn.
 
