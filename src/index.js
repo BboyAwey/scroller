@@ -165,8 +165,8 @@ export default class Scroller {
     // this.mask.style.paddingBottom = parseFloat(paddingBottom) + 20 + 'px'
     // this.mask.style.paddingRight = 20 + 'px'
     // this.mask.style.paddingBottom = 20 + 'px'
-    this.mask.style.height = height + 20 + 'px'
-    this.mask.style.width = width + 20 + 'px'
+    // this.mask.style.height = height + 20 + 'px'
+    // this.mask.style.width = width + 20 + 'px'
 
     // console.log(paddingRight, paddingBottom)
     this.content.style.paddingLeft = paddingLeft
@@ -185,17 +185,17 @@ export default class Scroller {
     // this.contentWrapper.style.height = this.mask.style.height
     if (!this._needX()) {
       this.mask.style.overflowX = 'hidden'
-      // this.mask.style.height = height + 'px'
+      this.mask.style.height = height + 'px'
     } else {
       this.mask.style.overflowX = 'auto'
-      // this.mask.style.height = height + 20 + 'px'
+      this.mask.style.height = height + 20 + 'px'
     }
     if (!this._needY()) {
       this.mask.style.overflowY = 'hidden'
-      // this.mask.style.width = width + 'px'
+      this.mask.style.width = width + 'px'
     } else {
       this.mask.style.overflowY = 'auto'
-      // this.mask.style.width = width + 20 + 'px'
+      this.mask.style.width = width + 20 + 'px'
     }
 
     this.scrollHandler = () => this._content2bar()
