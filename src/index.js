@@ -157,20 +157,22 @@ export default class Scroller {
       paddingBottom,
       paddingLeft
     } = window.getComputedStyle(this.el)
-    // let { width, height } = this.container.getBoundingClientRect()
+    let { width, height } = this.container.getBoundingClientRect()
 
     // this.mask.style.paddingTop = paddingTop
     // this.mask.style.paddingLeft = paddingLeft
     // this.mask.style.paddingRight = parseFloat(paddingRight) + 20 + 'px'
     // this.mask.style.paddingBottom = parseFloat(paddingBottom) + 20 + 'px'
-    this.mask.style.paddingRight = 20 + 'px'
-    this.mask.style.paddingBottom = 20 + 'px'
+    // this.mask.style.paddingRight = 20 + 'px'
+    // this.mask.style.paddingBottom = 20 + 'px'
+    this.mask.style.width = width + 20 + 'px'
+    this.mask.style.height = height + 20 + 'px'
 
-    console.log(paddingRight, paddingBottom)
+    // console.log(paddingRight, paddingBottom)
     this.content.style.paddingLeft = paddingLeft
     this.content.style.paddingTop = paddingTop
-    this.content.style.paddingRight = paddingRight
-    this.content.style.paddingBottom = paddingBottom
+    this.content.style.paddingRight = parseFloat(paddingRight) + 20 + 'px'
+    this.content.style.paddingBottom = parseFloat(paddingBottom) + 20 + 'px'
 
     // const verticalDiff = parseFloat(paddingTop) + parseFloat(paddingBottom)
     // const horizontalDiff = parseFloat(paddingLeft) + parseFloat(paddingRight)
@@ -179,7 +181,7 @@ export default class Scroller {
     // this.mask.style.height = height - verticalDiff + 'px'
     // this.mask.style.width = width - horizontalDiff + 'px'
     // this.mask.style.height = height - verticalDiff + 'px'
-    this.contentWrapper.style.width = this.mask.style.width
+    // this.contentWrapper.style.width = this.mask.getBoundingClientRect().width + 'px'
     // this.contentWrapper.style.height = this.mask.style.height
 
     if (!this._needX()) this.mask.style.overflowX = 'hidden'
