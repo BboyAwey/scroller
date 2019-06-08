@@ -1315,27 +1315,32 @@
             paddingTop = _window$getComputedSt.paddingTop,
             paddingRight = _window$getComputedSt.paddingRight,
             paddingBottom = _window$getComputedSt.paddingBottom,
-            paddingLeft = _window$getComputedSt.paddingLeft; // let { width, height } = this.container.getBoundingClientRect()
-        // this.mask.style.paddingTop = paddingTop
+            paddingLeft = _window$getComputedSt.paddingLeft;
+
+        var _this$container$getBo = this.container.getBoundingClientRect(),
+            width = _this$container$getBo.width,
+            height = _this$container$getBo.height; // this.mask.style.paddingTop = paddingTop
         // this.mask.style.paddingLeft = paddingLeft
         // this.mask.style.paddingRight = parseFloat(paddingRight) + 20 + 'px'
         // this.mask.style.paddingBottom = parseFloat(paddingBottom) + 20 + 'px'
+        // this.mask.style.paddingRight = 20 + 'px'
+        // this.mask.style.paddingBottom = 20 + 'px'
 
 
-        this.mask.style.paddingRight = 20 + 'px';
-        this.mask.style.paddingBottom = 20 + 'px';
-        console.log(paddingRight, paddingBottom);
+        this.mask.style.width = width + 20 + 'px';
+        this.mask.style.height = height + 20 + 'px'; // console.log(paddingRight, paddingBottom)
+
         this.content.style.paddingLeft = paddingLeft;
         this.content.style.paddingTop = paddingTop;
-        this.content.style.paddingRight = paddingRight;
-        this.content.style.paddingBottom = paddingBottom; // const verticalDiff = parseFloat(paddingTop) + parseFloat(paddingBottom)
+        this.content.style.paddingRight = parseFloat(paddingRight) + 'px';
+        this.content.style.paddingBottom = parseFloat(paddingBottom) + 'px'; // const verticalDiff = parseFloat(paddingTop) + parseFloat(paddingBottom)
         // const horizontalDiff = parseFloat(paddingLeft) + parseFloat(paddingRight)
         // this.mask.style.width = width - horizontalDiff + 'px'
         // this.mask.style.height = height - verticalDiff + 'px'
         // this.mask.style.width = width - horizontalDiff + 'px'
         // this.mask.style.height = height - verticalDiff + 'px'
-
-        this.contentWrapper.style.width = this.mask.style.width; // this.contentWrapper.style.height = this.mask.style.height
+        // this.contentWrapper.style.width = this.mask.getBoundingClientRect().width + 'px'
+        // this.contentWrapper.style.height = this.mask.style.height
 
         if (!this._needX()) this.mask.style.overflowX = 'hidden';else this.mask.style.overflowX = 'auto';
         if (!this._needY()) this.mask.style.overflowY = 'hidden';else this.mask.style.overflowY = 'auto';
