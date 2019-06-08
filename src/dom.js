@@ -106,8 +106,15 @@ export const observeStyleChange = (el, handler, context) => {
 }
 
 export const observeResize = (el, handler, context) => {
-  const observer = new ResizeObserver(() => {
-    handler.call(context)
+  let oldSize = { width: 0, height: 0 }
+  const observer = new ResizeObserver((entity) => {
+    let rect = entity[0].contentRect
+
+    if (rect.width !== oldSize.width && rect.height !== oldSize.height) {
+      handler.call(context)
+      oldSize.width = rect.width
+      oldSize.height = rect.height
+    }
   })
   observer.observe(el)
   return observer
