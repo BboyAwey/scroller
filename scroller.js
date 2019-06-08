@@ -42,7 +42,7 @@
     return Constructor;
   }
 
-  ___$insertStyle("._scroller_transition, ._scroller ._x_scroller_track,\n._scroller ._y_scroller_track,\n._scroller ._scroller_bg, ._scroller ._y_scroller_container, ._scroller ._x_scroller_container, ._scroller_bar, ._scroller ._y_scroller_bar, ._scroller ._x_scroller_bar {\n  transition-duration: 0.2s;\n  transition-timing-function: ease;\n  transition-property: opacity, height, width, border-radius, background-color;\n}\n\n._scroller_container, ._scroller ._y_scroller_container, ._scroller ._x_scroller_container {\n  display: none;\n  position: absolute;\n  box-sizing: border-box;\n  opacity: 0.6;\n}\n\n._scroller_bar, ._scroller ._y_scroller_bar, ._scroller ._x_scroller_bar {\n  position: relative;\n  border-radius: 2px;\n}\n._scroller_bar > ._scroller_bg, ._scroller ._y_scroller_bar > ._scroller_bg, ._scroller ._x_scroller_bar > ._scroller_bg {\n  opacity: 0.6;\n}\n._scroller_bar > ._scroller_bg, ._scroller ._y_scroller_bar > ._scroller_bg, ._scroller ._x_scroller_bar > ._scroller_bg {\n  opacity: 0.6;\n}\n\n._dragging * {\n  -webkit-user-select: none;\n     -moz-user-select: none;\n      -ms-user-select: none;\n          user-select: none;\n}\n._dragging ._mask {\n  scroll-behavior: auto !important;\n}\n\n._scroller {\n  overflow: hidden;\n}\n._scroller ._container {\n  position: absolute;\n  top: 0;\n  left: 0;\n  width: 100%;\n  height: 100%;\n  overflow: hidden;\n  box-sizing: border-box !important;\n  z-index: 0;\n}\n._scroller ._mask {\n  width: 100%;\n  height: 100%;\n  overflow: auto;\n  box-sizing: content-box !important;\n  scroll-behavior: smooth;\n}\n._scroller ._content {\n  display: inline-block;\n  min-width: 100%;\n}\n._scroller ._no_x {\n  width: 100%;\n  display: block;\n}\n._scroller ._x_scroller_container {\n  left: 0;\n  bottom: 4px;\n  width: 100%;\n  height: 4px;\n  padding: 0 10px;\n}\n._scroller ._y_scroller_container {\n  top: 0;\n  right: 4px;\n  width: 4px;\n  height: 100%;\n  padding: 10px 0;\n}\n._scroller ._x_scroller_track,\n._scroller ._y_scroller_track,\n._scroller ._scroller_bg {\n  position: relative;\n  width: 100%;\n  height: 100%;\n  border-radius: 3px;\n  overflow: hidden;\n}\n._scroller ._scroller_bg {\n  position: absolute;\n  top: 0;\n  left: 0;\n}\n._scroller ._x_scroller_track > ._scroller_bg,\n._scroller ._y_scroller_track > ._scroller_bg {\n  opacity: 0.2;\n}\n._scroller ._x_scroller_bar {\n  height: 100%;\n  width: 100px;\n}\n._scroller ._y_scroller_bar {\n  width: 100%;\n  height: 100px;\n}\n._scroller ._x_scroller_bar:hover > ._scroller_bg,\n._scroller ._y_scroller_bar:hover > ._scroller_bg {\n  opacity: 0.9;\n}\n._scroller ._y_scroller_bar._minimal > ._scroller_bg {\n  height: 20px;\n  top: 50%;\n  margin-top: -10px;\n}\n._scroller ._x_scroller_bar._minimal > ._scroller_bg {\n  width: 20px;\n  left: 50%;\n  margin-left: -10px;\n}\n\n._scroller:hover > ._container > ._x_scroller_container,\n._scroller._dragging > ._container > ._x_scroller_container {\n  height: 8px;\n}\n._scroller:hover > ._container > ._y_scroller_container,\n._scroller._dragging > ._container > ._y_scroller_container {\n  width: 8px;\n}\n._scroller:hover ._x_scroller_track,\n._scroller:hover ._y_scroller_track,\n._scroller._dragging ._x_scroller_track,\n._scroller._dragging ._y_scroller_track {\n  border-radius: 4px;\n}\n._scroller:hover ._x_scroller_bar,\n._scroller:hover ._y_scroller_bar,\n._scroller._dragging ._x_scroller_bar,\n._scroller._dragging ._y_scroller_bar {\n  border-radius: 4px;\n}\n\n._scroller ._scroller_track_default {\n  background-color: black;\n}\n._scroller ._scroller_bar_default {\n  background-color: black;\n}\n._scroller ._scroller_bar_default:hover {\n  background-color: black;\n}");
+  ___$insertStyle("._scroller_transition, ._scroller ._x_scroller_track,\n._scroller ._y_scroller_track,\n._scroller ._scroller_bg, ._scroller ._y_scroller_container, ._scroller ._x_scroller_container, ._scroller_bar, ._scroller ._y_scroller_bar, ._scroller ._x_scroller_bar {\n  transition-duration: 0.2s;\n  transition-timing-function: ease;\n  transition-property: opacity, height, width, border-radius, background-color;\n}\n\n._scroller_container, ._scroller ._y_scroller_container, ._scroller ._x_scroller_container {\n  display: none;\n  position: absolute;\n  box-sizing: border-box;\n  opacity: 0.6;\n}\n\n._scroller_bar, ._scroller ._y_scroller_bar, ._scroller ._x_scroller_bar {\n  position: relative;\n  border-radius: 2px;\n}\n._scroller_bar > ._scroller_bg, ._scroller ._y_scroller_bar > ._scroller_bg, ._scroller ._x_scroller_bar > ._scroller_bg {\n  opacity: 0.6;\n}\n._scroller_bar > ._scroller_bg, ._scroller ._y_scroller_bar > ._scroller_bg, ._scroller ._x_scroller_bar > ._scroller_bg {\n  opacity: 0.6;\n}\n\n._dragging * {\n  -webkit-user-select: none;\n     -moz-user-select: none;\n      -ms-user-select: none;\n          user-select: none;\n}\n._dragging ._mask {\n  scroll-behavior: auto !important;\n}\n\n._scroller {\n  overflow: hidden;\n}\n._scroller ._container {\n  position: absolute;\n  top: 0;\n  left: 0;\n  width: 100%;\n  height: 100%;\n  overflow: hidden;\n  box-sizing: border-box !important;\n  z-index: 0;\n}\n._scroller ._mask {\n  width: 100%;\n  height: 100%;\n  overflow: auto;\n  box-sizing: content-box !important;\n  scroll-behavior: smooth;\n}\n._scroller ._content {\n  display: inline-block;\n  min-width: 100%;\n  box-sizing: border-box;\n}\n._scroller ._no_x {\n  width: 100%;\n  display: block;\n}\n._scroller ._x_scroller_container {\n  left: 0;\n  bottom: 4px;\n  width: 100%;\n  height: 4px;\n  padding: 0 10px;\n}\n._scroller ._y_scroller_container {\n  top: 0;\n  right: 4px;\n  width: 4px;\n  height: 100%;\n  padding: 10px 0;\n}\n._scroller ._x_scroller_track,\n._scroller ._y_scroller_track,\n._scroller ._scroller_bg {\n  position: relative;\n  width: 100%;\n  height: 100%;\n  border-radius: 3px;\n  overflow: hidden;\n}\n._scroller ._scroller_bg {\n  position: absolute;\n  top: 0;\n  left: 0;\n}\n._scroller ._x_scroller_track > ._scroller_bg,\n._scroller ._y_scroller_track > ._scroller_bg {\n  opacity: 0.2;\n}\n._scroller ._x_scroller_bar {\n  height: 100%;\n  width: 100px;\n}\n._scroller ._y_scroller_bar {\n  width: 100%;\n  height: 100px;\n}\n._scroller ._x_scroller_bar:hover > ._scroller_bg,\n._scroller ._y_scroller_bar:hover > ._scroller_bg {\n  opacity: 0.9;\n}\n._scroller ._y_scroller_bar._minimal > ._scroller_bg {\n  height: 20px;\n  top: 50%;\n  margin-top: -10px;\n}\n._scroller ._x_scroller_bar._minimal > ._scroller_bg {\n  width: 20px;\n  left: 50%;\n  margin-left: -10px;\n}\n\n._scroller:hover > ._container > ._x_scroller_container,\n._scroller._dragging > ._container > ._x_scroller_container {\n  height: 8px;\n}\n._scroller:hover > ._container > ._y_scroller_container,\n._scroller._dragging > ._container > ._y_scroller_container {\n  width: 8px;\n}\n._scroller:hover ._x_scroller_track,\n._scroller:hover ._y_scroller_track,\n._scroller._dragging ._x_scroller_track,\n._scroller._dragging ._y_scroller_track {\n  border-radius: 4px;\n}\n._scroller:hover ._x_scroller_bar,\n._scroller:hover ._y_scroller_bar,\n._scroller._dragging ._x_scroller_bar,\n._scroller._dragging ._y_scroller_bar {\n  border-radius: 4px;\n}\n\n._scroller ._scroller_track_default {\n  background-color: black;\n}\n._scroller ._scroller_bar_default {\n  background-color: black;\n}\n._scroller ._scroller_bar_default:hover {\n  background-color: black;\n}");
 
   /**
    * A collection of shims that provide minimal functionality of the ES6 collections.
@@ -1133,9 +1133,6 @@
     observer.observe(el);
     return observer;
   };
-  var isFirefox = function isFirefox(_) {
-    return navigator.userAgent.indexOf('Firefox') !== -1;
-  };
 
   var directions = ['horizontal', 'vertical', 'both', 'none'];
 
@@ -1318,20 +1315,26 @@
             paddingTop = _window$getComputedSt.paddingTop,
             paddingRight = _window$getComputedSt.paddingRight,
             paddingBottom = _window$getComputedSt.paddingBottom,
-            paddingLeft = _window$getComputedSt.paddingLeft;
+            paddingLeft = _window$getComputedSt.paddingLeft; // let { width, height } = this.container.getBoundingClientRect()
+        // this.mask.style.paddingTop = paddingTop
+        // this.mask.style.paddingLeft = paddingLeft
+        // this.mask.style.paddingRight = parseFloat(paddingRight) + 20 + 'px'
+        // this.mask.style.paddingBottom = parseFloat(paddingBottom) + 20 + 'px'
 
-        var _this$container$getBo = this.container.getBoundingClientRect(),
-            width = _this$container$getBo.width,
-            height = _this$container$getBo.height;
 
-        this.mask.style.paddingTop = paddingTop;
-        this.mask.style.paddingLeft = paddingLeft;
-        this.mask.style.paddingRight = parseFloat(paddingRight) + 15 + 'px';
-        this.mask.style.paddingBottom = parseFloat(paddingBottom) + 15 + 'px';
-        var verticalDiff = parseFloat(paddingTop) + parseFloat(paddingBottom);
-        var horizontalDiff = parseFloat(paddingLeft) + parseFloat(paddingRight);
-        this.mask.style.width = width - horizontalDiff + 'px';
-        this.mask.style.height = height - verticalDiff + 'px';
+        this.mask.style.paddingRight = 20 + 'px';
+        this.mask.style.paddingBottom = 20 + 'px';
+        console.log(paddingRight, paddingBottom);
+        this.content.style.paddingLeft = paddingLeft;
+        this.content.style.paddingTop = paddingTop;
+        this.content.style.paddingRight = paddingRight;
+        this.content.style.paddingBottom = paddingBottom; // const verticalDiff = parseFloat(paddingTop) + parseFloat(paddingBottom)
+        // const horizontalDiff = parseFloat(paddingLeft) + parseFloat(paddingRight)
+        // this.mask.style.width = width - horizontalDiff + 'px'
+        // this.mask.style.height = height - verticalDiff + 'px'
+        // this.mask.style.width = width - horizontalDiff + 'px'
+        // this.mask.style.height = height - verticalDiff + 'px'
+
         this.contentWrapper.style.width = this.mask.style.width; // this.contentWrapper.style.height = this.mask.style.height
 
         if (!this._needX()) this.mask.style.overflowX = 'hidden';else this.mask.style.overflowX = 'auto';
@@ -1411,15 +1414,10 @@
     }, {
       key: "_getViewSize",
       value: function _getViewSize() {
-        var _window$getComputedSt2 = window.getComputedStyle(this.el),
-            paddingTop = _window$getComputedSt2.paddingTop,
-            paddingBottom = _window$getComputedSt2.paddingBottom,
-            paddingLeft = _window$getComputedSt2.paddingLeft;
-
         var containerRect = this.container.getBoundingClientRect();
-        var width = parseFloat(containerRect.width) - parseFloat(paddingLeft); // firefox will ignore padding bottom when do scrolling
+        var width = parseFloat(containerRect.width); // firefox will ignore padding bottom when do scrolling
 
-        var height = parseFloat(containerRect.height) - parseFloat(paddingTop) - (isFirefox() ? 0 : parseFloat(paddingBottom));
+        var height = parseFloat(containerRect.height);
         return {
           width: width,
           height: height
@@ -1497,7 +1495,7 @@
         var scrollLeft = this.mask.scrollLeft;
 
         var calc = function calc(scroll, content, track) {
-          return Math.floor(scroll * track / content);
+          return Math.ceil(scroll * track / content) + 1;
         };
 
         if (this._needX()) {
@@ -1581,13 +1579,13 @@
         if (this.dragDirection === 'vertical') {
           var coreRect = this.yScrollerBar.getBoundingClientRect();
           var trackRect = this.yScrollerTrack.getBoundingClientRect();
-          this.barScroll = calc(e.pageY, trackRect.top, coreRect.height);
+          this.barScroll = calc(e.clientY, trackRect.top, coreRect.height);
         } else {
           var _coreRect = this.xScrollerBar.getBoundingClientRect();
 
           var _trackRect2 = this.xScrollerTrack.getBoundingClientRect();
 
-          this.barScroll = calc(e.pageX, _trackRect2.left, _coreRect.width);
+          this.barScroll = calc(e.clientX, _trackRect2.left, _coreRect.width);
         }
 
         this._bar2content();
@@ -1623,7 +1621,7 @@
         var contentRect = this.content.getBoundingClientRect();
 
         var calc = function calc(barScroll, content, track) {
-          return Math.floor(barScroll * content / track);
+          return Math.ceil(barScroll * content / track);
         };
 
         if (this.dragDirection === 'vertical') {
