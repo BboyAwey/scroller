@@ -56,6 +56,7 @@
   ._content {
     display: inline-block;
     min-width: 100%;
+    box-sizing: border-box;
   }
   ._no_x {
     width: 100%;

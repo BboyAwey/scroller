@@ -10,7 +10,6 @@ import {
   removeListener,
   observeResize,
   observeChildInsert,
-  isFirefox,
   observeStyleChange
 } from './dom'
 
@@ -158,18 +157,28 @@ export default class Scroller {
       paddingBottom,
       paddingLeft
     } = window.getComputedStyle(this.el)
-    let { width, height } = this.container.getBoundingClientRect()
+    // let { width, height } = this.container.getBoundingClientRect()
 
-    this.mask.style.paddingTop = paddingTop
-    this.mask.style.paddingLeft = paddingLeft
-    this.mask.style.paddingRight = parseFloat(paddingRight) + 20 + 'px'
-    this.mask.style.paddingBottom = parseFloat(paddingBottom) + 20 + 'px'
+    // this.mask.style.paddingTop = paddingTop
+    // this.mask.style.paddingLeft = paddingLeft
+    // this.mask.style.paddingRight = parseFloat(paddingRight) + 20 + 'px'
+    // this.mask.style.paddingBottom = parseFloat(paddingBottom) + 20 + 'px'
+    this.mask.style.paddingRight = 20 + 'px'
+    this.mask.style.paddingBottom = 20 + 'px'
 
-    const verticalDiff = parseFloat(paddingTop) + parseFloat(paddingBottom)
-    const horizontalDiff = parseFloat(paddingLeft) + parseFloat(paddingRight)
+    console.log(paddingRight, paddingBottom)
+    this.content.style.paddingLeft = paddingLeft
+    this.content.style.paddingTop = paddingTop
+    this.content.style.paddingRight = paddingRight
+    this.content.style.paddingBottom = paddingBottom
 
-    this.mask.style.width = width - horizontalDiff + 'px'
-    this.mask.style.height = height - verticalDiff + 'px'
+    // const verticalDiff = parseFloat(paddingTop) + parseFloat(paddingBottom)
+    // const horizontalDiff = parseFloat(paddingLeft) + parseFloat(paddingRight)
+
+    // this.mask.style.width = width - horizontalDiff + 'px'
+    // this.mask.style.height = height - verticalDiff + 'px'
+    // this.mask.style.width = width - horizontalDiff + 'px'
+    // this.mask.style.height = height - verticalDiff + 'px'
     this.contentWrapper.style.width = this.mask.style.width
     // this.contentWrapper.style.height = this.mask.style.height
 
@@ -222,19 +231,11 @@ export default class Scroller {
   }
 
   _getViewSize () {
-    const {
-      paddingTop,
-      // paddingRight,
-      paddingBottom,
-      paddingLeft
-    } = window.getComputedStyle(this.el)
     const containerRect = this.container.getBoundingClientRect()
 
-    const width = parseFloat(containerRect.width) - parseFloat(paddingLeft)
+    const width = parseFloat(containerRect.width)
     // firefox will ignore padding bottom when do scrolling
-    const height = parseFloat(containerRect.height) -
-      parseFloat(paddingTop) -
-      (isFirefox() ? 0 : parseFloat(paddingBottom))
+    const height = parseFloat(containerRect.height)
 
     return { width, height }
   }
@@ -300,6 +301,7 @@ export default class Scroller {
 
   _content2bar () {
     const contentRect = this.content.getBoundingClientRect()
+
     const scrollTop = this.mask.scrollTop
     const scrollLeft = this.mask.scrollLeft
 
@@ -374,12 +376,13 @@ export default class Scroller {
     if (this.dragDirection === 'vertical') {
       const coreRect = this.yScrollerBar.getBoundingClientRect()
       const trackRect = this.yScrollerTrack.getBoundingClientRect()
-      this.barScroll = calc(e.pageY, trackRect.top, coreRect.height)
+      this.barScroll = calc(e.clientY, trackRect.top, coreRect.height)
     } else {
       const coreRect = this.xScrollerBar.getBoundingClientRect()
       const trackRect = this.xScrollerTrack.getBoundingClientRect()
-      this.barScroll = calc(e.pageX, trackRect.left, coreRect.width)
+      this.barScroll = calc(e.clientX, trackRect.left, coreRect.width)
     }
+
     this._bar2content()
   }
   // end of handling drag event of core
