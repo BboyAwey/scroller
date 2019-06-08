@@ -110,7 +110,7 @@ export const observeResize = (el, handler, context) => {
   const observer = new ResizeObserver((entity) => {
     let rect = entity[0].contentRect
 
-    if (rect.width !== oldSize.width && rect.height !== oldSize.height) {
+    if (rect.width !== oldSize.width || rect.height !== oldSize.height) {
       handler.call(context)
       oldSize.width = rect.width
       oldSize.height = rect.height

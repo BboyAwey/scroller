@@ -122,28 +122,24 @@ export default class Scroller {
   }
 
   _recalc () {
+    this._syncPlaceholderSize()
     this._setMask()
     this._calcStatus()
-    this._syncPlaceholderSize()
   }
 
   _syncPlaceholderSize () {
-    let contentRect = this.content.getBoundingClientRect()
+    let duplicate = this.content.cloneNode(true)
+    duplicate.className = '___'
+    duplicate.style.display = 'inline-block'
+    duplicate.style.position = 'absolute'
+    duplicate.style.zIndex = '-99999'
+    duplicate.style.top = '9999999'
+    duplicate.style.left = '9999999'
+    document.body.appendChild(duplicate)
 
-    if (!contentRect.width && !contentRect.height) {
-      let duplicate = this.content.cloneNode(true)
-      duplicate.className = '___'
-      duplicate.style.display = 'inline-block'
-      duplicate.style.position = 'absolute'
-      duplicate.style.zIndex = '-99999'
-      duplicate.style.top = '9999999'
-      duplicate.style.left = '9999999'
-      document.body.appendChild(duplicate)
-
-      contentRect = duplicate.getBoundingClientRect()
-      document.body.removeChild(duplicate)
-      duplicate = null
-    }
+    let contentRect = duplicate.getBoundingClientRect()
+    document.body.removeChild(duplicate)
+    duplicate = null
 
     this.placeholder.style.width = contentRect.width + 'px'
     this.placeholder.style.height = contentRect.height + 'px'
@@ -168,7 +164,6 @@ export default class Scroller {
     // this.mask.style.height = height + 20 + 'px'
     // this.mask.style.width = width + 20 + 'px'
 
-    // console.log(paddingRight, paddingBottom)
     this.content.style.paddingLeft = paddingLeft
     this.content.style.paddingTop = paddingTop
     this.content.style.paddingRight = parseFloat(paddingRight) + 'px'
