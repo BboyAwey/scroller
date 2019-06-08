@@ -162,8 +162,8 @@ export default class Scroller {
 
     this.mask.style.paddingTop = paddingTop
     this.mask.style.paddingLeft = paddingLeft
-    this.mask.style.paddingRight = parseFloat(paddingRight) + 15 + 'px'
-    this.mask.style.paddingBottom = parseFloat(paddingBottom) + 15 + 'px'
+    this.mask.style.paddingRight = parseFloat(paddingRight) + 20 + 'px'
+    this.mask.style.paddingBottom = parseFloat(paddingBottom) + 20 + 'px'
 
     const verticalDiff = parseFloat(paddingTop) + parseFloat(paddingBottom)
     const horizontalDiff = parseFloat(paddingLeft) + parseFloat(paddingRight)
@@ -303,7 +303,7 @@ export default class Scroller {
     const scrollTop = this.mask.scrollTop
     const scrollLeft = this.mask.scrollLeft
 
-    const calc = (scroll, content, track) => Math.floor(scroll * track / content)
+    const calc = (scroll, content, track) => Math.ceil(scroll * track / content) + 1
 
     if (this._needX()) {
       const trackRect = this.xScrollerTrack.getBoundingClientRect()
@@ -410,7 +410,7 @@ export default class Scroller {
     const barScroll = this.barScroll
     const contentRect = this.content.getBoundingClientRect()
 
-    const calc = (barScroll, content, track) => Math.floor(barScroll * content / track)
+    const calc = (barScroll, content, track) => Math.ceil(barScroll * content / track)
 
     if (this.dragDirection === 'vertical') {
       const trackRect = this.yScrollerTrack.getBoundingClientRect()
