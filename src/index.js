@@ -171,8 +171,8 @@ export default class Scroller {
     // console.log(paddingRight, paddingBottom)
     this.content.style.paddingLeft = paddingLeft
     this.content.style.paddingTop = paddingTop
-    this.content.style.paddingRight = parseFloat(paddingRight) + 20 + 'px'
-    this.content.style.paddingBottom = parseFloat(paddingBottom) + 20 + 'px'
+    this.content.style.paddingRight = parseFloat(paddingRight) + 'px'
+    this.content.style.paddingBottom = parseFloat(paddingBottom) + 'px'
 
     // const verticalDiff = parseFloat(paddingTop) + parseFloat(paddingBottom)
     // const horizontalDiff = parseFloat(paddingLeft) + parseFloat(paddingRight)
