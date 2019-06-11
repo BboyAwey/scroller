@@ -61,11 +61,15 @@ export default class Scroller {
   }
 
   _needX () {
-    return this.direction === 'horizontal' || this.direction === 'both'
+    const contentRect = this.content.getBoundingClientRect()
+    const viewSize = this._getViewSize()
+    return (this.direction === 'horizontal' || this.direction === 'both') && contentRect.width > viewSize.width
   }
 
   _needY () {
-    return this.direction === 'vertical' || this.direction === 'both'
+    const contentRect = this.content.getBoundingClientRect()
+    const viewSize = this._getViewSize()
+    return (this.direction === 'vertical' || this.direction === 'both') && contentRect.height > viewSize.height
   }
 
   _noX () {
@@ -259,17 +263,14 @@ export default class Scroller {
   }
 
   _calcVisible () {
-    const contentRect = this.content.getBoundingClientRect()
-    const viewSize = this._getViewSize()
-
-    if (this._needX() && contentRect.width > viewSize.width) {
+    if (this._needX()) {
       this.xScrollerContainer.style.display = 'inline-block'
       // this.mask.style.overflowX = 'auto'
     } else {
       this.xScrollerContainer.style.display = 'none'
       // this.mask.style.overflowX = 'hidden'
     }
-    if (this._needY() && contentRect.height > viewSize.height) {
+    if (this._needY()) {
       this.yScrollerContainer.style.display = 'inline-block'
       // this.mask.style.overflowY = 'auto'
     } else {
@@ -297,7 +298,7 @@ export default class Scroller {
         removeClass(this.yScrollerBar, '_minimal')
       }
     }
-    if (this._needX) {
+    if (this._needX()) {
       let res = calc(
         contentRect.width,
         viewSize.width,
