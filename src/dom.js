@@ -123,3 +123,10 @@ export const observeResize = (el, handler, context) => {
 export const isFirefox = _ => {
   return navigator.userAgent.indexOf('Firefox') !== -1
 }
+
+export const isOnDocument = el => {
+  if (el === document.body) return true
+  else if (!el.parentNode) return false
+  else if (el.parentNode === document.body) return true
+  else return isOnDocument(el.parentNode)
+}

@@ -10,7 +10,8 @@ import {
   removeListener,
   observeResize,
   observeChildInsert,
-  observeStyleChange
+  observeStyleChange,
+  isOnDocument
 } from './dom'
 
 let directions = [
@@ -128,18 +129,24 @@ export default class Scroller {
   }
 
   _syncPlaceholderSize () {
-    let duplicate = this.content.cloneNode(true)
-    duplicate.className = '___'
-    duplicate.style.display = 'inline-block'
-    duplicate.style.position = 'absolute'
-    duplicate.style.zIndex = '-99999'
-    duplicate.style.top = '9999999'
-    duplicate.style.left = '9999999'
-    document.body.appendChild(duplicate)
+    let contentRect = {}
 
-    let contentRect = duplicate.getBoundingClientRect()
-    document.body.removeChild(duplicate)
-    duplicate = null
+    if (isOnDocument(this.content)) {
+      contentRect = this.content.getBoundingClientRect()
+    } else {
+      let duplicate = this.content.cloneNode(true)
+      duplicate.className = '___'
+      duplicate.style.display = 'inline-block'
+      duplicate.style.position = 'absolute'
+      duplicate.style.zIndex = '-99999'
+      duplicate.style.top = '9999999'
+      duplicate.style.left = '9999999'
+      document.body.appendChild(duplicate)
+
+      contentRect = duplicate.getBoundingClientRect()
+      document.body.removeChild(duplicate)
+      duplicate = null
+    }
 
     this.placeholder.style.width = contentRect.width + 'px'
     this.placeholder.style.height = contentRect.height + 'px'
