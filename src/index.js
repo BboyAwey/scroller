@@ -137,6 +137,13 @@ export default class Scroller {
 
     if (isOnDocument(this.content)) {
       contentRect = this.content.getBoundingClientRect()
+      if (!contentRect.width) {
+        let duplicate = this.content.cloneNode(true)
+        duplicate.style.visibility = 'hidden'
+        this.placeholder.appendChild(duplicate)
+        contentRect.width = duplicate.getBoundingClientRect().width
+        this.placeholder.removeChild(duplicate)
+      }
     } else {
       let duplicate = this.content.cloneNode(true)
       duplicate.className = '___'
