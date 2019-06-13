@@ -140,6 +140,10 @@ export default class Scroller {
       if (!contentRect.width) {
         let duplicate = this.content.cloneNode(true)
         duplicate.style.visibility = 'hidden'
+
+        this.placeholder.style.width = 'auto'
+        this.placeholder.style.height = 'auto'
+
         this.placeholder.appendChild(duplicate)
         contentRect.width = duplicate.getBoundingClientRect().width
         this.placeholder.removeChild(duplicate)
