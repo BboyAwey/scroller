@@ -11,7 +11,8 @@ import {
   observeResize,
   observeChildInsert,
   observeStyleChange,
-  isOnDocument
+  isOnDocument,
+  getNativeScrollBarWidth
 } from './dom'
 
 let directions = [
@@ -177,42 +178,24 @@ export default class Scroller {
     } = window.getComputedStyle(this.el)
     let { width, height } = this.container.getBoundingClientRect()
 
-    // this.mask.style.paddingTop = paddingTop
-    // this.mask.style.paddingLeft = paddingLeft
-    // this.mask.style.paddingRight = parseFloat(paddingRight) + 17 + 'px'
-    // this.mask.style.paddingBottom = parseFloat(paddingBottom) + 17 + 'px'
-    // this.mask.style.paddingRight = 17 + 'px'
-    // this.mask.style.paddingBottom = 17 + 'px'
-    // this.mask.style.height = height + 17 + 'px'
-    // this.mask.style.width = width + 17 + 'px'
-
     this.content.style.paddingLeft = paddingLeft
     this.content.style.paddingTop = paddingTop
     this.content.style.paddingRight = parseFloat(paddingRight) + 'px'
     this.content.style.paddingBottom = parseFloat(paddingBottom) + 'px'
 
-    // const verticalDiff = parseFloat(paddingTop) + parseFloat(paddingBottom)
-    // const horizontalDiff = parseFloat(paddingLeft) + parseFloat(paddingRight)
-
-    // this.mask.style.width = width - horizontalDiff + 'px'
-    // this.mask.style.height = height - verticalDiff + 'px'
-    // this.mask.style.width = width - horizontalDiff + 'px'
-    // this.mask.style.height = height - verticalDiff + 'px'
-    // this.contentWrapper.style.width = this.mask.getBoundingClientRect().width + 'px'
-    // this.contentWrapper.style.height = this.mask.style.height
     if (!this._needX()) {
       this.mask.style.overflowX = 'hidden'
       this.mask.style.height = height + 'px'
     } else {
       this.mask.style.overflowX = 'auto'
-      this.mask.style.height = height + 17 + 'px'
+      this.mask.style.height = height + getNativeScrollBarWidth() + 'px'
     }
     if (!this._needY()) {
       this.mask.style.overflowY = 'hidden'
       this.mask.style.width = width + 'px'
     } else {
       this.mask.style.overflowY = 'auto'
-      this.mask.style.width = width + 17 + 'px'
+      this.mask.style.width = width + getNativeScrollBarWidth() + 'px'
     }
 
     this.scrollHandler = () => this._content2bar()

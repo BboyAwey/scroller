@@ -130,3 +130,20 @@ export const isOnDocument = el => {
   else if (el.parentNode === document.body) return true
   else return isOnDocument(el.parentNode)
 }
+
+let nativeScrollWidth = null
+export const getNativeScrollBarWidth = () => {
+  if (nativeScrollWidth) return nativeScrollWidth
+  let outer = document.createElement('div')
+  let inner = document.createElement('div')
+  outer.appendChild(inner)
+  outer.style.width = '100px'
+  outer.style.position = 'absolute'
+  outer.style.visible = 'hidden'
+  document.body.appendChild(outer)
+  let before = inner.getBoundingClientRect().width
+  outer.style.overflow = 'scroll'
+  let after = inner.getBoundingClientRect().width
+  document.body.removeChild(outer)
+  return before - after
+}
