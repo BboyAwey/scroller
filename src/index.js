@@ -257,19 +257,24 @@ export default class Scroller {
   }
 
   _calcVisible () {
-    if (this._needX()) {
-      this.xScrollerContainer.style.display = 'inline-block'
-      // this.mask.style.overflowX = 'auto'
-    } else {
+    if (getNativeScrollBarWidth() === 0) {
       this.xScrollerContainer.style.display = 'none'
-      // this.mask.style.overflowX = 'hidden'
-    }
-    if (this._needY()) {
-      this.yScrollerContainer.style.display = 'inline-block'
-      // this.mask.style.overflowY = 'auto'
-    } else {
       this.yScrollerContainer.style.display = 'none'
-      // this.mask.style.overflowY = 'hidden'
+    } else {
+      if (this._needX()) {
+        this.xScrollerContainer.style.display = 'inline-block'
+        // this.mask.style.overflowX = 'auto'
+      } else {
+        this.xScrollerContainer.style.display = 'none'
+        // this.mask.style.overflowX = 'hidden'
+      }
+      if (this._needY()) {
+        this.yScrollerContainer.style.display = 'inline-block'
+        // this.mask.style.overflowY = 'auto'
+      } else {
+        this.yScrollerContainer.style.display = 'none'
+        // this.mask.style.overflowY = 'hidden'
+      }
     }
   }
 
