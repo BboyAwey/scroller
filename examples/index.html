@@ -181,7 +181,9 @@
   window.addEventListener('load', function () {
     s1 = new Scroller({
       el: document.getElementById('container'),
-      direction: 'all'
+      direction: 'all',
+      offset: 2,
+      scaleable: false
     })
     s2 = new Scroller({
       el: document.getElementById('container2'),

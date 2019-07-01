@@ -20,8 +20,6 @@
   border-radius: 2px;
   & > ._scroller_bg {
     opacity: .6;
-  }& > ._scroller_bg {
-    opacity: .6;
   }
 }
 
@@ -101,7 +99,7 @@
   ._x_scroller_track,
   ._y_scroller_track {
     & > ._scroller_bg {
-      opacity: .2;
+      opacity: .25;
     }
   }
   ._x_scroller_bar {
@@ -120,6 +118,9 @@
       opacity: .9;
     }
   }
+  ._dragging_target > ._scroller_bg {
+    opacity: .9;
+  }
   ._y_scroller_bar._minimal {
     & > ._scroller_bg {
       height: 20px;
@@ -136,8 +137,8 @@
   }
 }
   
-._scroller:hover,
-._scroller._dragging {
+._scaleable:hover,
+._scaleable._dragging {
   & > ._container > ._x_scroller_container {
     height: 8px;
   }

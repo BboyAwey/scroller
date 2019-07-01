@@ -39,6 +39,8 @@ import Scroller from 'scroller'
 const myScroller = new Scroller({
   el: document.getElementById('container'),
   direction: 'both',
+  offset: 4,
+  scaleable: true,
   trackClassName: 'custom-track-style',
   barClassName: 'custom-bar-style'
 })
@@ -49,11 +51,13 @@ const myScroller = new Scroller({
 ## Options
 
 * `el`: DOMElement, required, a container element which you want to made it a custom scrollbar
-* `direction`: String, optional, which direction you would like to scroll. it support values below.
+* `direction`: String, optional, determine which direction you would like to scroll. it support values below.
   * `both`: default value
   * `horizontal`
   * `vertical`
   * `none`
+* `offset`: Number, optional, the space between scroll bar and element edge, max is 8 and min to 0, the default is 4
+* `scaleable`: Boolean, optional, determine if the scroll bar width can enlarge or not when user hovers over the element
 * `trackClassName`: String, optional, you can use it to customize the track style
 * `barClassName`: String, optional, you can use it to customize the bar style
 

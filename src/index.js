@@ -24,6 +24,14 @@ let directions = [
 
 export default class Scroller {
   constructor (options = {}) {
+    /**
+     * el: DOMElement, element that will use scroller
+     * direction: String, scroll direction, default is 'both', vertical'/'horizontal'/'both'/'none'
+     * trackClassName: String, scroll track class name
+     * barClassName: String, scroll bar class name
+     * offset: Number, scroll position offset by the el right or bottom edge
+     * scaleable: Boolena, will scroll bar scale when mouse hovering the element
+     */
     // deal with options
     this.el = options.el
     // this.direction = directions.indexOf(options.direction) !== -1
@@ -31,6 +39,9 @@ export default class Scroller {
     //   : 'both'
     this.trackClassName = options.trackClassName || '_scroller_track_default'
     this.barClassName = options.barClassName || '_scroller_bar_default'
+    this.offset = Number.isNaN(parseInt(options.offset)) ? 4 : parseInt(options.offset)
+    this.offset = this.offset > 8 ? 8 : (this.offset < 0 ? 0 : this.offset)
+    this.scaleable = options.scaleable === undefined ? true : options.scaleable
 
     // other properties
     this.container = null
@@ -106,6 +117,7 @@ export default class Scroller {
     }
 
     addClass(this.el, '_scroller')
+    if (this.scaleable) addClass(this.el, '_scaleable')
     let positionStyle = window.getComputedStyle(this.el).position
 
     if (!positionStyle || positionStyle === 'static') {
@@ -221,6 +233,9 @@ export default class Scroller {
     this._insertBg(this.yScrollerTrack, '_scroller_bg ' + this.trackClassName)
     this._insertBg(this.yScrollerBar, '_scroller_bg ' + this.barClassName)
     this.container.appendChild(this.yScrollerContainer)
+
+    this.xScrollerContainer.style.bottom = this.offset + 'px'
+    this.yScrollerContainer.style.right = this.offset + 'px'
 
     this._calcStatus()
 
@@ -343,8 +358,10 @@ export default class Scroller {
     this.dragDirection = direction
     if (this.dragDirection === 'vertical') {
       this.dragDiff = e.pageY - this.yScrollerBar.getBoundingClientRect().top
+      addClass(this.yScrollerBar, '_dragging_target')
     } else {
       this.dragDiff = e.pageX - this.xScrollerBar.getBoundingClientRect().left
+      addClass(this.xScrollerBar, '_dragging_target')
     }
 
     addClass(this.el, '_dragging')
@@ -375,6 +392,8 @@ export default class Scroller {
     e.preventDefault()
     e.stopPropagation()
     this.drag = false
+    removeClass(this.xScrollerBar, '_dragging_target')
+    removeClass(this.yScrollerBar, '_dragging_target')
     removeClass(this.el, '_dragging')
     removeListener(window, 'mousemove', this.mousemoveHandler)
     removeListener(window, 'mouseup', this.mouseupHandler)
