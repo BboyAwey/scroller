@@ -42,7 +42,7 @@
     return Constructor;
   }
 
-  ___$insertStyle("._scroller_transition, ._scroller ._x_scroller_track,\n._scroller ._y_scroller_track,\n._scroller ._scroller_bg, ._scroller ._y_scroller_container, ._scroller ._x_scroller_container, ._scroller_bar, ._scroller ._y_scroller_bar, ._scroller ._x_scroller_bar {\n  transition-duration: 0.2s;\n  transition-timing-function: ease;\n  transition-property: opacity, height, width, border-radius, background-color;\n}\n\n._scroller_container, ._scroller ._y_scroller_container, ._scroller ._x_scroller_container {\n  display: none;\n  position: absolute;\n  box-sizing: border-box;\n  opacity: 0.6;\n}\n\n._scroller_bar, ._scroller ._y_scroller_bar, ._scroller ._x_scroller_bar {\n  position: relative;\n  border-radius: 2px;\n}\n._scroller_bar > ._scroller_bg, ._scroller ._y_scroller_bar > ._scroller_bg, ._scroller ._x_scroller_bar > ._scroller_bg {\n  opacity: 0.6;\n}\n._scroller_bar > ._scroller_bg, ._scroller ._y_scroller_bar > ._scroller_bg, ._scroller ._x_scroller_bar > ._scroller_bg {\n  opacity: 0.6;\n}\n\n._dragging * {\n  -webkit-user-select: none;\n     -moz-user-select: none;\n      -ms-user-select: none;\n          user-select: none;\n}\n._dragging ._mask {\n  scroll-behavior: auto !important;\n}\n\n._scroller {\n  overflow: hidden;\n}\n._scroller ._container {\n  position: absolute;\n  top: 0;\n  left: 0;\n  width: 100%;\n  height: 100%;\n  overflow: hidden;\n  box-sizing: border-box !important;\n  z-index: 0;\n}\n._scroller ._mask {\n  width: 100%;\n  height: 100%;\n  overflow: scroll;\n  box-sizing: content-box !important;\n  scroll-behavior: smooth;\n}\n._scroller ._content {\n  display: inline-block;\n  min-width: 100%;\n  box-sizing: border-box;\n}\n._scroller ._no_x {\n  width: 100%;\n  display: block;\n}\n._scroller ._x_scroller_container {\n  left: 0;\n  bottom: 4px;\n  width: 100%;\n  height: 4px;\n  padding: 0 10px;\n}\n._scroller ._y_scroller_container {\n  top: 0;\n  right: 4px;\n  width: 4px;\n  height: 100%;\n  padding: 10px 0;\n}\n._scroller ._x_scroller_track,\n._scroller ._y_scroller_track,\n._scroller ._scroller_bg {\n  position: relative;\n  width: 100%;\n  height: 100%;\n  border-radius: 3px;\n  overflow: hidden;\n}\n._scroller ._scroller_bg {\n  position: absolute;\n  top: 0;\n  left: 0;\n}\n._scroller ._x_scroller_track > ._scroller_bg,\n._scroller ._y_scroller_track > ._scroller_bg {\n  opacity: 0.2;\n}\n._scroller ._x_scroller_bar {\n  height: 100%;\n  width: 100px;\n}\n._scroller ._y_scroller_bar {\n  width: 100%;\n  height: 100px;\n}\n._scroller ._x_scroller_bar:hover > ._scroller_bg,\n._scroller ._y_scroller_bar:hover > ._scroller_bg {\n  opacity: 0.9;\n}\n._scroller ._y_scroller_bar._minimal > ._scroller_bg {\n  height: 20px;\n  top: 50%;\n  margin-top: -10px;\n}\n._scroller ._x_scroller_bar._minimal > ._scroller_bg {\n  width: 20px;\n  left: 50%;\n  margin-left: -10px;\n}\n\n._scroller:hover > ._container > ._x_scroller_container,\n._scroller._dragging > ._container > ._x_scroller_container {\n  height: 8px;\n}\n._scroller:hover > ._container > ._y_scroller_container,\n._scroller._dragging > ._container > ._y_scroller_container {\n  width: 8px;\n}\n._scroller:hover ._x_scroller_track,\n._scroller:hover ._y_scroller_track,\n._scroller._dragging ._x_scroller_track,\n._scroller._dragging ._y_scroller_track {\n  border-radius: 4px;\n}\n._scroller:hover ._x_scroller_bar,\n._scroller:hover ._y_scroller_bar,\n._scroller._dragging ._x_scroller_bar,\n._scroller._dragging ._y_scroller_bar {\n  border-radius: 4px;\n}\n\n._scroller ._scroller_track_default {\n  background-color: black;\n}\n._scroller ._scroller_bar_default {\n  background-color: black;\n}\n._scroller ._scroller_bar_default:hover {\n  background-color: black;\n}");
+  ___$insertStyle("._scroller_transition, ._scroller ._x_scroller_track,\n._scroller ._y_scroller_track,\n._scroller ._scroller_bg, ._scroller ._y_scroller_container, ._scroller ._x_scroller_container, ._scroller_bar, ._scroller ._y_scroller_bar, ._scroller ._x_scroller_bar {\n  transition-duration: 0.2s;\n  transition-timing-function: ease;\n  transition-property: opacity, height, width, border-radius, background-color;\n}\n\n._scroller_container, ._scroller ._y_scroller_container, ._scroller ._x_scroller_container {\n  display: none;\n  position: absolute;\n  box-sizing: border-box;\n  opacity: 0.6;\n}\n\n._scroller_bar, ._scroller ._y_scroller_bar, ._scroller ._x_scroller_bar {\n  position: relative;\n  border-radius: 2px;\n}\n._scroller_bar > ._scroller_bg, ._scroller ._y_scroller_bar > ._scroller_bg, ._scroller ._x_scroller_bar > ._scroller_bg {\n  opacity: 0.6;\n}\n\n._dragging * {\n  -webkit-user-select: none;\n     -moz-user-select: none;\n      -ms-user-select: none;\n          user-select: none;\n}\n._dragging ._mask {\n  scroll-behavior: auto !important;\n}\n\n._scroller {\n  overflow: hidden;\n}\n._scroller ._container {\n  position: absolute;\n  top: 0;\n  left: 0;\n  width: 100%;\n  height: 100%;\n  overflow: hidden;\n  box-sizing: border-box !important;\n  z-index: 0;\n}\n._scroller ._mask {\n  width: 100%;\n  height: 100%;\n  overflow: scroll;\n  box-sizing: content-box !important;\n  scroll-behavior: smooth;\n}\n._scroller ._content {\n  display: inline-block;\n  min-width: 100%;\n  box-sizing: border-box;\n  overflow: hidden;\n}\n._scroller ._no_x {\n  width: 100%;\n  display: block;\n}\n._scroller ._x_scroller_container {\n  left: 0;\n  bottom: 4px;\n  width: 100%;\n  height: 4px;\n  padding: 0 10px;\n}\n._scroller ._y_scroller_container {\n  top: 0;\n  right: 4px;\n  width: 4px;\n  height: 100%;\n  padding: 10px 0;\n}\n._scroller ._x_scroller_track,\n._scroller ._y_scroller_track,\n._scroller ._scroller_bg {\n  position: relative;\n  width: 100%;\n  height: 100%;\n  border-radius: 3px;\n  overflow: hidden;\n}\n._scroller ._scroller_bg {\n  position: absolute;\n  top: 0;\n  left: 0;\n}\n._scroller ._x_scroller_track > ._scroller_bg,\n._scroller ._y_scroller_track > ._scroller_bg {\n  opacity: 0.25;\n}\n._scroller ._x_scroller_bar {\n  height: 100%;\n  width: 100px;\n}\n._scroller ._y_scroller_bar {\n  width: 100%;\n  height: 100px;\n}\n._scroller ._x_scroller_bar:hover > ._scroller_bg,\n._scroller ._y_scroller_bar:hover > ._scroller_bg {\n  opacity: 0.9;\n}\n._scroller ._dragging_target > ._scroller_bg {\n  opacity: 0.9;\n}\n._scroller ._y_scroller_bar._minimal > ._scroller_bg {\n  height: 20px;\n  top: 50%;\n  margin-top: -10px;\n}\n._scroller ._x_scroller_bar._minimal > ._scroller_bg {\n  width: 20px;\n  left: 50%;\n  margin-left: -10px;\n}\n\n._scaleable:hover > ._container > ._x_scroller_container,\n._scaleable._dragging > ._container > ._x_scroller_container {\n  height: 8px;\n}\n._scaleable:hover > ._container > ._y_scroller_container,\n._scaleable._dragging > ._container > ._y_scroller_container {\n  width: 8px;\n}\n._scaleable:hover ._x_scroller_track,\n._scaleable:hover ._y_scroller_track,\n._scaleable._dragging ._x_scroller_track,\n._scaleable._dragging ._y_scroller_track {\n  border-radius: 4px;\n}\n._scaleable:hover ._x_scroller_bar,\n._scaleable:hover ._y_scroller_bar,\n._scaleable._dragging ._x_scroller_bar,\n._scaleable._dragging ._y_scroller_bar {\n  border-radius: 4px;\n}\n\n._scroller ._scroller_track_default {\n  background-color: black;\n}\n._scroller ._scroller_bar_default {\n  background-color: black;\n}\n._scroller ._scroller_bar_default:hover {\n  background-color: black;\n}");
 
   /**
    * A collection of shims that provide minimal functionality of the ES6 collections.
@@ -1127,11 +1127,38 @@
     }, context);
   };
   var observeResize = function observeResize(el, handler, context) {
-    var observer = new index(function () {
-      handler.call(context);
+    var oldSize = {
+      width: 0,
+      height: 0
+    };
+    var observer = new index(function (entity) {
+      var rect = entity[0].contentRect;
+
+      if (rect.width !== oldSize.width || rect.height !== oldSize.height) {
+        handler.call(context);
+        oldSize.width = rect.width;
+        oldSize.height = rect.height;
+      }
     });
     observer.observe(el);
     return observer;
+  };
+  var isOnDocument = function isOnDocument(el) {
+    if (el === document.body) return true;else if (!el.parentNode) return false;else if (el.parentNode === document.body) return true;else return isOnDocument(el.parentNode);
+  };
+  var getNativeScrollBarWidth = function getNativeScrollBarWidth() {
+    var outer = document.createElement('div');
+    var inner = document.createElement('div');
+    outer.appendChild(inner);
+    outer.style.width = '100px';
+    outer.style.position = 'absolute';
+    outer.style.visible = 'hidden';
+    document.body.appendChild(outer);
+    var before = inner.getBoundingClientRect().width;
+    outer.style.overflow = 'scroll';
+    var after = inner.getBoundingClientRect().width;
+    document.body.removeChild(outer);
+    return before - after;
   };
 
   var directions = ['horizontal', 'vertical', 'both', 'none'];
@@ -1144,13 +1171,24 @@
 
       _classCallCheck(this, Scroller);
 
+      /**
+       * el: DOMElement, element that will use scroller
+       * direction: String, scroll direction, default is 'both', vertical'/'horizontal'/'both'/'none'
+       * trackClassName: String, scroll track class name
+       * barClassName: String, scroll bar class name
+       * offset: Number, scroll position offset by the el right or bottom edge
+       * scaleable: Boolena, will scroll bar scale when mouse hovering the element
+       */
       // deal with options
       this.el = options.el; // this.direction = directions.indexOf(options.direction) !== -1
       //   ? options.direction
       //   : 'both'
 
       this.trackClassName = options.trackClassName || '_scroller_track_default';
-      this.barClassName = options.barClassName || '_scroller_bar_default'; // other properties
+      this.barClassName = options.barClassName || '_scroller_bar_default';
+      this.offset = Number.isNaN(parseInt(options.offset)) ? 4 : parseInt(options.offset);
+      this.offset = this.offset > 8 ? 8 : this.offset < 0 ? 0 : this.offset;
+      this.scaleable = options.scaleable === undefined ? true : options.scaleable; // other properties
 
       this.container = null;
       this.placeholder = null;
@@ -1183,12 +1221,20 @@
     _createClass(Scroller, [{
       key: "_needX",
       value: function _needX() {
-        return this.direction === 'horizontal' || this.direction === 'both';
+        var contentRect = this.content.getBoundingClientRect();
+
+        var viewSize = this._getViewSize();
+
+        return (this.direction === 'horizontal' || this.direction === 'both') && contentRect.width > viewSize.width;
       }
     }, {
       key: "_needY",
       value: function _needY() {
-        return this.direction === 'vertical' || this.direction === 'both';
+        var contentRect = this.content.getBoundingClientRect();
+
+        var viewSize = this._getViewSize();
+
+        return (this.direction === 'vertical' || this.direction === 'both') && contentRect.height > viewSize.height;
       }
     }, {
       key: "_noX",
@@ -1230,6 +1276,7 @@
         }
 
         addClass(this.el, '_scroller');
+        if (this.scaleable) addClass(this.el, '_scaleable');
         var positionStyle = window.getComputedStyle(this.el).position;
 
         if (!positionStyle || positionStyle === 'static') {
@@ -1277,29 +1324,42 @@
     }, {
       key: "_recalc",
       value: function _recalc() {
+        this._syncPlaceholderSize();
+
         this._setMask();
 
         this._calcStatus();
-
-        this._syncPlaceholderSize();
       }
     }, {
       key: "_syncPlaceholderSize",
       value: function _syncPlaceholderSize() {
-        var contentRect = this.content.getBoundingClientRect();
+        var contentRect = {};
 
-        if (!contentRect.width && !contentRect.height) {
-          var duplicate = this.content.cloneNode(true);
-          duplicate.className = '___';
-          duplicate.style.display = 'inline-block';
-          duplicate.style.position = 'absolute';
-          duplicate.style.zIndex = '-99999';
-          duplicate.style.top = '9999999';
-          duplicate.style.left = '9999999';
-          document.body.appendChild(duplicate);
-          contentRect = duplicate.getBoundingClientRect();
-          document.body.removeChild(duplicate);
-          duplicate = null;
+        if (isOnDocument(this.content)) {
+          contentRect = this.content.getBoundingClientRect();
+
+          if (!contentRect.width) {
+            var duplicate = this.content.cloneNode(true);
+            duplicate.style.visibility = 'hidden';
+            this.placeholder.style.width = 'auto';
+            this.placeholder.style.height = 'auto';
+            this.placeholder.appendChild(duplicate);
+            contentRect.width = duplicate.getBoundingClientRect().width;
+            this.placeholder.removeChild(duplicate);
+          }
+        } else {
+          var _duplicate = this.content.cloneNode(true);
+
+          _duplicate.className = '___';
+          _duplicate.style.display = 'inline-block';
+          _duplicate.style.position = 'absolute';
+          _duplicate.style.zIndex = '-99999';
+          _duplicate.style.top = '9999999';
+          _duplicate.style.left = '9999999';
+          document.body.appendChild(_duplicate);
+          contentRect = _duplicate.getBoundingClientRect();
+          document.body.removeChild(_duplicate);
+          _duplicate = null;
         }
 
         this.placeholder.style.width = contentRect.width + 'px';
@@ -1319,33 +1379,19 @@
 
         var _this$container$getBo = this.container.getBoundingClientRect(),
             width = _this$container$getBo.width,
-            height = _this$container$getBo.height; // this.mask.style.paddingTop = paddingTop
-        // this.mask.style.paddingLeft = paddingLeft
-        // this.mask.style.paddingRight = parseFloat(paddingRight) + 20 + 'px'
-        // this.mask.style.paddingBottom = parseFloat(paddingBottom) + 20 + 'px'
-        // this.mask.style.paddingRight = 20 + 'px'
-        // this.mask.style.paddingBottom = 20 + 'px'
-        // console.log(paddingRight, paddingBottom)
-
+            height = _this$container$getBo.height;
 
         this.content.style.paddingLeft = paddingLeft;
         this.content.style.paddingTop = paddingTop;
         this.content.style.paddingRight = parseFloat(paddingRight) + 'px';
-        this.content.style.paddingBottom = parseFloat(paddingBottom) + 'px'; // const verticalDiff = parseFloat(paddingTop) + parseFloat(paddingBottom)
-        // const horizontalDiff = parseFloat(paddingLeft) + parseFloat(paddingRight)
-        // this.mask.style.width = width - horizontalDiff + 'px'
-        // this.mask.style.height = height - verticalDiff + 'px'
-        // this.mask.style.width = width - horizontalDiff + 'px'
-        // this.mask.style.height = height - verticalDiff + 'px'
-        // this.contentWrapper.style.width = this.mask.getBoundingClientRect().width + 'px'
-        // this.contentWrapper.style.height = this.mask.style.height
+        this.content.style.paddingBottom = parseFloat(paddingBottom) + 'px';
 
         if (!this._needX()) {
           this.mask.style.overflowX = 'hidden';
           this.mask.style.height = height + 'px';
         } else {
           this.mask.style.overflowX = 'auto';
-          this.mask.style.height = height + 20 + 'px';
+          this.mask.style.height = height + getNativeScrollBarWidth() + 'px';
         }
 
         if (!this._needY()) {
@@ -1353,7 +1399,7 @@
           this.mask.style.width = width + 'px';
         } else {
           this.mask.style.overflowY = 'auto';
-          this.mask.style.width = width + 20 + 'px';
+          this.mask.style.width = width + getNativeScrollBarWidth() + 'px';
         }
 
         this.scrollHandler = function () {
@@ -1391,6 +1437,8 @@
         this._insertBg(this.yScrollerBar, '_scroller_bg ' + this.barClassName);
 
         this.container.appendChild(this.yScrollerContainer);
+        this.xScrollerContainer.style.bottom = this.offset + 'px';
+        this.yScrollerContainer.style.right = this.offset + 'px';
 
         this._calcStatus();
 
@@ -1449,20 +1497,21 @@
     }, {
       key: "_calcVisible",
       value: function _calcVisible() {
-        var contentRect = this.content.getBoundingClientRect();
-
-        var viewSize = this._getViewSize();
-
-        if (this._needX() && contentRect.width > viewSize.width) {
-          this.xScrollerContainer.style.display = 'inline-block'; // this.mask.style.overflowX = 'auto'
+        if (getNativeScrollBarWidth() === 0) {
+          this.xScrollerContainer.style.display = 'none';
+          this.yScrollerContainer.style.display = 'none';
         } else {
-          this.xScrollerContainer.style.display = 'none'; // this.mask.style.overflowX = 'hidden'
-        }
+          if (this._needX()) {
+            this.xScrollerContainer.style.display = 'inline-block'; // this.mask.style.overflowX = 'auto'
+          } else {
+            this.xScrollerContainer.style.display = 'none'; // this.mask.style.overflowX = 'hidden'
+          }
 
-        if (this._needY() && contentRect.height > viewSize.height) {
-          this.yScrollerContainer.style.display = 'inline-block'; // this.mask.style.overflowY = 'auto'
-        } else {
-          this.yScrollerContainer.style.display = 'none'; // this.mask.style.overflowY = 'hidden'
+          if (this._needY()) {
+            this.yScrollerContainer.style.display = 'inline-block'; // this.mask.style.overflowY = 'auto'
+          } else {
+            this.yScrollerContainer.style.display = 'none'; // this.mask.style.overflowY = 'hidden'
+          }
         }
       }
     }, {
@@ -1487,7 +1536,7 @@
           }
         }
 
-        if (this._needX) {
+        if (this._needX()) {
           var _res = calc(contentRect.width, viewSize.width, this.xScrollerTrack.getBoundingClientRect().width);
 
           this.xScrollerBar.style.width = _res + 'px';
@@ -1534,8 +1583,10 @@
 
         if (this.dragDirection === 'vertical') {
           this.dragDiff = e.pageY - this.yScrollerBar.getBoundingClientRect().top;
+          addClass(this.yScrollerBar, '_dragging_target');
         } else {
           this.dragDiff = e.pageX - this.xScrollerBar.getBoundingClientRect().left;
+          addClass(this.xScrollerBar, '_dragging_target');
         }
 
         addClass(this.el, '_dragging');
@@ -1574,6 +1625,8 @@
         e.preventDefault();
         e.stopPropagation();
         this.drag = false;
+        removeClass(this.xScrollerBar, '_dragging_target');
+        removeClass(this.yScrollerBar, '_dragging_target');
         removeClass(this.el, '_dragging');
         removeListener(window, 'mousemove', this.mousemoveHandler);
         removeListener(window, 'mouseup', this.mouseupHandler);
