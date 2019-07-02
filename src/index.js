@@ -68,9 +68,6 @@ export default class Scroller {
     this.mousemoveHandler = null
     this.mouseupHandler = null
 
-    // use it to avoid infinity calculate loop
-    this.calculating = false
-
     this._init()
     this.setDirection(options.direction, true)
   }
@@ -143,16 +140,9 @@ export default class Scroller {
   }
 
   _recalc () {
-    if (this.calculating) return false
-    this.calculating = true
     this._syncPlaceholderSize()
     this._setMask()
     this._calcStatus()
-    let timer = setTimeout(() => {
-      this.calculating = false
-      clearTimeout(timer)
-      timer = null
-    }, 0)
   }
 
   _syncPlaceholderSize () {
