@@ -46,7 +46,7 @@ const myScroller = new Scroller({
 })
 ```
 
-> Note: The children of container element should at least be an element node (`nodeType` === 1). All the other types will be ignored.
+> Note: All the children in container element should be element nodes (`nodeType` === 1). All the other types will be ignored.
 
 ## Options
 
