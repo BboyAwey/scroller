@@ -9,7 +9,7 @@ The best custom scroll bar. Can be nested.
 Scroller can be installed by npm or yarn.
 
 ```bash
-yarn install scroller
+yarn install @awey/scroller
 ```
 
 Or you can just install it as a script tag.
@@ -59,7 +59,7 @@ const myScroller = new Scroller({
   * `vertical`
   * `none`
 * `offset`: Number, optional, the space between scroll bar and element edge, max is 8 and min to 0, the default is 4
-* `scaleable`: Boolean, optional, determine if the scroll bar width can enlarge or not when user hovers over the element
+* `scaleable`: Boolean, optional, determine if the scroll bar width can enlarge or not when user hovering over the element
 * `trackClassName`: String, optional, you can use it to customize the track style
 * `barClassName`: String, optional, you can use it to customize the bar style
 
