@@ -2,6 +2,7 @@
 The best custom scroll bar. Can be nested.
 
 > I used it in my vue ui components library [Admin-Ui](http://www.admin-ui.com). If you want to use it in vue or react, maybe you can look up the source of [Admin-Ui Scroller](https://github.com/BboyAwey/admin-ui/blob/master/src/admin-ui/src/components/scroller/src/scroller.vue)
+> Attension: Scroller has been rewritten with typescript since version 2
 
 ## install
 Scroller can be installed by npm or yarn.
@@ -13,11 +14,10 @@ yarn install scroller
 Or you can just install it as a script tag.
 
 ```html
-<script src="../anypath/scroller.js"></script>
+<script src="../anypath/scroller.umd.js"></script>
 ```
 
 ## Useage
-
 ```css
 .custom-track-style {
   background: red;
@@ -35,6 +35,7 @@ Or you can just install it as a script tag.
 
 ```js
 import Scroller from 'scroller'
+import from 'scroller/lib/style.css'
 
 const myScroller = new Scroller({
   el: document.getElementById('container'),

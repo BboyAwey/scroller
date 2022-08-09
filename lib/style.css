@@ -1,0 +1,176 @@
+._scroller_transition {
+  transition-duration: 0.2s;
+  transition-timing-function: ease;
+  transition-property: opacity, height, width, border-radius, background-color;
+}
+._scroller_container {
+  display: none;
+  position: absolute;
+  box-sizing: border-box;
+  opacity: 0.6;
+}
+._scroller_bar {
+  transition-duration: 0.2s;
+  transition-timing-function: ease;
+  transition-property: opacity, height, width, border-radius, background-color;
+  position: relative;
+  border-radius: 2px;
+}
+._scroller_bar > ._scroller_bg {
+  opacity: 0.6;
+}
+._dragging * {
+  user-select: none;
+}
+._dragging ._mask {
+  scroll-behavior: auto !important;
+}
+._scroller {
+  overflow: hidden;
+}
+._scroller ._container {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  box-sizing: border-box !important;
+  z-index: 0;
+}
+._scroller ._mask {
+  width: 100%;
+  height: 100%;
+  overflow: scroll;
+  box-sizing: content-box !important;
+  scroll-behavior: smooth;
+}
+._scroller ._content {
+  display: inline-block;
+  min-width: 100%;
+  box-sizing: border-box;
+  overflow: hidden;
+}
+._scroller ._no_x {
+  width: 100%;
+  display: block;
+}
+._scroller ._x_scroller_container {
+  display: none;
+  position: absolute;
+  box-sizing: border-box;
+  opacity: 0.6;
+  transition-duration: 0.2s;
+  transition-timing-function: ease;
+  transition-property: opacity, height, width, border-radius, background-color;
+  left: 0;
+  bottom: 4px;
+  width: 100%;
+  height: 4px;
+  padding: 0 10px;
+}
+._scroller ._y_scroller_container {
+  display: none;
+  position: absolute;
+  box-sizing: border-box;
+  opacity: 0.6;
+  transition-duration: 0.2s;
+  transition-timing-function: ease;
+  transition-property: opacity, height, width, border-radius, background-color;
+  top: 0;
+  right: 4px;
+  width: 4px;
+  height: 100%;
+  padding: 10px 0;
+}
+._scroller ._x_scroller_track,
+._scroller ._y_scroller_track,
+._scroller ._scroller_bg {
+  transition-duration: 0.2s;
+  transition-timing-function: ease;
+  transition-property: opacity, height, width, border-radius, background-color;
+  position: relative;
+  width: 100%;
+  height: 100%;
+  border-radius: 3px;
+  overflow: hidden;
+}
+._scroller ._scroller_bg {
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+._scroller ._x_scroller_track > ._scroller_bg,
+._scroller ._y_scroller_track > ._scroller_bg {
+  opacity: 0.25;
+}
+._scroller ._x_scroller_bar_handler {
+  transition-duration: 0.2s;
+  transition-timing-function: ease;
+  transition-property: opacity, height, width, border-radius, background-color;
+  position: relative;
+  border-radius: 2px;
+  height: 100%;
+  width: 100px;
+}
+._scroller ._x_scroller_bar_handler > ._scroller_bg {
+  opacity: 0.6;
+}
+._scroller ._y_scroller_bar {
+  transition-duration: 0.2s;
+  transition-timing-function: ease;
+  transition-property: opacity, height, width, border-radius, background-color;
+  position: relative;
+  border-radius: 2px;
+  width: 100%;
+  height: 100px;
+}
+._scroller ._y_scroller_bar > ._scroller_bg {
+  opacity: 0.6;
+}
+._scroller ._x_scroller_bar_handler:hover > ._scroller_bg,
+._scroller ._y_scroller_bar:hover > ._scroller_bg {
+  opacity: 0.9;
+}
+._scroller ._dragging_target > ._scroller_bg {
+  opacity: 0.9;
+}
+._scroller ._y_scroller_bar._minimal > ._scroller_bg {
+  height: 20px;
+  top: 50%;
+  margin-top: -10px;
+}
+._scroller ._x_scroller_bar_handler._minimal > ._scroller_bg {
+  width: 20px;
+  left: 50%;
+  margin-left: -10px;
+}
+._scaleable:hover > ._container > ._x_scroller_container,
+._scaleable._dragging > ._container > ._x_scroller_container {
+  height: 8px;
+}
+._scaleable:hover > ._container > ._y_scroller_container,
+._scaleable._dragging > ._container > ._y_scroller_container {
+  width: 8px;
+}
+._scaleable:hover ._x_scroller_track,
+._scaleable._dragging ._x_scroller_track,
+._scaleable:hover ._y_scroller_track,
+._scaleable._dragging ._y_scroller_track {
+  border-radius: 4px;
+}
+._scaleable:hover ._x_scroller_bar_handler,
+._scaleable._dragging ._x_scroller_bar_handler,
+._scaleable:hover ._y_scroller_bar,
+._scaleable._dragging ._y_scroller_bar {
+  border-radius: 4px;
+}
+._scroller ._scroller_track_default {
+  background-color: black;
+}
+._scroller ._scroller_bar_default {
+  background-color: black;
+}
+._scroller ._scroller_bar_default:hover {
+  background-color: black;
+}

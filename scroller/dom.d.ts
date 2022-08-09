@@ -1,0 +1,16 @@
+import ResizeObserver from 'resize-observer-polyfill';
+export declare const createElement: (elName: string, className: string) => HTMLElement;
+export declare const nestElements: (elements: HTMLElement[]) => void;
+export declare const transferDOM: (source: HTMLElement, target: HTMLElement, clear?: boolean) => void;
+export declare const addClass: (el: HTMLElement, className: string) => void;
+export declare const removeClass: (el: HTMLElement, className: string) => void;
+export declare const hasClass: (el: HTMLElement, className: string) => boolean;
+export declare const addListener: (el: HTMLElement | Window | Document, event: string, handler: EventListener) => void;
+export declare const removeListener: (el: HTMLElement | Window | Document, event: string, handler: EventListener) => void;
+export declare const observeMutation: (el: HTMLElement, handler: (mutationList: MutationRecord[]) => void, config: MutationObserverInit, context: any, throttle?: number | undefined) => MutationObserver;
+export declare const observeChildInsert: (el: HTMLElement, handler: (nodes: Node[]) => void, context: any) => MutationObserver;
+export declare const observeStyleChange: (el: HTMLElement, handler: (mutationList: MutationRecord[]) => void, context: any) => MutationObserver;
+export declare const observeResize: (el: HTMLElement, handler: () => void, context: any) => ResizeObserver;
+export declare const isFirefox: () => boolean;
+export declare const isOnDocument: (elementNode: Node) => boolean;
+export declare const getNativeScrollBarWidth: () => number;
