@@ -19,7 +19,7 @@ export default defineConfig({
   plugins: [
     vue(),
     dts({
-      entryRoot: resolve(__dirname, './sdk')
+      entryRoot: resolve(__dirname, './scroller')
     })
   ],
   server: {
