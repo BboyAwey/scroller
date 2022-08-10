@@ -21,7 +21,8 @@ export default defineConfig({
   plugins: [
     vue(),
     dts({
-      entryRoot: resolve(__dirname, './scroller')
+      entryRoot: resolve(__dirname, './scroller'),
+      outputDir: resolve(__dirname, './lib')
     })
   ],
   server: {
