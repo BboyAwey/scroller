@@ -31,6 +31,18 @@
     scroll-behavior: auto !important;
   }
 }
+._show_on_hover:not(._dragging) {
+  ._x_scroller_container,
+  ._y_scroller_container {
+    opacity: 0 !important;
+  }
+}
+._show_on_hover:hover {
+  ._x_scroller_container,
+  ._y_scroller_container {
+    opacity: .6 !important;
+  }
+}
 
 ._scroller {
   overflow: hidden;
@@ -84,7 +96,7 @@
   ._x_scroller_track,
   ._y_scroller_track,
   ._scroller_bg {
-    ._scroller_transition();
+    // ._scroller_transition();
     position: relative;
     width: 100%;
     height: 100%;
@@ -160,13 +172,11 @@
     background-color: black;
   }
   ._scroller_bar_handler_default {
-    ._scroller_transition();
     background-color: black;
     opacity: .7;
   }
   ._scroller_bar_handler_default:active,
   ._scroller_bar_handler_default:hover {
-    background-color: black;
     opacity: .9;
   }
 }

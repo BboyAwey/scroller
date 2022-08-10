@@ -34,9 +34,9 @@ export default class Scroller {
   #direction: ScrollDirection = 'both'
   #trackClassName: string = '_scroller_bar_track_default'
   #barClassName: string = '_scroller_bar_handler_default'
-  #offset: number = 4
+  #offset: number = 2
   #scaleable: boolean = true
-  #showOnHover: boolean = true
+  #showOnHover: boolean = false
 
   #dragDirection = ''
   #dragDiff = 0
