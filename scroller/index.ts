@@ -128,13 +128,13 @@ export default class Scroller {
     this.#el.appendChild(this.#DOM.placeholder)
     this.#el.appendChild(this.#DOM.container)
 
-    this.#observers.elStyleChangeObserver = observeStyleChange(this.#el, this.#recalc, this)
-    this.#observers.elResizeObserver = observeResize(this.#el, this.#recalc, this)
-    this.#observers.contentSizeObserver = observeResize(this.#DOM.content, this.#recalc, this)
+    this.#observers.elStyleChangeObserver = observeStyleChange(this.#el, this.refresh, this)
+    this.#observers.elResizeObserver = observeResize(this.#el, this.refresh, this)
+    this.#observers.contentSizeObserver = observeResize(this.#DOM.content, this.refresh, this)
     this.#observers.childInsertObserver = observeChildInsert(this.#el, this.#handleChildInsert, this)
 
     this.#initScrollBarDom()
-    this.#recalc()
+    this.refresh()
   }
 
   #initEl () {
@@ -160,12 +160,6 @@ export default class Scroller {
         this.#DOM.content.insertBefore(el, this.#DOM.content.children[0])
       }
     }
-  }
-
-  #recalc () {
-    this.#syncPlaceholderSize()
-    this.#setMask()
-    this.#calcStatus()
   }
 
   #syncPlaceholderSize () {
@@ -540,10 +534,16 @@ export default class Scroller {
     }
 
     if (!lazy) {
-      this.#recalc()
+      this.refresh()
     }
 
     return this
+  }
+
+  refresh () {
+    this.#syncPlaceholderSize()
+    this.#setMask()
+    this.#calcStatus()
   }
 
   destroy () {
