@@ -156,13 +156,17 @@
 }
 
 ._scroller {
-  ._scroller_track_default {
+  ._scroller_bar_track_default {
     background-color: black;
   }
-  ._scroller_bar_default {
+  ._scroller_bar_handler_default {
+    ._scroller_transition();
     background-color: black;
+    opacity: .7;
   }
-  ._scroller_bar_default:hover {
+  ._scroller_bar_handler_default:active,
+  ._scroller_bar_handler_default:hover {
     background-color: black;
+    opacity: .9;
   }
 }

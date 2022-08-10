@@ -58,8 +58,7 @@ onMounted(() => {
   s1 = new Scroller({
     el: document.getElementById('container'),
     direction: 'both',
-    offset: 2,
-    scaleable: false
+    offset: 2
   })
   s2 = new Scroller({
     el: document.getElementById('container2'),

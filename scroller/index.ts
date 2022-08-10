@@ -25,16 +25,18 @@ export interface ScrollerOptions {
   barClassName?: string
   offset?: number
   scaleable?: boolean
+  showOnHover?: boolean
 }
 
 export default class Scroller {
   // properties
   #el: HTMLElement
   #direction: ScrollDirection = 'both'
-  #trackClassName: string = '_scroller_track_default'
-  #barClassName: string = '_scroller_bar_default'
+  #trackClassName: string = '_scroller_bar_track_default'
+  #barClassName: string = '_scroller_bar_handler_default'
   #offset: number = 4
   #scaleable: boolean = true
+  #showOnHover: boolean = true
 
   #dragDirection = ''
   #dragDiff = 0
@@ -139,7 +141,8 @@ export default class Scroller {
 
   #initEl () {
     addClass(this.#el, '_scroller')
-    if (this.#scaleable) addClass(this.#el, '_scaleable')
+    this.#scaleable && addClass(this.#el, '_scaleable')
+    this.#showOnHover && addClass(this.#el, '_show_on_hover')
     let positionStyle = window.getComputedStyle(this.#el).position
 
     if (!positionStyle || positionStyle === 'static') {
@@ -369,8 +372,11 @@ export default class Scroller {
 
   // handle drag event of core
   #mousedownHandler (event: MouseEvent, direction: ScrollDirection) {
+    if (event.buttons !== 1) return // donot react right click draging
     event.preventDefault()
     event.stopPropagation()
+
+    console.log(event)
 
     this.#dragDirection = direction
     if (this.#dragDirection === 'vertical') {
@@ -555,6 +561,8 @@ export default class Scroller {
     this.#DOM.yScrollBarContainer.parentElement === this.#el && this.#el.removeChild(this.#DOM.yScrollBarContainer)
     this.#DOM.placeholder.parentElement === this.#el && this.#el.removeChild(this.#DOM.placeholder)
     removeClass(this.#el, '_scroller')
+    removeClass(this.#el, '_scaleable')
+    removeClass(this.#el, '_show_on_hover')
 
     // remove all listeners
     removeListener(this.#el, 'mouseenter', this.#handlers.mouseenterHandler)
