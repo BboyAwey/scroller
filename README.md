@@ -15,7 +15,7 @@ yarn install @awey/scroller
 Or you can just install it as a script tag.
 
 ```html
-<script src="../anypath/scroller.umd.js"></script>
+<script src="path-of-scroller/lib/scroller.iife.js"></script>
 ```
 
 ## Useage

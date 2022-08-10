@@ -18,8 +18,6 @@ import {
 
 export type ScrollDirection = 'both' | 'vertical' | 'horizontal' | 'both' | 'none'
 
-const directions: ScrollDirection[] = ['horizontal', 'vertical', 'both', 'none']
-
 export interface ScrollerOptions {
   el?: HTMLElement | null
   direction?: ScrollDirection

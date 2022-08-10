@@ -2,7 +2,6 @@ import { resolve } from 'path'
 import { defineConfig } from 'vite'
 import vue from '@vitejs/plugin-vue'
 import dts from 'vite-plugin-dts'
-import packageInfo from './package.json'
 
 // https://vitejs.dev/config/
 export default defineConfig({
@@ -11,9 +10,12 @@ export default defineConfig({
     minify: false,
     lib: {
       entry: resolve(__dirname, './scroller/index.ts'),
-      name: packageInfo.name,
-      formats: ['es', 'umd', 'cjs'],
+      name: 'Scroller',
+      formats: ['es', 'umd', 'iife'],
       fileName: 'scroller'
+    },
+    rollupOptions: {
+      external: ['resize-observer-polyfill']
     }
   },
   plugins: [
