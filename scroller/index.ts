@@ -16,7 +16,7 @@ import {
   nestElements
 } from './dom'
 
-export type ScrollDirection = 'both' | 'vertical' | 'horizontal' | 'both' | 'none'
+export type ScrollDirection = 'both' | 'vertical' | 'horizontal' | 'none'
 
 export interface ScrollerOptions {
   el?: HTMLElement | null
