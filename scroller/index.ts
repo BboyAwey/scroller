@@ -549,10 +549,11 @@ export default class Scroller {
   destroy () {
     // recover dom constructure
     transferDOM(this.#DOM.content, this.#el)
-    this.#el.removeChild(this.#DOM.container)
-    this.#el.removeChild(this.#DOM.xScrollBarContainer)
-    this.#el.removeChild(this.#DOM.yScrollBarContainer)
-    this.#el.removeChild(this.#DOM.placeholder)
+    this.#DOM.container.parentElement === this.#el && this.#el.removeChild(this.#DOM.container)
+    this.#DOM.xScrollBarContainer.parentElement  === this.#el && this.#el.removeChild(this.#DOM.xScrollBarContainer)
+
+    this.#DOM.yScrollBarContainer.parentElement === this.#el && this.#el.removeChild(this.#DOM.yScrollBarContainer)
+    this.#DOM.placeholder.parentElement === this.#el && this.#el.removeChild(this.#DOM.placeholder)
     removeClass(this.#el, '_scroller')
 
     // remove all listeners
