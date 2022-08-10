@@ -552,6 +552,10 @@ export default class Scroller {
     this.#calcStatus()
   }
 
+  getScrollElement () {
+    return this.#DOM.mask
+  }
+
   destroy () {
     // recover dom constructure
     transferDOM(this.#DOM.content, this.#el)
