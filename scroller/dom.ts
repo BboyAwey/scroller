@@ -16,10 +16,18 @@ export const nestElements = (elements: HTMLElement[]) => {
 export const transferDOM = (source: HTMLElement, target: HTMLElement, clear: boolean = true) => {
   // recover dom constructure
   const fragment = document.createDocumentFragment()
-  const contents = source.children
+  const contents: Node[] = []
+
+  // appendChild will remove child from source.children
+  // so we have to move all children into an array
+  // and append it to target
+  for (let i = 0; i < source.children.length; i++) {
+    contents.push(source.children[i])
+  }
   for (let i = 0; i < contents.length; i++) {
     fragment.appendChild(contents[i])
   }
+
   target.innerHTML = ''
   if (clear) source.innerHTML = ''
   target.appendChild(fragment)
