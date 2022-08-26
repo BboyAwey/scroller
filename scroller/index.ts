@@ -376,8 +376,6 @@ export default class Scroller {
     event.preventDefault()
     event.stopPropagation()
 
-    console.log(event)
-
     this.#dragDirection = direction
     if (this.#dragDirection === 'vertical') {
       this.#dragDiff = event.pageY - this.#DOM.yScrollBarHandler.getBoundingClientRect().top
